@@ -1,0 +1,90 @@
+/* Styles go here */
+
+.gamebackground {
+    background-color:#FCBD34;
+    color: #fff;
+  }
+  
+  .game-header,
+  .game-footer {
+    background-color: #FF9A00;
+    padding:10px;
+  }
+  .main-area {
+    margin: 20px;
+  }
+  .keyboard {
+    text-align: center;
+  }
+  
+  .keyboard button {
+    margin: 0 5px 5px 0;
+    font-size: 20px;
+    width: 50px;
+  }
+  .current-word {
+    text-align: center;
+  }
+  .question {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #fff;
+  }
+  .question h1 {
+    margin: 0;
+  }
+  .answer {
+    margin-bottom: 20px;
+    background-color: #2C2C2C;
+    padding: 10px;
+    border: 2px solid #711292;
+  }
+  .answer h1 {
+    color: #711292;
+    margin: 0;
+  }
+  .right-text {
+    text-align: right;
+  }
+  .middle-text {
+    text-align: center;
+  }
+  h3#message {
+    display: none;
+  }
+  .modal-content {
+    position: relative;
+    background-color: wheat;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #711292;
+  
+    border-radius: 3px;
+    outline: 0;
+    color: #fff;
+    -webkit-box-shadow: 0 3px 9px;
+  }
+  .modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #711292;
+  }
+  .modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #711292;
+  }
+  .footer-bar {
+    padding: 10px;
+  }
+  .rowKA{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* margin-right: -15px; */
+    margin-left: -15px;
+  }
+  .charaterbuttion{
+    background-color: white;
+  }
+  
