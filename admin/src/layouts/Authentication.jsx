@@ -58,7 +58,7 @@ class Authentication extends Component {
       <>
         <AppBar className={classes.appbar} color='primary' position='fixed'>
           <Toolbar>
-            <a className="navbar-brand" rel="noopener noreferrer" href="http://awakecup.ddns.net" target="_blank" >
+            <a className="navbar-brand" rel="noopener noreferrer" href="http://115.73.9.139:3000" target="_blank" >
               Coffee<small>Awakecup</small>
             </a>
           </Toolbar>
