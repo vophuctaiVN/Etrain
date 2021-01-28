@@ -178,17 +178,16 @@ class QuizPost extends Component {
         />
       );
     }
-    return (
+    return ( 
       <section className="blog_area section_padding">
         <div className="container">
-          <section className="special_cource padding_top">
             <div className="container">
               <div className="row justify-content-center">{FullQuiz}</div>
             </div>
-          </section>
         </div>
       </section>
     );
+    
   }
 }
 

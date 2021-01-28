@@ -4,7 +4,8 @@ import GramExample from "./GramExample";
 export class GramLesson extends Component {
   render() {
     let content = this.props.content;
-    let formular = content.formular;
+    const formular = content.formular;
+    const usage = content.usage;
 
     let id = 1;
     let listExamples = this.props.examples.map((example) => (
@@ -27,7 +28,7 @@ export class GramLesson extends Component {
         </div>
 
         <div className="content">
-          {content.usage}
+          <p className="quotes" dangerouslySetInnerHTML={{ __html: usage }} />
           <br />
           <br />
           {content.note !== "0" ? <b>{content.note}</b> : null}

@@ -55,6 +55,7 @@ class TopBar extends Component {
       window.location.href = "/hompage";
     };
     let loginIcon;
+    let QAnav;
     if (this.state.isLogin) {
       loginIcon = (
         <>
@@ -92,6 +93,14 @@ class TopBar extends Component {
           </Nav>
         </>
       );
+      QAnav = (
+        <li className="nav-item">
+          <Link to={`/forum`} className="nav-link">
+            {" "}
+            Q/A{" "}
+          </Link>
+        </li>
+      );
     } else {
       loginIcon = (
         <li className="nav-item">
@@ -100,6 +109,15 @@ class TopBar extends Component {
             Login{" "}
           </Link>
         </li>
+      );
+
+      QAnav = (
+        <li className="nav-item">
+        <Link to={`/login`} className="nav-link">
+          {" "}
+          Q/A{" "}
+        </Link>
+      </li>
       );
     }
     return (
@@ -175,21 +193,15 @@ class TopBar extends Component {
                         Dictionary{" "}
                       </Link>
                     </li>
-                    <li className="nav-item">
-                      <Link to={`/forum`} className="nav-link">
-                        {" "}
-                        Q/A{" "}
-                      </Link>
-                    </li>
-                    <li className="nav-item">
+                    {QAnav}
+                   {/*  <li className="nav-item">
                       <a className="nav-link" href="cource.html">
                         Entertainment
                       </a>
-                    </li>
-
+                    </li> */}
                     {loginIcon}
                     <li className="d-none d-lg-block">
-                      <a className="btn_1" href="# ">
+                      <a className="btn_1" href="http://localhost:3001">
                         Get a book
                       </a>
                     </li>

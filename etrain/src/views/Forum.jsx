@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import { AskQuestion } from "../components/ForumQ/AskQuestion";
 import { QuestionElement } from "../components/ForumQ/Question-Element";
 import Pagination from "../components/Pagination";
+import { setCookiesValue, hashToSHA1, getCookiesValue } from "../utils/helpers";
 class Forum extends Component {
-  /* constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-    };
-  } */
-
   constructor(props) {
     super(props);
-    this.state = {      
+    this.state = {
       isOpen: false,
 
       questionList: [],
@@ -39,7 +33,7 @@ class Forum extends Component {
     const queryObj = {
       PageNo,
       PageSize,
-      Search
+      Search,
     };
     window
       .ForumQuestionList_Query(queryObj)
@@ -79,15 +73,15 @@ class Forum extends Component {
         break;
     }
   };
-  render() { 
+  render() {
     let addModalClose = () => this.setState({ isOpen: false });
-    let lisquestions = this.state.questionList.map(element => 
-      <QuestionElement 
-      profile = {element.profile}
-      question = {element.question}
-
-      key={Math.random()}/>
-      )
+    let lisquestions = this.state.questionList.map((element) => (
+      <QuestionElement
+        profile={element.profile}
+        question={element.question}
+        key={Math.random()}
+      />
+    ));
 
     return (
       <section className="special_cource padding_top">
@@ -136,8 +130,10 @@ class Forum extends Component {
                     />
                     <div className="input-group-append">
                       <button className="btn" type="button">
-                        <i className="ti-search" 
-          onClick={this.SearchQuestion}/>
+                        <i
+                          className="ti-search"
+                          onClick={this.SearchQuestion}
+                        />
                       </button>
                     </div>
                   </div>
@@ -145,15 +141,14 @@ class Forum extends Component {
               </div>
             </div>
             <div className="content">
-              
               {lisquestions}
-              
+
               <div className="element">
                 <div className="minigrid footer">
-                <Pagination
-              handlePageChange={this.handlePageChange}
-              pageinfo={this.state}
-            />
+                  <Pagination
+                    handlePageChange={this.handlePageChange}
+                    pageinfo={this.state}
+                  />
                   {/* <div className="page">
                     <span className="selected">1</span>
                     <a

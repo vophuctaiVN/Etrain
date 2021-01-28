@@ -73,7 +73,6 @@ class Profile extends React.Component {
       About: document.getElementById("about").value,
       Image: input.files[0],
     };
-    console.log(formData);
     window
       .UserInfoAPIsService_Update(formData)
       .then((result) => {

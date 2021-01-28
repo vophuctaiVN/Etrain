@@ -4,10 +4,13 @@ class BackCard extends React.Component {
     let item = this.props.item;
     var divStyle = {
       height: '400px',
-      width:'600px'
+      width:'400px'
     };
+    const divFlashcard = {
+      width: '400px'
+    }
     return (
-      <article className="blog_item">
+      <article className="blog_item" style = {divFlashcard}>
         <div className="blog_item_img">
           <img className="card-img rounded-0" src={item.imageURL} alt="" style={divStyle} />
           <a className="blog_item_date" href="# ">

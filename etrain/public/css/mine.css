@@ -1,25 +1,97 @@
 .li_disabled {
-    pointer-events:none; 
-    opacity:0.6;     
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .vocab-img {
-    height: auto; 
-    width: auto; 
-    max-width: 300px; 
-    max-height: 300px;
+  height: auto;
+  width: auto;
+  max-width: 300px;
+  max-height: 300px;
 }
 
-.suggested_vocab_topic{
-    height: auto; 
-    width: auto; 
-    max-width: 100px; 
-    max-height: 100px;
+.suggested_vocab_topic {
+  height: auto;
+  width: auto;
+  max-width: 100px;
+  max-height: 100px;
 }
-
 
 .arrowcenter {
-    text-align: center;
-    border: 3px solid green;
-  }
- 
+  text-align: center;
+  border: 3px solid green;
+}
+
+/*quiz page*/
+.react-quiz-container {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.react-quiz-container .questionWrapper img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: scale-down !important;
+}
+
+.react-quiz-container .answerBtn {
+  width: 45% !important;
+  display: table-row !important;
+  margin-right: 2%;
+}
+
+.react-quiz-container .answerBtn img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: scale-down !important;
+}
+
+.react-quiz-container .questionWrapper .card-body {
+  display: grid;
+  grid-gap: 50px 50px;
+  grid-template-columns: auto auto;
+}
+
+.react-quiz-container .result-answer {
+  display: grid;
+  grid-gap: 10px 10px;
+  grid-template-columns: auto auto;
+}
+
+.react-quiz-container .result-answer .answerBtn {
+  width: 100% !important;
+}
+
+.react-quiz-container br{
+    display: none; 
+}
+.react-quiz-container .quiz-result-filter{
+    border: none;
+    border-radius: 0px;
+    height: 40px;
+    width: 200px;
+    background: #f9f9ff;
+    padding-left: 5px;
+    padding-right: 5px;    
+}
+
+.react-quiz-container .quiz-result-filter select{
+    padding: 0 !important;
+    height: 40px !important;
+    border: none !important;
+}
+
+/*vocab topic*/
+
+.blog_item{
+  max-width: 700px;
+}
+/*gram list*/
+.special_img{
+  height: 200px !important;
+}
+
+/*homepage */
+.card-img-top {  
+  height: 200px !important;
+}

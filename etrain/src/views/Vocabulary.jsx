@@ -16,6 +16,7 @@ class Vocabulary extends Component {
       lastpage: 1,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.SearchTopic = this.SearchTopic.bind(this);
   }
 
   componentDidMount() {
@@ -26,10 +27,11 @@ class Vocabulary extends Component {
   }
 
   getVocabList = (object) => {
-    const { PageNo, PageSize } = object;
+    const { PageNo, PageSize, Search } = object;
     const queryObj = {
       PageNo,
       PageSize,
+      Search,
     };
     window
       .VocabularyAPIsService_Query(queryObj)
@@ -67,8 +69,21 @@ class Vocabulary extends Component {
         break;
     }
   };
+
+  SearchTopic() {
+    console.log(document.getElementById("searchField").value);
+    this.getVocabList({
+      Search: document.getElementById("searchField").value,
+      PageNo: this.state.pageNo,
+      PageSize: this.state.pageSize,
+    });
+  }
   render() {
-    const rand_items = getRandomProducts(this.state.VocabList);
+    let rand_items;
+    if (this.state.totalitems >= 6)
+      rand_items = getRandomProducts(this.state.VocabList);
+    else rand_items = this.state.VocabList;
+
     let suggest = rand_items.map((vocab) => (
       <div className="media post_item">
         <img
@@ -113,13 +128,17 @@ class Vocabulary extends Component {
                       <div className="form-group">
                         <div className="input-group mb-3">
                           <input
+                            id="searchField"
                             type="text"
                             className="form-control"
-                            placeholder="Search Keyword" /*onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'" */
+                            placeholder="Search Keyword"
                           />
                           <div className="input-group-append">
                             <button className="btn" type="button">
-                              <i className="ti-search" />
+                              <i
+                                className="ti-search"
+                                onClick={this.SearchTopic}
+                              />
                             </button>
                           </div>
                         </div>
@@ -127,6 +146,7 @@ class Vocabulary extends Component {
                       <button
                         className="button rounded-0 primary-bg text-white w-100 btn_1"
                         type="submit"
+                        onClick={this.SearchTopic}
                       >
                         Search
                       </button>
@@ -141,25 +161,25 @@ class Vocabulary extends Component {
                           <p>(37)</p>
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link to={`/flashcard`} className="d-flex">
                           FlashCard
                         </Link>
-                      </li>
+                      </li> */}
                       <li>
                         <Link to={`/matchingword`} className="d-flex">
                           Minigame
                         </Link>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="# " className="d-flex">
                           <p>My List</p>
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </aside>
                   <aside className="single_sidebar_widget popular_post_widget">
-                    <h3 className="widget_title">Suggested Post</h3>
+                    <h3 className="widget_title">Best Post</h3>
                     {suggest}
                   </aside>
                 </div>
