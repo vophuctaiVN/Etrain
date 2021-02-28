@@ -63,6 +63,8 @@
 
 .cart-list {
 	overflow-x: auto;
+	background-color: black;	
+	background: url(../../images/bg_4.jpg) no-repeat fixed;
 }
 
 .cart-wrap .btn-primary {
@@ -74,6 +76,8 @@
 	width: 100%;
 	display: block;
 	border: 1px solid rgba(255, 255, 255, 0.1);
+	background-color: black;
+	border: 1px solid;
 	padding: 20px;
 }
 

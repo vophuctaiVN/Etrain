@@ -22,13 +22,13 @@ class MenuSection extends Component {
             <div className="col-md-6 pr-md-5">
               <div className="heading-section text-md-right">
                 <span className="subheading">Discover</span>
-                <h2 className="mb-4">Our Menu</h2>
+                <h2 className="mb-4">Our Products</h2>
                 <p className="mb-4">{contents.description}</p>
                 <p>
                   <Link to="/menu"
                     className="btn btn-primary btn-outline-primary px-4 py-3"
                   >
-                    View Full Menu
+                    View Full Products
                   </Link>
                 </p>
               </div>

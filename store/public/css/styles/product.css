@@ -3,7 +3,8 @@
 }
 
 .product div .description {
-    height: 82px;
+	height: 82px;
+	font-family: Gentium Basic;
 }
 
 @media (max-width: 768px) {
@@ -12,7 +13,7 @@
     }
 
     .product div .description {
-        height: 56px;
+		height: 56px;
     }
 }
 

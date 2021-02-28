@@ -140,7 +140,7 @@ function EmptyCart(props) {
         <p>Không có sản phẩm nào trong giỏ hàng</p>
         <p>
           <Link to="/menu" className="btn btn-primary btn-outline-primary px-4 py-3">
-            View Full Menu
+            View Full Products
           </Link>
         </p>
       </td>

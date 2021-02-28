@@ -24,6 +24,7 @@
     font-weight: 700;
     position: relative;
     text-transform: uppercase;
+    color: rosybrown;
 }
 
 .menu-entry {
@@ -32,7 +33,7 @@
 
 .menu-entry .img {
 	display: block;
-	height: 200px;
+	height: 400px;
 }
 
 .menu-entry .text h3 {
@@ -41,11 +42,13 @@
 }
 
 .menu-entry .text h3 a {
-	color: #fff;
+    color: #0c2e60;
+    font-family: Cinzel Decorative;    
+    font-weight: 600;
 }
 
 .menu-entry .text .price span {
-	color: #fff;
+	color: black;
 	font-size: 18px;
 }
 

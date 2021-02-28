@@ -19,7 +19,7 @@ class TopBar extends Component {
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
             aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <i className="fas fa-bars"></i> Menu
+            <i className="fas fa-bars"></i> Products
           </button>
           <div className="collapse navbar-collapse" id="ftco-nav">
             <ul className="navbar-nav ml-auto">
@@ -27,11 +27,11 @@ class TopBar extends Component {
                 <Link className="nav-link" to="/homepage" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/menu" onClick={() => window.scrollTo({ top: window.innerHeight - 60, behavior: 'smooth' })}>Menu</Link>
+                <Link className="nav-link" to="/menu" onClick={() => window.scrollTo({ top: window.innerHeight - 60, behavior: 'smooth' })}>Products</Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/shop" onClick={() => window.scrollTo({ top: window.innerHeight - 60, behavior: 'smooth' })}>Shop</Link>
-              </li>
+              </li> */}
               {/* <li className="nav-item"><a href="/" onClick={e => e.preventDefault()} className="nav-link">Services</a></li>
               <li className="nav-item"><a href="/" onClick={e => e.preventDefault()} className="nav-link">About</a></li>
               <li className="nav-item"><a href="/" onClick={e => e.preventDefault()} className="nav-link">Contact</a></li> */}

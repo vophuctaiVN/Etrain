@@ -33,7 +33,7 @@ class HomeSlider extends Component {
                       <Link to="/menu" className="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3"
                         onClick={() => window.scrollTo({ top: window.innerHeight - 60, behavior: 'smooth' })}
                       >
-                        View Menu
+                        View Products
                       </Link>
                     </p>
                   </div>
