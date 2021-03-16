@@ -28,9 +28,9 @@ namespace aspnetcore.Services
             ResultDTO result = _procedureHelper.GetData<ResultDTO>(
                 "question_create", new
                 {
-                    Question = form.Question,
+                    Question = form.Question.Replace("'", "\'"),
                     Topic = form.Topic,
-                    Detail = form.Detail,
+                    Detail = form.Detail.Replace("'", "\'"),
                     IDaccount = form.IDaccount,
                 }).FirstOrDefault();
             int ID = result.Result;
@@ -72,7 +72,7 @@ namespace aspnetcore.Services
                 "answer_create", new
                 {
                     IDquestion = form.IDquestion,
-                    Detail = form.Detail,
+                    Detail = form.Detail.Replace("'", "\'"),
                     IDaccount = form.IDaccount,
                 }).FirstOrDefault();
             int ID = result.Result;
