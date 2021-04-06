@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PdLZz52poBoBbeJzucbP8mVWyKSz+BvKdnOMjx3NabkDK7TbHnFZWDmpEJ/qiJY1r9Ecv2xc0Eyu08uzuVRl7A==",
+  "dgSpecHash": "++7Voin+2rWZ/bpWCSWuBeSH3aQ7PfWTHuJoELknqfgWxJn83Bctf2fhABlflvePHHPLWu6HISlh7ak+VvkD3w==",
   "success": true,
-  "projectFilePath": "G:\\4\\DOAN2\\aspnetcore\\aspnetcore.csproj",
+  "projectFilePath": "G:\\KLTN\\aspnetcore\\aspnetcore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",

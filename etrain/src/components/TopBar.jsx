@@ -113,11 +113,11 @@ class TopBar extends Component {
 
       QAnav = (
         <li className="nav-item">
-        <Link to={`/login`} className="nav-link">
-          {" "}
-          Q/A{" "}
-        </Link>
-      </li>
+          <Link to={`/login`} className="nav-link">
+            {" "}
+            Q/A{" "}
+          </Link>
+        </li>
       );
     }
     return (
@@ -157,6 +157,11 @@ class TopBar extends Component {
                         Home
                       </a>
                     </li>
+                    <li className="nav-item active">
+                      <Link to={`/journey`} className="dropdown-item">
+                        My journey
+                      </Link>
+                    </li>
                     <li className="nav-item dropdown">
                       <a
                         className="nav-link dropdown-toggle"
@@ -194,17 +199,17 @@ class TopBar extends Component {
                       </Link>
                     </li>
                     {QAnav}
-                   {/*  <li className="nav-item">
-                      <a className="nav-link" href="cource.html">
-                        Entertainment
-                      </a>
-                    </li> */}
                     {loginIcon}
-                    <li className="d-none d-lg-block">
+                    <li className="nav-item d-lg-block">
                       <a className="btn_1" href="http://localhost:3001">
                         Get a book
                       </a>
                     </li>
+                    {/* <li className="d-none d-lg-block">
+                      <a className="btn_1" href="http://localhost:3001">
+                        Get a book
+                      </a>
+                    </li> */}
                   </ul>
                 </div>
               </nav>

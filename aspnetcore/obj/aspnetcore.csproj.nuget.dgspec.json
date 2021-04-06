@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\4\\DOAN2\\aspnetcore\\aspnetcore.csproj": {}
+    "G:\\KLTN\\aspnetcore\\aspnetcore.csproj": {}
   },
   "projects": {
-    "G:\\4\\DOAN2\\aspnetcore\\aspnetcore.csproj": {
+    "G:\\KLTN\\aspnetcore\\aspnetcore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\4\\DOAN2\\aspnetcore\\aspnetcore.csproj",
+        "projectUniqueName": "G:\\KLTN\\aspnetcore\\aspnetcore.csproj",
         "projectName": "aspnetcore",
-        "projectPath": "G:\\4\\DOAN2\\aspnetcore\\aspnetcore.csproj",
+        "projectPath": "G:\\KLTN\\aspnetcore\\aspnetcore.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "G:\\4\\DOAN2\\aspnetcore\\obj\\",
+        "outputPath": "G:\\KLTN\\aspnetcore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

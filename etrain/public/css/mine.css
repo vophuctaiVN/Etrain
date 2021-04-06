@@ -22,6 +22,12 @@
   border: 3px solid green;
 }
 
+.containerCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*quiz page*/
 .react-quiz-container {
   width: 100% !important;
@@ -62,36 +68,36 @@
   width: 100% !important;
 }
 
-.react-quiz-container br{
-    display: none; 
+.react-quiz-container br {
+  display: none;
 }
-.react-quiz-container .quiz-result-filter{
-    border: none;
-    border-radius: 0px;
-    height: 40px;
-    width: 200px;
-    background: #f9f9ff;
-    padding-left: 5px;
-    padding-right: 5px;    
+.react-quiz-container .quiz-result-filter {
+  border: none;
+  border-radius: 0px;
+  height: 42px;
+  width: 200px;
+  background: #f9f9ff;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-.react-quiz-container .quiz-result-filter select{
-    padding: 0 !important;
-    height: 40px !important;
-    border: none !important;
+.react-quiz-container .quiz-result-filter select {
+  padding: 0 !important;
+  height: 40px !important;
+  border: none !important;
 }
 
 /*vocab topic*/
 
-.blog_item{
+.blog_item {
   max-width: 700px;
 }
 /*gram list*/
-.special_img{
+.special_img {
   height: 200px !important;
 }
 
 /*homepage */
-.card-img-top {  
+.card-img-top {
   height: 200px !important;
 }

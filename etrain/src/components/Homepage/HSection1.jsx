@@ -20,7 +20,7 @@ class HSection1 extends Component {
                   <Link to={`/grammar`} className="btn_1">
                     View Course
                   </Link>
-                  <Link to={`/quizs`} className="btn_2">
+                  <Link to={`/first-test`} className="btn_2">
                     Take Quizs
                   </Link>
                 </div>

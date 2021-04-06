@@ -224,8 +224,7 @@ BEGIN
     IF _fatherID IS NULL THEN SET @ID_topic = "NULL"; ELSE SET @ID_topic = _fatherID; END IF;
     -- build statements
     SET @WhereStmt = CONCAT("
-          WHERE (is_substr(",@ID_topic,", `ID_topic`) > 0)
-    ");
+          WHERE `ID_topic` = ",@ID_topic);
     SET @TotalStmt = CONCAT('SELECT COUNT(`ID`) FROM `gram_post_section` ',@WhereStmt);
     SET @QueryStmt = CONCAT('SELECT (',@TotalStmt,') AS TotalRows, `gram_post_section`.* FROM `gram_post_section` ',@WhereStmt);
     -- call query statement
@@ -248,8 +247,7 @@ BEGIN
     IF _fatherID IS NULL THEN SET @ID_section = "NULL"; ELSE SET @ID_section = _fatherID; END IF;
     -- build statements
     SET @WhereStmt = CONCAT("
-        WHERE (is_substr(",@ID_section,", `ID_section`) > 0)
-    ");
+        WHERE  `ID_section` = ",@ID_section);
     SET @TotalStmt = CONCAT('SELECT COUNT(`ID`) FROM `gram_post_section_example` ',@WhereStmt);
     SET @QueryStmt = CONCAT('SELECT (',@TotalStmt,') AS TotalRows, `gram_post_section_example`.* FROM `gram_post_section_example` ',@WhereStmt);
     -- call query statement
@@ -298,8 +296,7 @@ BEGIN
     IF _fatherID IS NULL THEN SET @ID_topic = "NULL"; ELSE SET @ID_topic = _fatherID; END IF;
     -- build statements
     SET @WhereStmt = CONCAT("
-        WHERE (is_substr(",@ID_topic,", `ID_topic`) > 0)
-    ");
+        WHERE `ID_topic` = ",@ID_topic);
     SET @TotalStmt = CONCAT('SELECT COUNT(`ID`) FROM `vocab_by_topic` ',@WhereStmt);
     SET @QueryStmt = CONCAT('SELECT (',@TotalStmt,') AS TotalRows, `vocab_by_topic`.* FROM `vocab_by_topic` ',@WhereStmt);
     -- call query statement

@@ -30,7 +30,7 @@ export class QuizPage extends React.Component {
       PageSize,
     };
     window
-      .GrammarAPIsService_Query(queryObj)
+      .QuizAPIsService_Query(queryObj)
       .then((result) =>
         this.setState({
           gramList: result.json.result.items,

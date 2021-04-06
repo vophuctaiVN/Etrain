@@ -8,7 +8,7 @@ USE `awakecup`;
 DROP TABLE IF EXISTS `gram_topics`;
 CREATE TABLE `gram_topics` (
     `ID` INT NOT NULL AUTO_INCREMENT,
-    `Title` VARCHAR(32) NOT NULL,
+    `Title` VARCHAR(64) NOT NULL,
     `Level` VARCHAR(16) NOT NULL,
     `ImageURL` VARCHAR(256) NOT NULL DEFAULT 'default.png',
     `Description` VARCHAR(1024) NOT NULL,
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `gram_post_section`;
 CREATE TABLE `gram_post_section` (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `ID_topic` INT NOT NULL,
-    `Title` VARCHAR(32) NOT NULL,
+    `Title` VARCHAR(64) NOT NULL,
     `Formular` VARCHAR(256) NOT NULL,
     `Usage` VARCHAR(1024) NOT NULL DEFAULT 'default.png',
     `Note` VARCHAR(256) NOT NULL DEFAULT 0,
@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `gram_post_section_example`;
 CREATE TABLE `gram_post_section_example` (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `ID_section` INT NOT NULL,
-    `ImageURL` VARCHAR(256) NOT NULL DEFAULT 'default.png',
+    `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',
     `Example` VARCHAR(1024) NOT NULL,
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
     PRIMARY KEY (`ID`)
@@ -64,7 +64,7 @@ CREATE TABLE `vocab_by_topic` (
     `Vn` VARCHAR(32) NOT NULL,
     `Example1` VARCHAR(256) NOT NULL,
     `Example2` VARCHAR(256) NOT NULL,
-    `ImageURL` VARCHAR(256) NOT NULL DEFAULT 'default.png',    
+    `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',    
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
     PRIMARY KEY (`ID`)
 );
@@ -73,7 +73,8 @@ CREATE TABLE `vocab_by_topic` (
 DROP TABLE IF EXISTS `quiz`;
 CREATE TABLE `quiz` (
     `ID` INT NOT NULL AUTO_INCREMENT,
-    `Title` VARCHAR(32) NOT NULL,
+    `Title` VARCHAR(64) NOT NULL,    
+    `Level` VARCHAR(32) NOT NULL,
     `Description` VARCHAR(1024) NOT NULL,
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
     PRIMARY KEY (`ID`)
@@ -84,7 +85,7 @@ DROP TABLE IF EXISTS `quiz_question`;
 CREATE TABLE `quiz_question` (
     `ID` INT NOT NULL AUTO_INCREMENT,    
     `ID_quiz` INT NOT NULL,
-    `question` VARCHAR(64) NOT NULL,    
+    `question` VARCHAR(256) NOT NULL,    
     `questionType` VARCHAR(16) NOT NULL,
     `questionPic` VARCHAR(256),
     `answerSelectionType` VARCHAR(16) NOT NULL,
@@ -235,18 +236,18 @@ INSERT INTO `vocab_by_topic` (`ID_topic`, `En`, `IPA`, `SoundURL`, `Type`, `Vn`,
 INSERT INTO `vocab_by_topic` (`ID_topic`, `En`, `IPA`, `SoundURL`, `Type`, `Vn`, `Example1`, `Example2`, `ImageURL`) VALUES ("2","tomato","təˈmɑːtəʊ","https://www.ldoceonline.com/media/english/breProns/tomato0205.mp3?version=1.2.11","noun","cà chua","I picked up a tomato so big it sat on the ground","He smelled of stale faeces and tomato sauce","https://cdn.shopify.com/s/files/1/0244/4961/3905/products/tomato@2x.jpg?v=1576807420");
 
 -- quiz table
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Present simple tense", "The present simple tense isn't always so simple for learners but I promise this explanation will make things much clearer. In this section, we'll look at the different uses of the present tense");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Present continuous tense", "This tense is formed using the auxiliary verb have/has plus the past participle of the verb be (been) plus the -ing form of the main verb. We'll learn how to make positive and negative forms, short forms (contractions) and questions");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Present perfect tense", "Present perfect tense is one of the commonly used verb tenses in English. It describes unfinished actions, experiences or actions without a definite time in the past");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Present perfect continuous tense", "We use the Present Perfect Continuous to emphasise the duration or continuous course of an action");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Past simple tense", "An age old habit of humans is the reminiscence of the past. We keep the memories of the past intact to us wishing if we could have changed things");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Past continuous tense", "Past continuous tense is used to express a continued or ongoing action in past or to indicate that longer action in the past was interrupted");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Planets", "The planet Earth on which we live is part of the solar system. The Sun is a star at the centre of the solar system, and eight planets and other bodies revolve around it");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Criminals", "Most countries have laws (official rules set by the government). When people disobey the Law, and we call such people law breakers or criminals. Breaking the law is a crime");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Jobs", "One meaning of job is a paid position in regular employment. For example, you may have a job as a teacher, or a dentist, or a taxi-driver");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Colours", "The seven colours of the rainbow are the visible part of the electro-magnetic spectrum - they are visible to (or can be seen by) the human eye");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Animal", "Below you'll find typical terms that we use to refer to some of the more common animals on Planet Earth. The collective terms describe groups of the animal and are also known as terms of venery");
-INSERT INTO `quiz` (`Title`, `Description`) VALUES ("Medical", "Here is some essential vocabulary for nurses and medical professionals working in an English-speaking context. Each word is shown with its part of speech and meaning, while an example sentence shows the word in context");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Present simple tense", "Basic","The present simple tense isn't always so simple for learners but I promise this explanation will make things much clearer. In this section, we'll look at the different uses of the present tense");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Present continuous tense", "Intermediate","This tense is formed using the auxiliary verb have/has plus the past participle of the verb be (been) plus the -ing form of the main verb. We'll learn how to make positive and negative forms, short forms (contractions) and questions");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Present perfect tense", "Uper-Intermediate","Present perfect tense is one of the commonly used verb tenses in English. It describes unfinished actions, experiences or actions without a definite time in the past");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Present perfect continuous tense", "Basic","We use the Present Perfect Continuous to emphasise the duration or continuous course of an action");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Past simple tense", "Intermediate", "An age old habit of humans is the reminiscence of the past. We keep the memories of the past intact to us wishing if we could have changed things");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Past continuous tense", "Intermediate", "Past continuous tense is used to express a continued or ongoing action in past or to indicate that longer action in the past was interrupted");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Planets", "Advanced","The planet Earth on which we live is part of the solar system. The Sun is a star at the centre of the solar system, and eight planets and other bodies revolve around it");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Criminals", "Advanced", "Most countries have laws (official rules set by the government). When people disobey the Law, and we call such people law breakers or criminals. Breaking the law is a crime");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Jobs", "Basic", "One meaning of job is a paid position in regular employment. For example, you may have a job as a teacher, or a dentist, or a taxi-driver");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Colours", "Basic", "The seven colours of the rainbow are the visible part of the electro-magnetic spectrum - they are visible to (or can be seen by) the human eye");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Animal", "Basic", "Below you'll find typical terms that we use to refer to some of the more common animals on Planet Earth. The collective terms describe groups of the animal and are also known as terms of venery");
+INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Medical", "Advanced", "Here is some essential vocabulary for nurses and medical professionals working in an English-speaking context. Each word is shown with its part of speech and meaning, while an example sentence shows the word in context");
 
 -- quiz_question table
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("1", "He _____ not want to go to the movies", NULL, "text", "single", "do, does, is", "2");

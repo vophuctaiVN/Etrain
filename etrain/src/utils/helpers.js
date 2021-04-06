@@ -2,8 +2,8 @@ import crypto from 'crypto';
 
 
 
-export const DOMAIN = 'http://115.73.9.139:5000';
-export const USER_IMAGE_DOMAIN = 'http://115.73.9.139:5000/userImage';
+export const DOMAIN = 'http://localhost:5000';
+export const USER_IMAGE_DOMAIN = 'http://localhost:5000/userImage';
 const apikey = 'WBBcwnwQpV89';
 const lang ='en';
 

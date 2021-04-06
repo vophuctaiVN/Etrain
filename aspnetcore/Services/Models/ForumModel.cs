@@ -8,13 +8,13 @@ namespace aspnetcore.Services.Models
     {
         public ForumQuestionQueryDTO question { get; set; }
         public ProfileQueryDTO profile { get; set; }
-        public ForumQuestionModel(){}
+        public ForumQuestionModel() { }
     }
 
     public class ForumAnswerModel
     {
         public ForumAnswerQueryDTO answer { get; set; }
         public ProfileQueryDTO profile { get; set; }
-        public ForumAnswerModel(){}
+        public ForumAnswerModel() { }
     }
 }
