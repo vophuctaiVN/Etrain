@@ -16,6 +16,11 @@ import Profile from "./views/Log/UserProfile.jsx";
 import Today from "./views/Today.jsx";
 import FirstTest from "./components/Quiz/FirstTest.jsx";
 
+import Menu from "./views/Store/MenuView";
+import Cart from "./views/Store/CartView";
+import Checkout from "./views/Store/CheckoutView";
+import Product from "./views/Store/ProductView";
+
 const routes = [
   {
     path: "/homepage",
@@ -101,6 +106,27 @@ const routes = [
     path: "/profile",
     layout: "",
     component: Profile,
+  },
+  //store
+  {
+    path: "/menu",
+    layout: "",
+    component: Menu,
+  },
+  {
+    path: "/cart",
+    layout: "",
+    component: Cart,
+  },
+  {
+    path: "/checkout",
+    layout: "",
+    component: Checkout,
+  },
+  {
+    path: "/product-:productCode",
+    layout: "",
+    component: Product,
   },
 ]; // khi muốn thêm chỗ Switch khác thì thêm biến route khác và getroute khác để tránh làm ảnh hưởng tới nhau.... <Route component> là để chọn chỗ render và list các component có thể render
 

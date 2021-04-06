@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { IoMdCart } from "react-icons/io";
+import { connect } from "react-redux";
+
 import {
   setCookiesValue,
   getCookiesValue,
@@ -47,6 +50,7 @@ class TopBar extends Component {
       )
       .catch((error) => console.log(error));
   }
+
   render() {
     const userInfo = this.state.userInfo;
 
@@ -120,6 +124,43 @@ class TopBar extends Component {
         </li>
       );
     }
+
+    let iconStore;
+    if (
+      window.location.pathname === "/menu" ||
+      window.location.pathname === "/cart" ||
+      window.location.pathname === "/checkout"
+    )
+      iconStore = (
+        <Link
+          to="/cart"
+          className="nav-link"
+          onClick={() =>
+            window.scrollTo({
+              top: window.innerHeight - 60,
+              behavior: "smooth",
+            })
+          }
+        >
+          <IoMdCart
+            size={20}
+            style={{ float: "right", margin: "10px" }}
+            onClick={this.ToggleGram}
+          />
+          <i className="fas fa-shopping-cart"></i>
+          <span className="bag d-flex justify-content-center align-items-center">
+            <small>{this.props.cart.cartDetails.length}</small>
+          </span>
+        </Link>
+      );
+    else
+      iconStore = (
+        <li className="nav-item d-lg-block">
+          <Link to={`/menu`} className="btn_1">
+            Get a book
+          </Link>
+        </li>
+      );
     return (
       <header
         className={
@@ -200,16 +241,7 @@ class TopBar extends Component {
                     </li>
                     {QAnav}
                     {loginIcon}
-                    <li className="nav-item d-lg-block">
-                      <a className="btn_1" href="http://localhost:3001">
-                        Get a book
-                      </a>
-                    </li>
-                    {/* <li className="d-none d-lg-block">
-                      <a className="btn_1" href="http://localhost:3001">
-                        Get a book
-                      </a>
-                    </li> */}
+                    {iconStore}
                   </ul>
                 </div>
               </nav>
@@ -221,4 +253,8 @@ class TopBar extends Component {
   }
 }
 
-export default TopBar;
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps, null)(TopBar);
