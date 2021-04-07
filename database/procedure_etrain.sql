@@ -436,7 +436,7 @@ CREATE PROCEDURE `user_info_query` (
 BEGIN
     
     SELECT *, COUNT(*) AS TotalRows
-FROM (SELECT ID, ID_account, Score, PostLeft, FIND_IN_SET( Score, (
+FROM (SELECT ID, ID_account, Score, PostLeft, Level, FIND_IN_SET( Score, (
     SELECT GROUP_CONCAT( Score
 	ORDER BY Score DESC ) 
 	FROM user_scoreinfo )

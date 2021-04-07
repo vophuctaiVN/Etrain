@@ -115,6 +115,7 @@ CREATE TABLE `user_scoreInfo` (
     `ID_account` INT NOT NULL,    
     `Score` INT NOT NULL DEFAULT 0,      
     `PostLeft` INT NOT NULL DEFAULT 20, 
+    `Level` VARCHAR(4) NOT NULL DEFAULT "A1",
     PRIMARY KEY (`ID`)
 );
 

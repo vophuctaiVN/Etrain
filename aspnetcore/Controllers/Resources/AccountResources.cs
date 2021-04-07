@@ -21,12 +21,12 @@ namespace aspnetcore.Controllers.Resources
     public class AccountCreateRequest
     {
         public string Username { get; set; }
-        public string Password { get; set; }            
-        public string Email { get; set; }    
+        public string Password { get; set; }
+        public string Email { get; set; }
         public string Name { get; set; }
     }
 
-     public class UserInfoUpdateRequest
+    public class UserInfoUpdateRequest
     {
         public int IDaccount { get; set; }
         public string Name { get; set; }
@@ -44,4 +44,11 @@ namespace aspnetcore.Controllers.Resources
         }
     }
 
+    public class ScoreInfoUpdateRequest
+    {
+        public int IDaccount { get; set; }
+        public string Score { get; set; }
+        public string PostLeft { get; set; }
+        public string Level { get; set; }
+    }
 }

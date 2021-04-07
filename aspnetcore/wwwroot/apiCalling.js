@@ -797,7 +797,7 @@ async function Answer_Create_APIsService_Update(formData /* , token */) {
 
   var formdata = new FormData();
   formdata.append("Detail", formData.Detail);
-  formdata.append("IDaccount", formData.IDaccount);  
+  formdata.append("IDaccount", formData.IDaccount);
   formdata.append("IDquestion", formData.IDquestion);
   var requestOptions = {
     method: "POST",
@@ -841,6 +841,39 @@ async function ForumAnswerList_Query(queryObject) {
     );
     switch (response.status) {
       case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function ScoreInfo_UpdateAPI(formData) {
+  var myHeaders = new Headers();
+  var formdata = new FormData();
+  formdata.append("IDaccount", formData.IDaccount);
+  formdata.append("Score", formData.Score);
+  formdata.append("PostLeft", formData.PostLeft);
+  formdata.append("Level", formData.Level);
+  var requestOptions = {
+    method: "PUT",
+    headers: myHeaders,
+    body: formdata,
+    redirect: "follow",
+  };
+
+  const apiEndpoint = `${DOMAIN}/Accounts/Update_ScoreInfo`;
+
+  try {
+    const response = await fetch(apiEndpoint, requestOptions);
+    switch (response.status) {
+      case 200:
+      case 400:
+      case 404:
+      case 500:
         const json = await response.json();
         return { statusCode: response.status, json };
       default:

@@ -12,6 +12,7 @@ import {
   Col,
 } from "reactstrap";
 import { getCookiesValue, USER_IMAGE_DOMAIN } from "../../utils/helpers";
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -106,7 +107,7 @@ class Profile extends React.Component {
           onClick={this.imageClick}
         />
       );
-    } else { console.log(`${USER_IMAGE_DOMAIN}/${userInfo.image}`)
+    } else {
       $imagePreview = (
         <img
           alt="..."
@@ -169,7 +170,7 @@ class Profile extends React.Component {
                       </div>
                     </Row>
                     <div className="text-center">
-                      <h3>{userInfo.name}</h3>
+                      <h3>{userInfo.name}</h3> <h3>{userInfo.level}</h3>
                       <hr className="my-4" />
                       <p>{userInfo.about}</p>
                     </div>

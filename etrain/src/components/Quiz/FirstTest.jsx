@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Quiz from "react-quiz-component";
 import Chart from "react-apexcharts";
+import { getUserInfo, getCookiesValue } from "../../utils/helpers";
 
 class FirstTest extends Component {
   constructor(props) {
@@ -26,9 +27,10 @@ class FirstTest extends Component {
         labels: ["Percentage"],
       },
     };
+    this.saveLevel = this.saveLevel.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getLesson(45);
   }
 
@@ -46,6 +48,30 @@ class FirstTest extends Component {
       )
       .catch((error) => console.log(error));
   };
+
+  async saveLevel(level) {
+    const userProfile = await getUserInfo();
+    const formData = {
+      IDaccount: getCookiesValue("userID"),
+      Score: userProfile.score,
+      PostLeft: userProfile.postLeft,
+      Level: level,
+    };
+    window
+      .ScoreInfo_UpdateAPI(formData)
+      .then((result) => {
+        switch (result.statusCode) {
+          case 400:
+          case 404:
+          case 500:
+          case 200:
+            break;
+          default:
+            break;
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 
   render() {
     let item = this.state.items[0];
@@ -172,6 +198,8 @@ class FirstTest extends Component {
           levelInfo.scoreFrom <= percentage[0] &&
           percentage[0] <= levelInfo.scoreTo
       )[0];
+
+      this.saveLevel(userLevelInfo.level);
 
       const cardInfoList = listLevelInfo.map((levelInfo) => (
         <div className="col-md-4 col-lg-4">

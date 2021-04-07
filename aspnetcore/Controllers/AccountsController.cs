@@ -66,7 +66,7 @@ namespace aspnetcore.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         public IActionResult CheckAuth()
-        { 
+        {
             return StatusCode(200);
         }
 
@@ -123,6 +123,29 @@ namespace aspnetcore.Controllers
         {
             ResultCode resultCode; int? ID;
             (resultCode, ID) = _service.Update_UserInfo(form);
+
+            Result error; int statusCode;
+            (statusCode, error) = ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response = new GeneralResponse
+            {
+                Result = ID,
+                Error = error,
+            };
+            return StatusCode(statusCode, response);
+        }
+
+        [HttpPut]
+        //[Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult Update_ScoreInfo([FromForm] ScoreInfoUpdateRequest form)
+        {
+            ResultCode resultCode; int? ID;
+            (resultCode, ID) = _service.Update_ScoreInfo(form);
 
             Result error; int statusCode;
             (statusCode, error) = ResultHandler.GetStatusCodeAndResult(resultCode);

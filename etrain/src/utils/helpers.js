@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import React from "react";
 import ReactDOM from "react-dom";
+import { userInfo } from "os";
 
 export const DOMAIN = "http://localhost:5000";
 export const USER_IMAGE_DOMAIN = "http://localhost:5000/userImage";
@@ -91,4 +92,16 @@ export function setCookiesValue(key, value) {
   var cookieValue = encodeURIComponent(key) + "=";
   if (value) cookieValue = cookieValue + encodeURIComponent(value);
   document.cookie = cookieValue + "; path=/";
+}
+
+export async function getUserInfo() {
+  const queryObj = {
+    userid: getCookiesValue("userID"),
+  };
+  let userInfo;
+  await window
+    .UserInfo_Query(queryObj)
+    .then((result) => (userInfo = result.json.result.items[0]))
+    .catch((error) => console.log(error));
+  return userInfo;
 }

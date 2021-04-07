@@ -22,6 +22,8 @@ namespace aspnetcore.Services
         (ResultCode, QueryModel) UserInfo_Query(int account_ID);
 
         (ResultCode, int?) Update_UserInfo(UserInfoUpdateRequest form);
+
+        (ResultCode, int?) Update_ScoreInfo(ScoreInfoUpdateRequest form);
     }
     public class AccountsService : BaseService, IAccountsService
     {
@@ -117,7 +119,7 @@ namespace aspnetcore.Services
                 "user_info_query", new { ID = form.IDaccount }).FirstOrDefault();
             /* ProductQueryDTO productDTO = _procedureHelper.GetData<ProductQueryDTO>(
                 "product_table_query", filter).FirstOrDefault(); */
-            if (null == infoDTOs) 
+            if (null == infoDTOs)
                 return (ResultCode.PRODUCT_NOT_FOUND, null);
 
             string oldFileName = Path.GetFileName(infoDTOs.Image);
@@ -150,6 +152,20 @@ namespace aspnetcore.Services
             fileStream.UpdateUserImage(oldFileName);
 
             return (ResultCode.SUCCESS, productID);
+        }
+
+        public (ResultCode, int?) Update_ScoreInfo(ScoreInfoUpdateRequest form)
+        {
+            ResultDTO result = _procedureHelper.GetData<ResultDTO>(
+                "user_scoreInfo_update", new
+                {
+                    IDaccount = form.IDaccount,
+                    Score = form.Score,
+                    PostLeft = form.PostLeft,
+                    Level = form.Level
+                }).FirstOrDefault();
+
+            return (ResultCode.SUCCESS, 0);
         }
     }
 }
