@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import store from "../../../redux/store";
 import { changeAllCart } from "../../../redux/actions/cartActions";
 
+import { TiTimes } from "react-icons/ti";
+import { FiMinusCircle } from "react-icons/fi";
+import { BiPlusCircle } from "react-icons/bi";
+
 // backend
 import { DOMAIN } from "../../../utils/helpers";
 
@@ -65,7 +69,7 @@ class CartSection extends Component {
                         <tr className="text-center" key={key}>
                           <td className="product-remove">
                             <i onClick={() => this.handleRemoveProduct(value)}>
-                              <i className="fas fa-times"></i>
+                            <TiTimes size={20}/>
                             </i>
                           </td>
                           <td className="image-prod">
@@ -94,6 +98,7 @@ class CartSection extends Component {
                                     )
                                   }
                                 >
+                                  <FiMinusCircle/>
                                   <i className="fas fa-minus"></i>
                                 </button>
                               </span>
@@ -121,6 +126,7 @@ class CartSection extends Component {
                                     )
                                   }
                                 >
+                                  <BiPlusCircle/>
                                   <i className="fas fa-plus"></i>
                                 </button>
                               </span>

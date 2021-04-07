@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { showAlert } from "../../utils/helpers";
 import Loader from "../../components/Store/Loader";
 
+import {FaAngleDown} from "react-icons/fa"
+
 class CheckoutView extends Component {
   state = {
     provinces: [],
@@ -97,6 +99,7 @@ class CheckoutView extends Component {
                       <label form="country">Province</label>
                       <div className="select-wrap">
                         <div className="icon">
+                        <FaAngleDown/>
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select
@@ -127,6 +130,7 @@ class CheckoutView extends Component {
                       <label form="country">District</label>
                       <div className="select-wrap">
                         <div className="icon">
+                        <FaAngleDown/>
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select
@@ -157,6 +161,7 @@ class CheckoutView extends Component {
                       <label form="country">Commune</label>
                       <div className="select-wrap">
                         <div className="icon">
+                        <FaAngleDown/>
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select id="commune" name="" className="form-control">

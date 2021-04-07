@@ -35,7 +35,7 @@ a:focus {
   text-decoration: none !important;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -49,7 +49,7 @@ h5,
   color: #fff;
   font-weight: 400;
   font-family: "Josefin Sans", Arial, sans-serif;
-}
+} */
 
 .ftco-bg-dark {
   background: #030202;
@@ -87,7 +87,7 @@ h5,
   color: white;
 }
 
-.form-control {
+/* .form-control {
   height: 58px !important;
   background: transparent !important;
   color: rgba(255, 255, 255, 0.9) !important;
@@ -99,7 +99,7 @@ h5,
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   padding-right: 0;
   padding-left: 0;
-}
+} */
 
 .form-control:focus,
 .form-control:active {
