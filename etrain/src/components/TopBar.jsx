@@ -147,7 +147,7 @@ class TopBar extends Component {
             style={{ float: "right", margin: "10px" }}
             onClick={this.ToggleGram}
           />
-          <i className="fas fa-shopping-cart"></i>
+         
           <span className="bag d-flex justify-content-center align-items-center">
             <small>{this.props.cart.cartDetails.length}</small>
           </span>
