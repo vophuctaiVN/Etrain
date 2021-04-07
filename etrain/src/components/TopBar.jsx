@@ -147,7 +147,7 @@ class TopBar extends Component {
             style={{ float: "right", margin: "10px" }}
             onClick={this.ToggleGram}
           />
-         
+
           <span className="bag d-flex justify-content-center align-items-center">
             <small>{this.props.cart.cartDetails.length}</small>
           </span>
@@ -199,7 +199,7 @@ class TopBar extends Component {
                       </a>
                     </li>
                     <li className="nav-item active">
-                      <Link to={`/journey`} className="dropdown-item">
+                      <Link to={`/journey`} className="nav-link">
                         My journey
                       </Link>
                     </li>

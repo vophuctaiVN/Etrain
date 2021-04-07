@@ -29,7 +29,7 @@ class FirstTest extends Component {
   }
 
   componentDidMount() {
-    this.getLesson(1);
+    this.getLesson(45);
   }
 
   getLesson = (fatherID) => {
