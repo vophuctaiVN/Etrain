@@ -35,7 +35,7 @@ class MenuView extends Component {
 
   render() {
     return (
-      <section className="ftco-menu mb-5 pb-5">
+      <section className="ftco-menu mb-5 pb-5 blog_area section_padding">
         <div className="container">
           <div className="row justify-content-center my-5">
             <div className="col-md-7 heading-section text-center">

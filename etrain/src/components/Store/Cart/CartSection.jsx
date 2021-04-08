@@ -41,8 +41,8 @@ class CartSection extends Component {
   render() {
     const { cart } = this.state;
     calculateCartTotal(cart);
-    return (
-      <section className="ftco-section ftco-cart">
+    return ( 
+      <section className="ftco-section ftco-cart" style = {{"margin-top": "100px"}}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -147,20 +147,20 @@ class CartSection extends Component {
                 <h3>Cart Totals</h3>
                 <p className="d-flex">
                   <span>Subtotal</span>
-                  <span>{cart.subtotal}</span>
+                  <span style = {{"text-align": "right"}}>{cart.subtotal}</span>
                 </p>
                 <p className="d-flex">
                   <span>Delivery</span>
-                  <span>{cart.delivery}</span>
+                  <span style = {{"text-align": "right"}}>{cart.delivery}</span>
                 </p>
                 <p className="d-flex">
                   <span>Discount</span>
-                  <span>{cart.discount}</span>
+                  <span style = {{"text-align": "right"}}>{cart.discount}</span>
                 </p>
                 <hr />
                 <p className="d-flex total-price">
                   <span>Total</span>
-                  <span>{cart.total}</span>
+                  <span style = {{"text-align": "right"}}>{cart.total}</span>
                 </p>
               </div>
               <p className="text-center">

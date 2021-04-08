@@ -10,8 +10,8 @@ import { DOMAIN } from "../../utils/helpers";
 export default class ProductView extends Component {
   render() {
     return (
-      <>
-        <section className="ftco-section">
+      <> 
+        <section className="ftco-section" style = {{"margin-top": "100px"}}>
           <div className="container">
             <ProductDetail productCode={this.props.match.params.productCode} />
           </div>

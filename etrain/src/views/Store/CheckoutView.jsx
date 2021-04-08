@@ -65,7 +65,7 @@ class CheckoutView extends Component {
 
   render() {
     return (
-      <section className="ftco-section">
+      <section className="ftco-section"  style = {{"margin-top": "100px"}}>
         <div className="container">
           <div className="row">
             <div className="col-xl-8 mb-4">
@@ -199,7 +199,7 @@ class CheckoutView extends Component {
                     </div>
                   </div>
                   <div className="col-md-12">
-                    <p className="text-primary">
+                    <p className="text-primary" style = {{"margin-top": "20px"}}>
                       *Vui lòng ghi nhớ thông tin dưới đây để xác nhận đơn hàng
                     </p>
                   </div>
@@ -255,6 +255,7 @@ class CheckoutView extends Component {
                   </p>
                 </div>
                 <div className="cart-detail ftco-bg-dark p-3 p-md-4 col-xl-12 col-md-6">
+                  
                   <h3 className="billing-heading mb-4">Payment Method</h3>
                   <div className="form-group">
                     <div className="col-md-12">
