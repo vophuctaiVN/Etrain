@@ -34,12 +34,23 @@ CREATE PROCEDURE `firstLesson_create` (
     _Level VARCHAR(4)
 )
 firstLesson_create:BEGIN
-IF NOT EXISTS (SELECT 1 FROM `administrative_division` WHERE _ProvinceID = `ID` AND 'Tỉnh/Thành' = `Level`) THEN
-		SELECT -3 Result, 'Not found province for insert order' ErrorDesc;
-		LEAVE order_create;
-	END IF;
 	SET @IDlesson = (SELECT ID FROM lessons WHERE `Level` = _Level LIMIT 1);
 	INSERT INTO  todaylessons (`ID_account`, `ID_lesson`) VALUES (_IDaccount, @IDlesson);
+	
+    SELECT _IDaccount Result, 'Last info updated' ErrorDesc;
+END$$
+
+DELIMITER ;
+
+-- create todayless_query procedure
+DROP procedure IF EXISTS `todayless_query`;
+
+DELIMITER $$
+CREATE PROCEDURE `todayless_query` (
+    _IDaccount INT
+)
+todayless_query:BEGIN    
+    SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE`ID_account` = _IDaccount AND `Times` = 0;
 END$$
 
 DELIMITER ;
