@@ -34,12 +34,56 @@ CREATE PROCEDURE `firstLesson_create` (
     _Level VARCHAR(4)
 )
 firstLesson_create:BEGIN
-IF NOT EXISTS (SELECT 1 FROM `administrative_division` WHERE _ProvinceID = `ID` AND 'Tỉnh/Thành' = `Level`) THEN
-		SELECT -3 Result, 'Not found province for insert order' ErrorDesc;
-		LEAVE order_create;
+	IF NOT EXISTS (SELECT ID FROM lessons WHERE `Level` = _Level LIMIT 1) THEN
+		SELECT -3 Result, 'There is no lesson for your level' ErrorDesc;
+		LEAVE firstLesson_create;
 	END IF;
 	SET @IDlesson = (SELECT ID FROM lessons WHERE `Level` = _Level LIMIT 1);
 	INSERT INTO  todaylessons (`ID_account`, `ID_lesson`) VALUES (_IDaccount, @IDlesson);
+END$$
+
+DELIMITER ;
+
+-- create studyDone procedure
+DROP procedure IF EXISTS `studyDone`;
+
+DELIMITER $$
+CREATE PROCEDURE `studyDone` (
+    _IDreviewRow INT
+)
+studyDone:BEGIN
+	UPDATE todaylessons SET Times = Times + 1 WHERE `ID` = _IDreviewRow;
+    
+	SET @IDlesson = (SELECT ID_lesson FROM todaylessons WHERE `ID` = _IDreviewRow);
+    SET @ID_account = (SELECT ID_account FROM todaylessons WHERE `ID` = _IDreviewRow);
+    
+	INSERT INTO  todaylessons (`ID_account`, `ID_lesson`) VALUES (@ID_account, @IDlesson + 1);
+END$$
+
+DELIMITER ;
+
+-- create reviewDone procedure
+DROP procedure IF EXISTS `reviewDone`;
+
+DELIMITER $$
+CREATE PROCEDURE `reviewDone` (
+    _IDreviewRow INT
+)
+reviewDone:BEGIN
+	UPDATE todaylessons SET Times = Times + 1 WHERE `ID` = _IDreviewRow;
+END$$
+
+DELIMITER ;
+
+-- create getReviewLessons procedure
+DROP procedure IF EXISTS `getReviewLessons`;
+
+DELIMITER $$
+CREATE PROCEDURE `getReviewLessons` (
+    _IDaccount INT
+)
+getReviewLessons:BEGIN
+	SELECT * FROM todaylessons WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 OR DATEDIFF(now(), `FirstDate`) >= 7 OR DATEDIFF(now(), `FirstDate`) >= 30 ); 
 END$$
 
 DELIMITER ;
