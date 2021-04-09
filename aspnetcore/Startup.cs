@@ -119,9 +119,10 @@ namespace aspnetcore
             services.AddScoped<ICartsService, CartsService>();
             services.AddScoped<ICartDetailsService, CartDetailsService>();
             services.AddScoped<IGrammarService, GrammarService>();
-            services.AddScoped<IVocabularyService, VocabularyService>();            
-            services.AddScoped<IQuizService, QuizService>();        
+            services.AddScoped<IVocabularyService, VocabularyService>();
+            services.AddScoped<IQuizService, QuizService>();
             services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<ILessonJourneyService, LessonJourneyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
