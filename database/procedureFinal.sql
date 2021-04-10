@@ -54,7 +54,20 @@ CREATE PROCEDURE `todayless_query` (
     _IDaccount INT
 )
 todayless_query:BEGIN    
-    SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE`ID_account` = _IDaccount AND `Times` = 0;
+    SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE`ID_account` = _IDaccount AND `Times` = 0 LIMIT 1;
+END$$
+
+DELIMITER ;
+
+-- create getReviewLessons procedure
+DROP procedure IF EXISTS `reviewLessons_query`;
+
+DELIMITER $$
+CREATE PROCEDURE `reviewLessons_query` (
+    _IDaccount INT
+)
+reviewLessons_query:BEGIN
+	SELECT * FROM todaylessons WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 AND `Times`=1 OR DATEDIFF(now(), `FirstDate`) >= 7 AND `Times`=2 OR DATEDIFF(now(), `FirstDate`) >= 30 AND `Times`=3); 
 END$$
 
 DELIMITER ;
@@ -90,15 +103,3 @@ END$$
 
 DELIMITER ;
 
--- create getReviewLessons procedure
-DROP procedure IF EXISTS `getReviewLessons`;
-
-DELIMITER $$
-CREATE PROCEDURE `getReviewLessons` (
-    _IDaccount INT
-)
-getReviewLessons:BEGIN
-	SELECT * FROM todaylessons WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 OR DATEDIFF(now(), `FirstDate`) >= 7 OR DATEDIFF(now(), `FirstDate`) >= 30 ); 
-END$$
-
-DELIMITER ;

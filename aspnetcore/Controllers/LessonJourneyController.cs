@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using aspnetcore.Controllers.Resources;
 using aspnetcore.Helpers;
-using System.Collections.Generic;
-using aspnetcore.Services.Models;
-using aspnetcore.Services;
 using aspnetcore.Repositories.DTOs;
-using Microsoft.AspNetCore.Authorization;
+using aspnetcore.Services;
+using aspnetcore.Services.Models;
 
 namespace aspnetcore.Controllers
 {
@@ -14,6 +14,7 @@ namespace aspnetcore.Controllers
     public class LessonJourneyController : ControllerBase
     {
         private ILessonJourneyService _service = null;
+
         public LessonJourneyController(ILessonJourneyService service)
         {
             _service = service;
@@ -27,38 +28,38 @@ namespace aspnetcore.Controllers
         [ProducesResponseType(500)]
         public IActionResult FirstLesson_Create(int IDaccount, string Level)
         {
-            ResultCode resultCode; int? productID;
-            (resultCode, productID) = _service.FirstLesson_Create(IDaccount, Level);
+            ResultCode resultCode;
+            int? productID;
+            (resultCode, productID) =
+                _service.FirstLesson_Create(IDaccount, Level);
 
-            Result error; int statusCode;
-            (statusCode, error) = ResultHandler.GetStatusCodeAndResult(resultCode);
+            Result error;
+            int statusCode;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
 
-            GeneralResponse response = new GeneralResponse
-            {
-                Result = productID,
-                Error = error,
-            };
+            GeneralResponse response =
+                new GeneralResponse { Result = productID, Error = error };
             return StatusCode(statusCode, response);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<SectionModel>), 200)]
+        [ProducesResponseType(typeof (List<SectionModel>), 200)]
         [ProducesResponseType(500)]
         public IActionResult StudyQuery(int IDaccount)
         {
-            ResultCode resultCode; QueryModel queryResult;
+            ResultCode resultCode;
+            QueryModel queryResult;
             (resultCode, queryResult) = _service.StudyQuery(IDaccount);
 
-            Result error; int statusCode = 0;
-            (statusCode, error) = ResultHandler.GetStatusCodeAndResult(resultCode);
+            Result error;
+            int statusCode = 0;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
 
-            GeneralResponse response = new GeneralResponse
-            {
-                Result = queryResult,
-                Error = error,
-            };
+            GeneralResponse response =
+                new GeneralResponse { Result = queryResult, Error = error };
             return StatusCode(statusCode, response);
         }
-
     }
 }

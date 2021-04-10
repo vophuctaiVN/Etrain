@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { GiSecretBook, GiCardPick } from "react-icons/gi";
+import { getCookiesValue } from "../../../utils/helpers";
 
 export class ListTodayLession extends Component {
   constructor(props) {
     super(props);
     this.ToggleGram = this.ToggleGram.bind(this);
     this.ToggleVocab = this.ToggleVocab.bind(this);
-    this.state = { showMoreGram: false, showMoreVocab: false };
+    this.state = { showMoreGram: false, showMoreVocab: false, todayLesson: [] };
   }
 
   ToggleGram() {
@@ -19,7 +20,25 @@ export class ListTodayLession extends Component {
     this.setState({ showMoreVocab: !this.state.showMoreVocab });
   }
 
+  componentDidMount() {
+    this.getGramList({
+      iDaccount: getCookiesValue("userID"),
+    });
+  }
+
+  getGramList = (object) => {
+    window
+      .TodayLesson_Query(object)
+      .then((result) =>
+        this.setState({
+          todayLesson: result.json.result.items,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+
   render() {
+    console.log(this.state);
     return (
       <section className="blog_area section_padding">
         <div className="container">

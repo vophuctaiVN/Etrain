@@ -1,61 +1,94 @@
-using System.IO;
+using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
+using System.Linq;
 using aspnetcore.Controllers.Resources;
 using aspnetcore.Helpers;
 using aspnetcore.Repositories.DTOs;
 using aspnetcore.Services.Models;
-using System.Linq;
-using System;
 
 namespace aspnetcore.Services
 {
     public interface ILessonJourneyService
     {
         (ResultCode, int?) FirstLesson_Create(int IDaccount, string Level);
-        (ResultCode, QueryModel) StudyQuery(int IDaccount);
 
+        (ResultCode, QueryModel) StudyQuery(int IDaccount);
     }
 
     public class LessonJourneyService : BaseService, ILessonJourneyService
     {
-        public (ResultCode, int?) FirstLesson_Create(int IDaccount, string Level)
+        public (ResultCode, int?)
+        FirstLesson_Create(int IDaccount, string Level)
         {
-            ResultDTO result = _procedureHelper.GetData<ResultDTO>(
-                "firstLesson_create", new
-                {
-                    IDaccount = IDaccount,
-                    Level = Level,
-                }).FirstOrDefault();
+            ResultDTO result =
+                _procedureHelper
+                    .GetData<ResultDTO>("firstLesson_create",
+                    new { IDaccount = IDaccount, Level = Level })
+                    .FirstOrDefault();
             int ID = result.Result;
-            if (0 > ID)
-                return ((ResultCode)Math.Abs(ID), null);
+            if (0 > ID) return ((ResultCode) Math.Abs(ID), null);
 
             return (ResultCode.SUCCESS, ID);
         }
 
         public (ResultCode, QueryModel) StudyQuery(int IDaccount)
         {
-            List<SectionModel> sections = new List<SectionModel>();
             QueryModel queryResult = new QueryModel();
-            fatherIDModel.Instance.fatherID = ID_topic;
-            List<SectionContentQueryDTO> section_contentDTOs = _procedureHelper.GetData<SectionContentQueryDTO>(
-                "gram_post_section_query", fatherIDModel.Instance);
+            List<LessonQueryDTO> lessonQueryDTOs =
+                _procedureHelper
+                    .GetData<LessonQueryDTO>("todayless_query",
+                    new { IDaccount = IDaccount });
 
-            foreach (SectionContentQueryDTO content in section_contentDTOs)
+            List<LessonJourneyModel> lessons = new List<LessonJourneyModel>();
+            foreach (var item in lessonQueryDTOs)
             {
-                SectionModel tempsec = new SectionModel();
-                tempsec.sectionContent = content;
-                fatherIDModel.Instance.fatherID = tempsec.sectionContent.ID;
-                tempsec.examples = _procedureHelper.GetData<SectionExampleQueryDTO>(
-                "gram_post_section_example", fatherIDModel.Instance);
-                sections.Add(tempsec);
-            }
-            if (0 != section_contentDTOs.Count)
-                queryResult.TotalRows = section_contentDTOs[0].TotalRows;
+                LessonJourneyModel lesson = new LessonJourneyModel(item);
 
-            queryResult.Items = sections;
+                List<ExpandoObject> ArrayGramVocab = new List<ExpandoObject>();
+                foreach (var obj in ((dynamic) lesson).ArrayLesson)
+                {
+                    Console.WriteLine(obj.key);
+                    if (obj.key.Equals("g"))
+                    {
+                        QueryModel queryGramResult = new QueryModel();
+                        GrammarQueryRequest filter = new GrammarQueryRequest();
+                        filter.ID = Int32.Parse(obj.value);
+                        Console.WriteLine(filter.ID);
+                        List<GrammarQueryDTO> grammarDTOs =
+                            _procedureHelper
+                                .GetData
+                                <GrammarQueryDTO>("gram_topic_table_query",
+                                filter);
+
+                        dynamic dynObject = new ExpandoObject();
+                        dynObject.content = grammarDTOs;
+                        ArrayGramVocab.Add (dynObject);
+                    }
+                    else if (obj.key.Equals("v"))
+                    {
+                        QueryModel queryGramResult = new QueryModel();
+                        VocabularyQueryRequest filter =
+                            new VocabularyQueryRequest();
+                        filter.ID = Int32.Parse(obj.value);
+                        Console.WriteLine(filter.ID);
+                        List<GrammarQueryDTO> grammarDTOs =
+                            _procedureHelper
+                                .GetData
+                                <GrammarQueryDTO>("vocab_topics_table_query",
+                                filter);
+
+                        dynamic dynObject = new ExpandoObject();
+                        dynObject.content = grammarDTOs;
+                        ArrayGramVocab.Add (dynObject);
+                    }
+                }
+                ((dynamic) lesson).ArrayLesson = ArrayGramVocab;
+                lessons.Add (lesson);
+            }
+            queryResult.Items = lessons;
             return (ResultCode.SUCCESS, queryResult);
         }
-
     }
 }
