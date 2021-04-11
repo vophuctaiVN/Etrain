@@ -884,6 +884,43 @@ async function ScoreInfo_UpdateAPI(formData) {
   }
 }
 
+async function SaveLevelAPI(formData) {
+  ScoreInfo_UpdateAPI(formData);
+
+  var myHeaders = new Headers();
+  const queryObject = {
+    IDaccount: formData.IDaccount,
+    Level: formData.Level,
+  };
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const apiEndpoint = `${DOMAIN}/LessonJourney/FirstLesson_Create`;
+  const queryString = serializeQueryString(queryObject);
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+      case 400:
+      case 404:
+      case 500:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function TodayLesson_Query(queryObject) {
   var requestOptions = {
     method: "GET",
@@ -900,6 +937,67 @@ async function TodayLesson_Query(queryObject) {
     );
     switch (response.status) {
       case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function ReviewLesson_Query(queryObject) {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const queryString = serializeQueryString(queryObject);
+  const apiEndpoint = `${DOMAIN}/LessonJourney/ReviewQuery`;
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function StudyOrReviewDoneAPI(formData) {
+  var myHeaders = new Headers();
+  const queryObject = {
+    IDrow: formData.IDrow,
+    typeDone: formData.typeDone,
+  };
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const apiEndpoint = `${DOMAIN}/LessonJourney/StudyOrReviewDone`;
+  const queryString = serializeQueryString(queryObject);
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+      case 400:
+      case 404:
+      case 500:
         const json = await response.json();
         return { statusCode: response.status, json };
       default:

@@ -54,7 +54,7 @@ CREATE PROCEDURE `todayless_query` (
     _IDaccount INT
 )
 todayless_query:BEGIN    
-    SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE`ID_account` = _IDaccount AND `Times` = 0 LIMIT 1;
+    SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE`ID_account` = _IDaccount AND `Times` = 0 ORDER BY todaylessons.ID DESC LIMIT 1;
 END$$
 
 DELIMITER ;
@@ -67,7 +67,7 @@ CREATE PROCEDURE `reviewLessons_query` (
     _IDaccount INT
 )
 reviewLessons_query:BEGIN
-	SELECT * FROM todaylessons WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 AND `Times`=1 OR DATEDIFF(now(), `FirstDate`) >= 7 AND `Times`=2 OR DATEDIFF(now(), `FirstDate`) >= 30 AND `Times`=3); 
+	SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 AND `Times`=1 OR DATEDIFF(now(), `FirstDate`) >= 7 AND `Times`=2 OR DATEDIFF(now(), `FirstDate`) >= 30 AND `Times`=3) ORDER BY Times ASC; 
 END$$
 
 DELIMITER ;
@@ -86,6 +86,7 @@ studyDone:BEGIN
     SET @ID_account = (SELECT ID_account FROM todaylessons WHERE `ID` = _IDreviewRow);
     
 	INSERT INTO  todaylessons (`ID_account`, `ID_lesson`) VALUES (@ID_account, @IDlesson + 1);
+     SELECT _IDreviewRow Result, 'Last info updated' ErrorDesc;
 END$$
 
 DELIMITER ;
@@ -99,6 +100,7 @@ CREATE PROCEDURE `reviewDone` (
 )
 reviewDone:BEGIN
 	UPDATE todaylessons SET Times = Times + 1 WHERE `ID` = _IDreviewRow;
+     SELECT _IDreviewRow Result, 'Last info updated' ErrorDesc;
 END$$
 
 DELIMITER ;

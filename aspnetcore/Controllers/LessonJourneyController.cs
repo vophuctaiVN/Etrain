@@ -61,5 +61,47 @@ namespace aspnetcore.Controllers
                 new GeneralResponse { Result = queryResult, Error = error };
             return StatusCode(statusCode, response);
         }
+
+        [HttpGet]
+        [ProducesResponseType(typeof (List<SectionModel>), 200)]
+        [ProducesResponseType(500)]
+        public IActionResult ReviewQuery(int IDaccount)
+        {
+            ResultCode resultCode;
+            QueryModel queryResult;
+            (resultCode, queryResult) = _service.ReviewQuery(IDaccount);
+
+            Result error;
+            int statusCode = 0;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response =
+                new GeneralResponse { Result = queryResult, Error = error };
+            return StatusCode(statusCode, response);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult StudyOrReviewDone(int IDrow, string typeDone)
+        {
+            ResultCode resultCode;
+            int? productID;
+            (resultCode, productID) =
+                _service.StudyOrReviewDone(IDrow, typeDone);
+
+            Result error;
+            int statusCode;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response =
+                new GeneralResponse { Result = productID, Error = error };
+            return StatusCode(statusCode, response);
+        }
     }
 }
