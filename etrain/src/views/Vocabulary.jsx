@@ -168,7 +168,12 @@ class Vocabulary extends Component {
                       </li> */}
                       <li>
                         <Link to={`/matchingword`} className="d-flex">
-                          Minigame
+                          Matching Words
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={`/orderwords`} className="d-flex">
+                          Order Sentence
                         </Link>
                       </li>
                       {/* <li>
