@@ -160,14 +160,16 @@ class MatchingWord extends React.Component {
       isOpen: false,
     };
   }
+
   _showMessage(type) {
     if (type == "success") {
-      this.state.message = "Good Job :)";
+      this.state.message = "Good Job 🥰";
     } else {
-      this.state.message = "Ooops :( ";
+      this.state.message = "Ooops 😩";
     }
     $("#message").show(200);
   }
+
   _changeWord() {
     if (window.interval !== undefined) {
       clearInterval(window.interval);
@@ -190,18 +192,22 @@ class MatchingWord extends React.Component {
       this.setState({ hideReplay: false, stopTimer: true, isOpen: true });
     }
   }
+
   randomIndex() {
     var rand = Math.floor(Math.random() * this.words.length);
     return rand;
   }
+
   durationEnd() {
     this._changeWord();
   }
+
   async updateAnswer(answer) {
     this.setState({
       currentAnswer: answer,
     });
   }
+
   _playAgain() {
     clearInterval(window.interval);
     var randomNumber = this.randomIndex();
@@ -222,6 +228,7 @@ class MatchingWord extends React.Component {
       myanswer: null,
     });
   }
+
   render() {
     let DetailClose = () =>
       this.setState({ hideReplay: false, stopTimer: true, isOpen: false });

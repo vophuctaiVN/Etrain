@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class Footer extends Component {
   render() {
     return (
@@ -23,7 +22,7 @@ class Footer extends Component {
                 <form action="#">
                   <div className="form-group">
                     <div className="input-group mb-3">
-                      <input type="text" className="form-control" placeholder="Enter email address" /* onFocus="this.placeholder = ''" onBlur="this.placeholder = 'Enter email address'" */ />
+                      <input type="text" className="form-control" placeholder="Enter email address"/>
                       <div className="input-group-append">
                         <button className="btn btn_1" type="button"><i className="ti-angle-right" /></button>
                       </div>
