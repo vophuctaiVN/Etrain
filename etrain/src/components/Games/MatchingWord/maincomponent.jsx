@@ -5,89 +5,20 @@ import Footer from "./footer";
 import ResultModal from "./modal";
 import $ from "jquery";
 class MatchingWord extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.words = [
-      {
-        answer: "MONKEY",
-        question: "MONK_Y",
-      },
-      {
-        answer: "BANANA",
-        question: "BANA_A",
-      },
-      {
-        answer: "APPLE",
-        question: "APP_E",
-      },
-      {
-        answer: "ORANGE",
-        question: "ORA_GE",
-      },
-      {
-        answer: "LION",
-        question: "L_ON",
-      },
-      {
-        answer: "BOOK",
-        question: "BO_K",
-      },
-      {
-        answer: "COCONUT",
-        question: "COCON_T",
-      },
-      {
-        answer: "DOCTOR",
-        question: "DO_TOR",
-      },
-      {
-        answer: "FRIEND",
-        question: "FRI_ND",
-      },
-      {
-        answer: "BROTHER",
-        question: "BR_THER",
-      },
-      {
-        answer: "DOG",
-        question: "D_G",
-      },
-      {
-        answer: "FOOD",
-        question: "FO_D",
-      },
-      {
-        answer: "WATER",
-        question: "WAT_R",
-      },
-      {
-        answer: "HOUSE",
-        question: "HOUS_",
-      },
-      {
-        answer: "ELEPHANT",
-        question: "ELEPH_NT",
-      },
-      {
-        answer: "MANGO",
-        question: "MA_GO",
-      },
-      {
-        answer: "SCHOOL",
-        question: "SCHO_L",
-      },
-      {
-        answer: "PEOPLE",
-        question: "PE_PLE",
-      },
-      {
-        answer: "PENCIL",
-        question: "P_NCIL",
-      },
-    ];
-
+    this.words = [];
     this.questions = [];
+    let listwords =
+      JSON.parse(localStorage.getItem("tempitems")) ||
+      this.props.location.query.items;
+    listwords.forEach((element) => {
+      this.words.push({
+        answer: element.en.toUpperCase(),
+        question: this.replaceRandomWord(element.en.toUpperCase()),
+      });
+    });
 
     this.randomIndex = this.randomIndex.bind(this);
     this.getInitialState = this.getInitialState.bind(this);
@@ -98,6 +29,29 @@ class MatchingWord extends React.Component {
     this._playAgain = this._playAgain.bind(this);
 
     this.state = this.getInitialState();
+  }
+
+  replaceRandomWord(fullword) {
+    const position = Math.floor(Math.random() * fullword.length);
+    return this.setCharAt(fullword, position, "_");
+  }
+
+  setCharAt(str, index, chr) {
+    if (index > str.length - 1) return str;
+    return str.substring(0, index) + chr + str.substring(index + 1);
+  }
+
+  componentDidMount() {
+    if (this.props.location.query && this.props.location.query.items) {
+      localStorage.setItem(
+        "tempitems",
+        JSON.stringify(this.props.location.query.items)
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    localStorage.removeItem("tempitems");
   }
 
   getInitialState() {
@@ -148,7 +102,7 @@ class MatchingWord extends React.Component {
     return {
       score: 0,
       currentQuestionIndex: 1,
-      questionLimit: 10,
+      questionLimit: this.words.length,
       questionTimeDuration: 10,
       currentQuestionAnswer: null,
       currentQuestion: question,
@@ -215,7 +169,7 @@ class MatchingWord extends React.Component {
     this.setState({
       score: 0,
       currentQuestionIndex: 1,
-      questionLimit: 10,
+      questionLimit: this.words.length,
       questionTimeDuration: 10,
       currentQuestionAnswer: null,
       currentQuestion: word.question,

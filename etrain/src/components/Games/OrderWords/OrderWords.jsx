@@ -7,23 +7,43 @@ import $ from "jquery";
 class OrderWords extends Component {
   constructor() {
     super();
+    this.items = [
+      ["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"],
+      ["a", "b", "c"],
+      ["d", "e", "f"],
+      ["g", "h", "l"],
+      ["m", "n", "o"],
+    ];
+
     this.state = this.getInitialState();
-    this.randomIndex = this.randomIndex.bind(this);
     this._showMessage = this._showMessage.bind(this);
     this._changeWord = this._changeWord.bind(this);
     this.durationEnd = this.durationEnd.bind(this);
-    this.updateAnswer = this.updateAnswer.bind(this);
     this._playAgain = this._playAgain.bind(this);
   }
 
   getInitialState() {
     var self = this;
     // nhớ cancel listener event bên keyborad result
+    /*  window.addEventListener("wordmatched", function (event) {
+      if (window.interval !== undefined) {
+        clearInterval(window.interval);
+      }
+
+      self._showMessage("success");
+      setTimeout(function () {
+        $("#message").hide(100);
+        self.setState({
+          score: self.state.score + 10,
+          currentQuestionIndex: self.state.currentQuestionIndex + 1,
+          questionTimeDuration: self.state.questionTimeDuration,
+        });
+      }, 2000);
+    }); */
+
     window.addEventListener("wordmatched", function (event) {
       self.setState({
         score: self.state.score + 10,
-        currentQuestion: self.state.currentAnswer,
-        myanswer: null,
       });
       if (window.interval !== undefined) {
         clearInterval(window.interval);
@@ -39,9 +59,8 @@ class OrderWords extends Component {
     return {
       score: 0,
       currentQuestionIndex: 1,
-      questionLimit: 10,
+      questionLimit: this.items.length,
       questionTimeDuration: 10,
-      currentQuestionAnswer: null,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -63,16 +82,10 @@ class OrderWords extends Component {
       clearInterval(window.interval);
     }
     if (this.state.currentQuestionIndex < this.state.questionLimit) {
-      var randNum = this.randomIndex();
-      var word = this.words[randNum];
       this.setState({
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
-        currentQuestion: word.question,
-        currentAnswer: word.answer,
         questionTimeDuration: this.state.questionTimeDuration,
-        myanswer: null,
       });
-      this.questions.push(randNum);
     } else {
       $("#score-card").html(this.state.score);
 
@@ -81,39 +94,21 @@ class OrderWords extends Component {
     }
   }
 
-  randomIndex() {
-    var rand = Math.floor(Math.random() * this.words.length);
-    return rand;
-  }
-
   durationEnd() {
     this._changeWord();
   }
 
-  async updateAnswer(answer) {
-    this.setState({
-      currentAnswer: answer,
-    });
-  }
-
   _playAgain() {
     clearInterval(window.interval);
-    var randomNumber = this.randomIndex();
-    var word = this.words[randomNumber];
     this.setState({
       score: 0,
       currentQuestionIndex: 1,
-      questionLimit: 10,
+      questionLimit: this.items.length,
       questionTimeDuration: 10,
-      currentQuestionAnswer: null,
-      currentQuestion: word.question,
-      currentAnswer: word.answer,
-      wordIndex: randomNumber,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
-      myanswer: null,
     });
   }
 
@@ -121,33 +116,32 @@ class OrderWords extends Component {
     let DetailClose = () =>
       this.setState({ hideReplay: false, stopTimer: true, isOpen: false });
 
-    const answer = ["🍰 Cake", "🍕 Pizza", "🍎 Apple", "🍩 Donut"];
     return (
       <section className="blog_area section_padding">
         <div className="container">
           <div className="row justify-content-center order-background words-container">
-            <div className="gamebackground">
-              <ResultModal
-                isOpen={this.state.isOpen}
-                score={this.state.score}
-                onHide={DetailClose}
-              />
-              <ScoreMain
-                score={this.state.score}
-                current={this.state.currentQuestionIndex}
-                questionlimit={this.state.questionLimit}
-                duration={this.state.questionTimeDuration}
-                ontimeup={this.durationEnd}
-                stopTimer={this.state.stopTimer}
-              />
-              <WordsArray answer={answer} />
-              <Footer
-                hideReplay={this.state.hideReplay}
-                onRefresh={this._playAgain}
-                message={this.state.message}
-                skipquestion={this._changeWord}
-              />
-            </div>
+            <ResultModal
+              isOpen={this.state.isOpen}
+              score={this.state.score}
+              onHide={DetailClose}
+            />
+            <ScoreMain
+              score={this.state.score}
+              current={this.state.currentQuestionIndex}
+              questionlimit={this.state.questionLimit}
+              duration={this.state.questionTimeDuration}
+              ontimeup={this.durationEnd}
+              stopTimer={this.state.stopTimer}
+            />
+            <WordsArray
+              answer={this.items[this.state.currentQuestionIndex - 1]}
+            />
+            <Footer
+              hideReplay={this.state.hideReplay}
+              onRefresh={this._playAgain}
+              message={this.state.message}
+              skipquestion={this._changeWord}
+            />
           </div>
         </div>
       </section>
@@ -156,9 +150,51 @@ class OrderWords extends Component {
 }
 
 class WordsArray extends Component {
-  state = {
-    items: ["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: this.shuffle([...this.props.answer]),
+    };
+  }
+
+  //state chỉ khởi tạo 1 lần
+  componentWillReceiveProps(nextProps) {
+    const array1 = nextProps.answer;
+    const array2 = this.props.answer;
+    if (
+      array1.length != array2.length ||
+      array1.every(function (value, index) {
+        return value !== array2[index];
+      })
+    )
+      this.prepareComponentState(nextProps);
+  }
+
+  prepareComponentState(props) {
+    this.setState({
+      items: this.shuffle([...props.answer]),
+    });
+  }
+
+  shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 
   onDragStart = (e, index) => {
     this.draggedItem = this.state.items[index];

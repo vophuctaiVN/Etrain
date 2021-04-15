@@ -10,8 +10,9 @@ class WordList extends Component {
     };
   }
 
-  componentDidMount() { 
-    if(this.props.location.query && this.props.location.query.topic_Image) localStorage.setItem('tempimg', this.props.location.query.topic_Image);
+  componentDidMount() {
+    if (this.props.location.query && this.props.location.query.topic_Image)
+      localStorage.setItem("tempimg", this.props.location.query.topic_Image);
     this.getVocabByTopic(this.props.match.params.lessonid);
   }
 
@@ -30,17 +31,17 @@ class WordList extends Component {
       .catch((error) => console.log(error));
   };
 
-  componentWillUnmount() { 
-    localStorage.removeItem('tempimg');
+  componentWillUnmount() {
+    localStorage.removeItem("tempimg");
   }
-  
+
   render() {
     let allItems = [...this.state.items];
     let listvocab;
-    if(allItems)
-     listvocab = allItems.map((vocab) => (
-      <Word key={Math.random()} vocab={vocab} />
-    ));
+    if (allItems)
+      listvocab = allItems.map((vocab) => (
+        <Word key={Math.random()} vocab={vocab} />
+      ));
     return (
       <>
         <section className="blog_area section_padding">
@@ -49,23 +50,39 @@ class WordList extends Component {
               <div className="col-lg-12 mb-5 mb-lg-0">
                 <img
                   className="card-img rounded-0"
-                  src={localStorage.getItem('tempimg')}
+                  src={localStorage.getItem("tempimg")}
                   alt=""
-                /> 
-               
+                />
+
                 <div className="blog_right_sidebar">
                   <aside className="single_sidebar_widget popular_post_widget">
                     <h3 className="widget_title">List Vocabulary</h3>
-                    {listvocab}                    
+                    {listvocab}
                   </aside>
                   <Link
-                   to={{
-                    pathname: `/flashcard`,
-                    query: {
-                      items: this.state.items,
-                    },
-                  }}
-                  className="genric-btn success-border circle" style={{float: 'right'}}>Review all</Link>
+                    to={{
+                      pathname: `/flashcard`,
+                      query: {
+                        items: this.state.items,
+                      },
+                    }}
+                    className="genric-btn success-border circle"
+                    style={{ float: "right" }}
+                  >
+                    FlashCard
+                  </Link>
+                  <Link
+                    to={{
+                      pathname: `/matchingword`,
+                      query: {
+                        items: this.state.items,
+                      },
+                    }}
+                    className="genric-btn success-border circle"
+                    style={{ float: "right" }}
+                  >
+                    Matching Game
+                  </Link>
                 </div>
               </div>
             </div>

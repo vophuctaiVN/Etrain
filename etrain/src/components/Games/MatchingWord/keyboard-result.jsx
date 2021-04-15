@@ -18,6 +18,7 @@ class KeyBoardAndResult extends React.Component {
       answer: this.props.answer,
     };
   }
+
   componentWillMount() {
     this.prepareComponentState(this.props);
   }
@@ -25,6 +26,7 @@ class KeyBoardAndResult extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.prepareComponentState(nextProps);
   }
+
   prepareComponentState(props) {
     if (props.myanswer && props.myanswer != this.state.new_word)
       this.setState({
