@@ -103,9 +103,9 @@
 }
 
 /*order words game*/
-.order-background{  
+.order-background {
   background: rgb(255, 250, 222);
-} 
+}
 
 .word-box {
   width: 112px;
@@ -123,14 +123,21 @@
   border: solid slategray 4px;
   margin: 15px;
 }
- 
-.words-container{
+
+.words-container {
   color: slategray;
-    font-size: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 50px;
-    max-width: 100%;
-    flex-wrap: wrap;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }

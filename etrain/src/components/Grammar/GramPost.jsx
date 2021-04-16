@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import GramLesson from "./GramLesson";
 import MoreLesson from "./MoreLesson";
 import GramQ from "./GramQ";
+import { Link } from "react-router-dom";
+
 class GramPost extends Component {
   constructor(props) {
     super(props);
@@ -11,18 +13,19 @@ class GramPost extends Component {
     };
   }
 
-  componentDidMount() { 
-    if(this.props.location.query && this.props.location.query.topic_Image) localStorage.setItem('tempimg', this.props.location.query.topic_Image);
+  componentDidMount() {
+    if (this.props.location.query && this.props.location.query.topic_Image)
+      localStorage.setItem("tempimg", this.props.location.query.topic_Image);
     this.getLesson(this.props.match.params.lessonid);
   }
 
-  componentWillUnmount() { 
+  componentWillUnmount() {
     localStorage.removeItem("tempimg");
   }
 
   componentDidUpdate(prevProps) {
     console.log(prevProps);
-    if(prevProps.match.params.lessonid !== this.props.match.params.lessonid){
+    if (prevProps.match.params.lessonid !== this.props.match.params.lessonid) {
       this.getLesson(this.props.match.params.lessonid);
       //localStorage.removeItem("tempimg");
     }
@@ -44,6 +47,16 @@ class GramPost extends Component {
       )
       .catch((error) => console.log(error));
   };
+
+  //game
+  getAllExample() {
+    let rawExample = [];
+    this.state.items.forEach((section) => {
+      rawExample = rawExample.concat(section.examples);
+    });
+    return rawExample;
+  }
+
   render() {
     let listLessons = this.state.items.map((lesson) => (
       <GramLesson
@@ -66,6 +79,18 @@ class GramPost extends Component {
                 />
               </div>
               {listLessons}
+              <Link
+                to={{
+                  pathname: `/orderwords`,
+                  query: {
+                    items: this.getAllExample(),
+                  },
+                }}
+                className="genric-btn success-border circle"
+                style={{ float: "right" }}
+              >
+                Order Sentense
+              </Link>
             </div>
 
             <div className="col-lg-4 right-contents">

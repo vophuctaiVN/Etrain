@@ -5,8 +5,12 @@ import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
 
 class OrderWords extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.exampleProps =
+      JSON.parse(localStorage.getItem("tempitems")) ||
+      this.props.location.query.items;
+
     this.items = [
       ["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"],
       ["a", "b", "c"],
@@ -14,12 +18,33 @@ class OrderWords extends Component {
       ["g", "h", "l"],
       ["m", "n", "o"],
     ];
+    this.items = [];
+    this.items = this.itemByCharacter(this.exampleProps);
 
     this.state = this.getInitialState();
     this._showMessage = this._showMessage.bind(this);
     this._changeWord = this._changeWord.bind(this);
     this.durationEnd = this.durationEnd.bind(this);
     this._playAgain = this._playAgain.bind(this);
+  }
+
+  itemByCharacter(exampleProps) {
+    const items = [];
+    exampleProps.forEach((object) => items.push(object.example.split(" ")));
+    return items;
+  }
+
+  componentDidMount() {
+    if (this.props.location.query && this.props.location.query.items) {
+      localStorage.setItem(
+        "tempitems",
+        JSON.stringify(this.props.location.query.items)
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    localStorage.removeItem("tempitems");
   }
 
   getInitialState() {
@@ -133,6 +158,17 @@ class OrderWords extends Component {
               ontimeup={this.durationEnd}
               stopTimer={this.state.stopTimer}
             />
+            <div className="container-fluid">
+              <img
+                src={
+                  this.exampleProps[this.state.currentQuestionIndex - 1]
+                    .imageURL
+                }
+                height="500px"
+                width="500px"
+                className="center"
+              />
+            </div>
             <WordsArray
               answer={this.items[this.state.currentQuestionIndex - 1]}
             />
