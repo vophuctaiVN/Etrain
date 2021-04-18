@@ -49,22 +49,6 @@ class OrderWords extends Component {
 
   getInitialState() {
     var self = this;
-    // nhớ cancel listener event bên keyborad result
-    /*  window.addEventListener("wordmatched", function (event) {
-      if (window.interval !== undefined) {
-        clearInterval(window.interval);
-      }
-
-      self._showMessage("success");
-      setTimeout(function () {
-        $("#message").hide(100);
-        self.setState({
-          score: self.state.score + 10,
-          currentQuestionIndex: self.state.currentQuestionIndex + 1,
-          questionTimeDuration: self.state.questionTimeDuration,
-        });
-      }, 2000);
-    }); */
 
     window.addEventListener("wordmatched", function (event) {
       self.setState({

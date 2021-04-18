@@ -141,3 +141,28 @@
   margin-right: auto;
   width: 50%;
 }
+
+.character {
+  width: 8rem;
+  height: 8rem;
+}
+
+.container-game {
+  position: relative;
+}
+
+.overlapItem1 {
+  position: absolute;
+  margin-left: 87%;
+  transform: rotate(90deg);
+  background-color: red;
+  width: 200px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.overlapItem2 {
+  position: absolute;
+  bottom: 60px;
+  left: 16px;
+}

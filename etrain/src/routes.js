@@ -11,8 +11,11 @@ import Register from "./views/Log/Register.jsx";
 import QuizPost from "./components/Quiz/QuizPost.jsx";
 import Forum from "./views/Forum.jsx";
 import AnswerPage from "./components/ForumQ/AnswerPage.jsx";
+
 import MatchingWord from "./components/Games/MatchingWord/maincomponent";
 import OrderWords from "./components/Games/OrderWords/OrderWords.jsx";
+import Home from "./components/Games/Tortoise/game.jsx";
+
 import Profile from "./views/Log/UserProfile.jsx";
 import Today from "./views/Today.jsx";
 import FirstTest from "./components/Quiz/FirstTest.jsx";
@@ -107,6 +110,11 @@ const routes = [
     path: "/orderwords",
     layout: "",
     component: OrderWords,
+  },
+  {
+    path: "/tortoise",
+    layout: "",
+    component: Home,
   },
   {
     path: "/profile",
