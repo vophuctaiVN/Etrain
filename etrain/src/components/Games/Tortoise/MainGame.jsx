@@ -20,8 +20,6 @@ const MainGame = () => {
     opponentPlayerName,
   } = opponentPlayerInfo;
 
-  const gameState = useSelector((state) => state.gameState);
-  const { showKeyboard } = gameState;
   return (
     <>
       <RandomWord />
@@ -43,7 +41,6 @@ const MainGame = () => {
         <FinishLine />
         <img
           className="overlapItem3"
-          //          style={{ bottom: `${showKeyboard ? "30%" : "0%"}` }}
           src="img/tortoise_images/grass-background.png"
           alt="grass-background"
         />

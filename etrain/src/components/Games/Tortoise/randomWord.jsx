@@ -5,18 +5,11 @@ import {
   addAPointToCurrentPlayer,
   generateNewWordOnSuccess,
 } from "../../../redux/actions/currentPlayerActions";
-
-import { addAPointToOpponentPlayerMultiplayer } from "../../../redux/actions/opponentPlayerActions";
-
-import Button from "./button";
-
 import {
   incrementTotalWordsTyped,
   incrementFluentWordsTyped,
-  addWeakKeyStroke,
   startTypingCountdown,
   incrementCharactersTyped,
-  toggleVirtualKeyboard,
 } from "../../../redux/actions/gameStateActions";
 
 const RandomWord = () => {
@@ -25,8 +18,6 @@ const RandomWord = () => {
 
   const currentPlayerInfo = useSelector((state) => state.currentPlayerInfo);
   const { randomlyGeneratedWord: theRandomWord } = currentPlayerInfo;
-
-  const gameState = useSelector((state) => state.gameState);
 
   const [randomlyGeneratedWord, setRandomlyGeneratedWord] = useState(
     () => theRandomWord,
@@ -48,7 +39,7 @@ const RandomWord = () => {
   useEffect(() => {
     if (randomlyGeneratedWord.length === 0) {
       dispatch(addAPointToCurrentPlayer(5));
-      dispatch(generateNewWordOnSuccess());
+      dispatch(generateNewWordOnSuccess(word));
       dispatch(incrementTotalWordsTyped());
 
       if (fluentWord) {

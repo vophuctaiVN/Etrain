@@ -12,7 +12,6 @@ const Player = ({
 }) => {
   const gameState = useSelector((state) => state.gameState);
   const { showKeyboard } = gameState;
-  console.log("POSITION", position);
   return (
     <>
       <div

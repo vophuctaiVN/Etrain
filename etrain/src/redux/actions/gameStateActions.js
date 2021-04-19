@@ -21,7 +21,6 @@ var opponentPointIncrease;
 var currentPlayerTypingCountdown;
 
 export const startOpponentRun = () => (dispatch, getState) => {
-  console.log("THO RUN");
   const { gameState } = getState();
   const { opponentDifficultyLevel } = gameState;
 

@@ -97,7 +97,7 @@ export const gameStateReducers = (state = {}, action) => {
     case RESET_GAME_STATE:
       return {
         showKeyboard: false,
-        gameStart: false,
+        gameStart: !state.gameStart,
         gameWon: false,
         opponentDifficultyLevel: 3,
         gameType: "",
@@ -106,9 +106,6 @@ export const gameStateReducers = (state = {}, action) => {
         weakKeyStrokes: [],
         typingCountdown: 0,
         charactersTyped: 0,
-        roomName: null,
-        mySocketId: "",
-        opponentSocketId: "",
       };
     default:
       return state;

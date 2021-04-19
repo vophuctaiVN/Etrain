@@ -28,10 +28,10 @@ export const addAPointToCurrentPlayer = (incrementPoints) => (
   });
 };
 
-export const generateNewWordOnSuccess = () => (dispatch) => {
+export const generateNewWordOnSuccess = (newWord) => (dispatch) => {    
   dispatch({
     type: GENERATE_NEW_WORD_ON_SUCCESS,
-    payload: "sister",
+    payload: newWord,
   });
 };
 

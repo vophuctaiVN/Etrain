@@ -23,11 +23,21 @@ export default function Home() {
   const opponentPlayerInfo = useSelector((state) => state.opponentPlayerInfo);
   const gameState = useSelector((state) => state.gameState);
 
-  const { currentPlayerPosition, currentPlayerCharacter } = currentPlayerInfo;
+  const { currentPlayerPosition } = currentPlayerInfo;
   const { opponentPlayerPosition } = opponentPlayerInfo;
-  let { gameStart, gameType } = gameState;
+  const { gameStart, gameType } = gameState;
 
   const race_end_point = 87;
+
+  
+  wordArray: [
+    "saltpractical",
+    "alsobrief",
+    "countrymuscle",
+    "neighborhoodbeyond",
+    "grewpig",
+  ],
+  wordIndex: 0,
 
   useEffect(() => {
     if (
@@ -41,14 +51,14 @@ export default function Home() {
 
   useEffect(() => {
     console.log("START", gameStart);
-    gameType = "singlePlayer";
-    gameStart = true;
-    if (gameStart && gameType === "singlePlayer") dispatch(startOpponentRun());
-  }, [dispatch, gameStart, gameType]);
+    const gameTypeClone = "singlePlayer";
+    const gameStartClone = true;
+    if (gameStartClone && gameTypeClone === "singlePlayer")
+      dispatch(startOpponentRun());
+  }, [dispatch, gameStart, gameType]); // add array values if value in state after update and those values are not different -> they don't recall this useEffect
 
   return (
     <div className="w-screen h-screen">
-      {/* <PageTitle title="Tortoise and the hare game" /> */}
       <div
         className="fixed bottom-0 mt-4 w-full h-full py-3 px-4 bg-gradient-to-b	from-blue-500 via-blue-300 to-blue-200 "
         style={{ backgroundSize: "100% 100%" }}

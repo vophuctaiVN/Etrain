@@ -9,7 +9,7 @@ const initialState = {
   currentPlayerInfo: {
     currentPlayerCharacter: "tortoise",
     currentPlayerPosition: 0,
-    randomlyGeneratedWord: /* randomWords() */ "army",
+    randomlyGeneratedWord: /* randomWords() */"army",
     currentPlayerName: "",
   },
   opponentPlayerInfo: {
@@ -28,9 +28,6 @@ const initialState = {
     weakKeyStrokes: [],
     typingCountdown: 0,
     charactersTyped: 0,
-    roomName: null,
-    mySocketId: "",
-    opponentSocketId: "",
   },
 };
 
