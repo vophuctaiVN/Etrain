@@ -15,6 +15,7 @@ import {
   SET_MY_SOCKET_ID,
   SET_OPPONENT_SOCKET_ID,
   TOGGLE_VIRTUAL_KEYBOARD,
+  SET_WORDS_ARRAY,
 } from "../constants.js";
 
 var opponentPointIncrease;
@@ -120,33 +121,18 @@ export const incrementCharactersTyped = () => (dispatch) => {
   });
 };
 
-export const setRoomName = (nameOfRoom) => (dispatch) => {
-  dispatch({
-    type: SET_ROOM_NAME,
-    payload: nameOfRoom,
-  });
-};
-
-export const setMySocketId = (socketId) => (dispatch) => {
-  dispatch({
-    type: SET_MY_SOCKET_ID,
-    payload: socketId,
-  });
-};
-
-export const setOpponentSocketId = (socketId) => (dispatch) => {
-  dispatch({
-    type: SET_OPPONENT_SOCKET_ID,
-    payload: socketId,
-  });
-};
-
 export const toggleVirtualKeyboard = () => (dispatch, getState) => {
   const { gameState } = getState();
   const { showKeyboard } = gameState;
-
   dispatch({
     type: TOGGLE_VIRTUAL_KEYBOARD,
     payload: !showKeyboard,
   });
 };
+
+export const setFirstwordArray = (words) => (dispatch) => {
+  dispatch({
+    type: SET_WORDS_ARRAY,
+    wordArray: words,
+  });
+}; // can set action here but reducer different

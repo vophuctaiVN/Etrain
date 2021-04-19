@@ -3,6 +3,7 @@ import {
   GENERATE_NEW_WORD_ON_SUCCESS,
   CURRENT_PLAYER_CHARACTER_SELECT,
   SET_CURRENT_PLAYER_NAME,
+  SET_WORDS_ARRAY,
 } from "../constants.js";
 
 export const selectCurrentPlayerCharacter = (character) => (dispatch) => {
@@ -28,10 +29,14 @@ export const addAPointToCurrentPlayer = (incrementPoints) => (
   });
 };
 
-export const generateNewWordOnSuccess = (newWord) => (dispatch) => {    
+export const generateNewWordOnSuccess = (index) => (dispatch, getState) => {
+  const { currentPlayerInfo } = getState();
   dispatch({
     type: GENERATE_NEW_WORD_ON_SUCCESS,
-    payload: newWord,
+    payload: {
+      wordIndex: index,
+      randomlyGeneratedWord: currentPlayerInfo.wordArray[index],
+    },
   });
 };
 

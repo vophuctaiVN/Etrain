@@ -9,7 +9,9 @@ const initialState = {
   currentPlayerInfo: {
     currentPlayerCharacter: "tortoise",
     currentPlayerPosition: 0,
-    randomlyGeneratedWord: /* randomWords() */"army",
+    wordArray: [],
+    wordIndex: 0,
+    randomlyGeneratedWord: "start",
     currentPlayerName: "",
   },
   opponentPlayerInfo: {

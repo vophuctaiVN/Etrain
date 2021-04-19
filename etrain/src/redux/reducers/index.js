@@ -8,7 +8,7 @@ import { gameStateReducers } from "../reducers/gameStateReducers";
 
 export default combineReducers({
   cart: cartReducer,
-  currentPlayerInfo: currentPlayerInfoReducer,
+  currentPlayerInfo: currentPlayerInfoReducer, //file currentPlayerInfoReducer state{} = state.currentPlayerInfo
   opponentPlayerInfo: opponentPlayerInfoReducer,
   gameState: gameStateReducers,
 });

@@ -4,6 +4,7 @@ import {
   CURRENT_PLAYER_CHARACTER_SELECT,
   RESET_CURRENT_PLAYER_INFO,
   SET_CURRENT_PLAYER_NAME,
+  SET_WORDS_ARRAY,
 } from "../constants.js";
 
 export const currentPlayerInfoReducer = (state = {}, action) => {
@@ -23,7 +24,8 @@ export const currentPlayerInfoReducer = (state = {}, action) => {
     case GENERATE_NEW_WORD_ON_SUCCESS:
       return {
         ...state,
-        randomlyGeneratedWord: action.payload,
+        wordIndex: action.payload.wordIndex,
+        randomlyGeneratedWord: action.payload.randomlyGeneratedWord,
       };
 
     case SET_CURRENT_PLAYER_NAME:
@@ -38,6 +40,12 @@ export const currentPlayerInfoReducer = (state = {}, action) => {
         currentPlayerName: "",
         currentPlayerCharacter: "tortoise",
         currentPlayerPosition: 0,
+      };
+
+    case SET_WORDS_ARRAY:
+      return {
+        ...state,
+        wordArray: action.wordArray,
       };
     default:
       return state;

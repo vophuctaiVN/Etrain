@@ -83,6 +83,19 @@ class WordList extends Component {
                   >
                     Matching Game
                   </Link>
+
+                  <Link
+                    to={{
+                      pathname: `/tortoise`,
+                      query: {
+                        items: this.state.items,
+                      },
+                    }}
+                    className="genric-btn success-border circle"
+                    style={{ float: "right" }}
+                  >
+                    Tortoise Game
+                  </Link>
                 </div>
               </div>
             </div>

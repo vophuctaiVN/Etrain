@@ -1,43 +1,27 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//import Router from "next/router";
-//import PageTitle from "../components/pageTitle.jsx";
-import Modal from "./modal/modal";
 import {
   startOpponentRun,
   endOpponentRun,
-} from "../../../redux/actions/gameStateActions";
-import {
-  startGame,
   endTypingCountdown,
+  setFirstwordArray,
 } from "../../../redux/actions/gameStateActions";
 import GameOver from "./gameOver";
 import MainGame from "./MainGame";
 
-export default function Home() {
-  const [showRules, setShowRules] = useState(true);
+export default function Home(props) {
   const dispatch = useDispatch();
 
   const currentPlayerInfo = useSelector((state) => state.currentPlayerInfo);
   const opponentPlayerInfo = useSelector((state) => state.opponentPlayerInfo);
   const gameState = useSelector((state) => state.gameState);
 
-  const { currentPlayerPosition } = currentPlayerInfo;
+  const { currentPlayerPosition, wordArray } = currentPlayerInfo;
   const { opponentPlayerPosition } = opponentPlayerInfo;
   const { gameStart, gameType } = gameState;
 
-  const race_end_point = 87;
-
-  
-  wordArray: [
-    "saltpractical",
-    "alsobrief",
-    "countrymuscle",
-    "neighborhoodbeyond",
-    "grewpig",
-  ],
-  wordIndex: 0,
+  const race_end_point = 90;
 
   useEffect(() => {
     if (
@@ -50,12 +34,32 @@ export default function Home() {
   });
 
   useEffect(() => {
-    console.log("START", gameStart);
     const gameTypeClone = "singlePlayer";
     const gameStartClone = true;
     if (gameStartClone && gameTypeClone === "singlePlayer")
+      //if to not loop due to dispatch
       dispatch(startOpponentRun());
   }, [dispatch, gameStart, gameType]); // add array values if value in state after update and those values are not different -> they don't recall this useEffect
+
+  useEffect(() => {
+    let words = [];
+    let listwords =
+      JSON.parse(localStorage.getItem("tempitems")) ||
+      props.location.query.items;
+    listwords.forEach((element) => {
+      words.push(element.en.toLowerCase());
+    });
+
+    if (props.location.query && props.location.query.items) {
+      localStorage.setItem(
+        "tempitems",
+        JSON.stringify(props.location.query.items)
+      );
+    }
+    if (wordArray.length == 0) {
+      dispatch(setFirstwordArray(words));
+    }
+  }, [dispatch, wordArray]);
 
   return (
     <div className="w-screen h-screen">
@@ -70,8 +74,6 @@ export default function Home() {
           ) : (
             <MainGame />
           )}
-          {/* 
-          <Modal showRules={showRules} setShowRules={setShowRulesHandler} /> */}
         </div>
       </div>
     </div>

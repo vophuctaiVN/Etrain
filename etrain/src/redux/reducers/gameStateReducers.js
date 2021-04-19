@@ -13,6 +13,7 @@ import {
   SET_MY_SOCKET_ID,
   SET_OPPONENT_SOCKET_ID,
   TOGGLE_VIRTUAL_KEYBOARD,
+  SET_WORDS_ARRAY,
 } from "../constants.js";
 
 export const gameStateReducers = (state = {}, action) => {
@@ -64,34 +65,11 @@ export const gameStateReducers = (state = {}, action) => {
         ...state,
         typingCountdown: state.typingCountdown + 1,
       };
+
     case INCREMENT_CHARACTER_TYPED:
       return {
         ...state,
         charactersTyped: state.charactersTyped + 1,
-      };
-
-    case SET_ROOM_NAME:
-      return {
-        ...state,
-        roomName: action.payload,
-      };
-
-    case SET_MY_SOCKET_ID:
-      return {
-        ...state,
-        mySocketId: action.payload,
-      };
-
-    case SET_OPPONENT_SOCKET_ID:
-      return {
-        ...state,
-        opponentSocketId: action.payload,
-      };
-
-    case TOGGLE_VIRTUAL_KEYBOARD:
-      return {
-        ...state,
-        showKeyboard: action.payload,
       };
 
     case RESET_GAME_STATE:
