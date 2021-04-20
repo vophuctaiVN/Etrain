@@ -6,8 +6,6 @@ import {
   generateNewWordOnSuccess,
 } from "../../../redux/actions/currentPlayerActions";
 import {
-  incrementTotalWordsTyped,
-  incrementFluentWordsTyped,
   startTypingCountdown,
   incrementCharactersTyped,
 } from "../../../redux/actions/gameStateActions";
@@ -27,7 +25,6 @@ const RandomWord = () => {
     () => theRandomWord,
     [theRandomWord]
   );
-  const [fluentWord, setFluentWord] = useState(true);
   const [commenceCountDown, setCommenceCountDown] = useState(() => false);
 
   useEffect(() => {
@@ -44,15 +41,6 @@ const RandomWord = () => {
     if (randomlyGeneratedWord.length === 0) {
       dispatch(addAPointToCurrentPlayer(90 / wordArray.length));
       dispatch(generateNewWordOnSuccess(wordIndex + 1));
-      dispatch(incrementTotalWordsTyped());
-
-      if (fluentWord) {
-        dispatch(incrementFluentWordsTyped());
-      }
-
-      if (!fluentWord) {
-        setFluentWord(true);
-      }
     }
   }, [randomlyGeneratedWord, dispatch]);
 

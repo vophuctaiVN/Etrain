@@ -1,17 +1,7 @@
 import {
   CURRENT_PLAYER_POINT_INCREASE,
   GENERATE_NEW_WORD_ON_SUCCESS,
-  CURRENT_PLAYER_CHARACTER_SELECT,
 } from "../constants.js";
-
-export const selectCurrentPlayerCharacter = (character) => (dispatch) => {
-  dispatch({
-    type: CURRENT_PLAYER_CHARACTER_SELECT,
-    payload: {
-      currentPlayerCharacter: character,
-    },
-  });
-};
 
 export const addAPointToCurrentPlayer = (incrementPoints) => (
   dispatch,

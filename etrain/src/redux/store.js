@@ -3,8 +3,6 @@ import reducers from "./reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-//import randomWords from "random-words";
-
 const initialState = {
   currentPlayerInfo: {
     currentPlayerCharacter: "tortoise",
@@ -25,11 +23,6 @@ const initialState = {
     gameWon: false,
     opponentDifficultyLevel: 3,
     gameType: "",
-    totalWordsTyped: 0,
-    fluentWordsTyped: 0,
-    weakKeyStrokes: [],
-    typingCountdown: 0,
-    charactersTyped: 0,
   },
 };
 
