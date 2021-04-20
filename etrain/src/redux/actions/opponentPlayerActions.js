@@ -1,8 +1,6 @@
 import {
   OPPONENT_PLAYER_CHARACTER_SELECT,
   OPPONENT_PLAYER_POINT_INCREASE,
-  OPPONENT_PLAYER_POINT_INCREASE_MULTIPLAYER,
-  SET_OPPONENT_PLAYER_NAME,
 } from "../constants.js";
 
 export const selectOpponentPlayerCharacter = () => (dispatch, getState) => {

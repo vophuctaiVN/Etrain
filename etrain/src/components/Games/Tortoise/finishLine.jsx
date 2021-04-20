@@ -8,11 +8,11 @@ const FinishLine = () => {
   return (
     <div
       style={{
-        bottom: `${showKeyboard ? "35%" : "20%"}`,
+        bottom: "10%",
       }}
       className="overlapItem1"
     >
-      <p>FINISH LINE</p>
+      <img src="img/tortoise_images/flag-icon.png" />
     </div>
   );
 };

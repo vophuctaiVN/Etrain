@@ -9,16 +9,8 @@ const GameOver = ({ race_end_point }) => {
   const currentPlayerInfo = useSelector((state) => state.currentPlayerInfo);
   const opponentPlayerInfo = useSelector((state) => state.opponentPlayerInfo);
 
-  const {
-    currentPlayerPosition,
-    currentPlayerCharacter,
-    currentPlayerName,
-  } = currentPlayerInfo;
-  const {
-    opponentPlayerCharacter,
-    opponentPlayerPosition,
-    opponentPlayerName,
-  } = opponentPlayerInfo;
+  const { currentPlayerPosition } = currentPlayerInfo;
+  const { opponentPlayerPosition, opponentPlayerName } = opponentPlayerInfo;
 
   const resetFullGameHandler = () => {
     dispatch(resetFullGame());

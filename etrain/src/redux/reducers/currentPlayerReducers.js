@@ -3,9 +3,8 @@ import {
   GENERATE_NEW_WORD_ON_SUCCESS,
   CURRENT_PLAYER_CHARACTER_SELECT,
   RESET_CURRENT_PLAYER_INFO,
-  SET_CURRENT_PLAYER_NAME,
   SET_WORDS_ARRAY,
-} from "../constants.js";
+} from "../constants.js";  
 
 export const currentPlayerInfoReducer = (state = {}, action) => {
   switch (action.type) {
@@ -28,18 +27,14 @@ export const currentPlayerInfoReducer = (state = {}, action) => {
         randomlyGeneratedWord: action.payload.randomlyGeneratedWord,
       };
 
-    case SET_CURRENT_PLAYER_NAME:
-      return {
-        ...state,
-        currentPlayerName: action.payload,
-      };
-
     case RESET_CURRENT_PLAYER_INFO:
       return {
         ...state,
         currentPlayerName: "",
         currentPlayerCharacter: "tortoise",
         currentPlayerPosition: 0,
+        wordIndex: 0,
+        randomlyGeneratedWord: "start"
       };
 
     case SET_WORDS_ARRAY:

@@ -17,7 +17,11 @@ const RandomWord = () => {
   const [correctKeyPressed, setCorrectKeyPressed] = useState(() => true);
 
   const currentPlayerInfo = useSelector((state) => state.currentPlayerInfo);
-  const { randomlyGeneratedWord: theRandomWord, wordIndex } = currentPlayerInfo;
+  const {
+    randomlyGeneratedWord: theRandomWord,
+    wordIndex,
+    wordArray,
+  } = currentPlayerInfo;
 
   const [randomlyGeneratedWord, setRandomlyGeneratedWord] = useState(
     () => theRandomWord,
@@ -38,7 +42,7 @@ const RandomWord = () => {
 
   useEffect(() => {
     if (randomlyGeneratedWord.length === 0) {
-      dispatch(addAPointToCurrentPlayer(5));
+      dispatch(addAPointToCurrentPlayer(90 / wordArray.length));
       dispatch(generateNewWordOnSuccess(wordIndex + 1));
       dispatch(incrementTotalWordsTyped());
 

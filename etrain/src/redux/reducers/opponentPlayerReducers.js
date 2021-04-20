@@ -3,8 +3,6 @@ import {
   OPPONENT_PLAYER_POINT_INCREASE,
   RESET_OPPONENT_PLAYER_INFO,
   OPPONENT_PLAYER_POINT_INCREASE_MULTIPLAYER,
-  SET_OPPONENT_SOCKET_ID,
-  SET_OPPONENT_PLAYER_NAME,
 } from "../constants.js";
 
 export const opponentPlayerInfoReducer = (state = {}, action) => {
@@ -29,11 +27,6 @@ export const opponentPlayerInfoReducer = (state = {}, action) => {
         opponentPlayerPosition: action.payload.opponentPlayerPosition,
       };
 
-    case SET_OPPONENT_PLAYER_NAME:
-      return {
-        ...state,
-        opponentPlayerName: action.payload,
-      };
     case RESET_OPPONENT_PLAYER_INFO:
       return {
         opponentPlayerCharacter: "hare",
