@@ -113,7 +113,7 @@ class OrderWords extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 10,
+      questionTimeDuration: 1000,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -125,10 +125,12 @@ class OrderWords extends Component {
     let DetailClose = () =>
       this.setState({ hideReplay: false, stopTimer: true, isOpen: false });
 
+    const nowSentence = this.items[this.state.currentQuestionIndex - 1];
+
     return (
       <section className="blog_area section_padding">
         <div className="container">
-          <div className="row justify-content-center order-background words-container">
+          <div className="row justify-content-center words-container gamebackground">
             <ResultModal
               isOpen={this.state.isOpen}
               score={this.state.score}
@@ -153,9 +155,7 @@ class OrderWords extends Component {
                 className="center"
               />
             </div>
-            <WordsArray
-              answer={this.items[this.state.currentQuestionIndex - 1]}
-            />
+            <WordsArray sentence={nowSentence} />
             <Footer
               hideReplay={this.state.hideReplay}
               onRefresh={this._playAgain}
@@ -173,14 +173,17 @@ class WordsArray extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: this.shuffle([...this.props.answer]),
+      items: this.shuffle([...this.props.sentence]),
+      userAnswer: [],
     };
+    this.wordClick = this.wordClick.bind(this);
+    this.wordBack = this.wordBack.bind(this);
   }
 
   //state chỉ khởi tạo 1 lần
   componentWillReceiveProps(nextProps) {
-    const array1 = nextProps.answer;
-    const array2 = this.props.answer;
+    const array1 = nextProps.sentence;
+    const array2 = this.props.sentence;
     if (
       array1.length != array2.length ||
       array1.every(function (value, index) {
@@ -192,7 +195,8 @@ class WordsArray extends Component {
 
   prepareComponentState(props) {
     this.setState({
-      items: this.shuffle([...props.answer]),
+      items: this.shuffle([...props.sentence]),
+      userAnswer: [],
     });
   }
 
@@ -247,12 +251,18 @@ class WordsArray extends Component {
 
   wordChecking() {
     const array1 = this.state.items;
-    const array2 = this.props.answer;
+    const array2 = this.props.sentence;
+    const array3 = this.state.userAnswer;
+    console.log(array3);
     if (
-      array1.length === array2.length &&
-      array1.every(function (value, index) {
-        return value === array2[index];
-      })
+      (array1.length === array2.length &&
+        array1.every(function (value, index) {
+          return value === array2[index];
+        })) ||
+      (array3.length === array2.length &&
+        array3.every(function (value, index) {
+          return value === array2[index];
+        }))
     ) {
       if (window.interval !== undefined) {
         clearInterval(window.interval);
@@ -261,27 +271,84 @@ class WordsArray extends Component {
     }
   }
 
+  wordClick(word, index) {
+    this.setState((prevState) => {
+      let newArray = [...prevState.userAnswer];
+      newArray.push(word);
+      let removedItems = [...prevState.items];
+      removedItems.splice(index, 1);
+      return { items: removedItems, userAnswer: newArray };
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("x");
+    this.wordChecking();
+  }
+
+  wordBack(word, index) {
+    this.setState((prevState) => {
+      let newArray = [...prevState.items];
+      newArray.push(word);
+      let removedItems = [...prevState.userAnswer];
+      removedItems.splice(index, 1);
+      return { items: newArray, userAnswer: removedItems };
+    });
+  }
+
   render() {
     return (
-      <ul className="words-container">
-        {this.state.items.map((item, idx) => (
-          <li
-            key={item}
-            onDragOver={() => this.onDragOver(idx)}
-            className="word-frame"
-          >
-            <div
-              draggable
-              onDragStart={(e) => this.onDragStart(e, idx)}
-              onDragEnd={this.onDragEnd}
-              style={{ backgroundColor: "red" }}
+      <>
+        <ul className="words-container">
+          {this.state.items.map((item, idx) => (
+            <li
+              key={item}
+              onDragOver={() => this.onDragOver(idx)}
+              className="word-frame"
+              onClick={() => this.wordClick(item, idx)}
             >
-              <span className="word-box">{item}</span>
+              <div
+                draggable
+                onDragStart={(e) => this.onDragStart(e, idx)}
+                onDragEnd={this.onDragEnd}
+              >
+                <div className="word-box">{item}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {this.state.userAnswer.length > 0 ? (
+          <Result
+            myanswer={this.state.userAnswer}
+            wordBack={this.wordBack}
+            checkResult={this.wordChecking}
+          />
+        ) : null}
+      </>
+    );
+  }
+}
+
+class Result extends Component {
+  render() {
+    return (
+      <section className="container-fluid main-area">
+        <div className="rowKA">
+          <div className="col-md-12">
+            <div className="question">
+              {this.props.myanswer.map((item, index) => (
+                <h1
+                  key={item}
+                  className="current-word"
+                  onClick={() => this.props.wordBack(item, index)}
+                >
+                  {item}
+                </h1>
+              ))}
             </div>
-            {/* <span className="content">{item}</span> */}
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+      </section>
     );
   }
 }

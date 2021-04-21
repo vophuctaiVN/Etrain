@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   startOpponentRun,
@@ -23,6 +23,9 @@ export default function Home(props) {
 
   const race_end_point = 90;
 
+  const [isOpen, setisOpen] = useState(false);
+  let DetailClose = () => setisOpen(false);
+
   useEffect(() => {
     if (
       opponentPlayerPosition >= race_end_point ||
@@ -30,6 +33,7 @@ export default function Home(props) {
     ) {
       dispatch(endOpponentRun());
       dispatch(endTypingCountdown());
+      setisOpen(true);
     }
   });
 
@@ -68,12 +72,22 @@ export default function Home(props) {
         style={{ backgroundSize: "100% 100%" }}
       >
         <div className="relative ">
-          {opponentPlayerPosition >= race_end_point ||
+          {/*  {opponentPlayerPosition >= race_end_point ||
           currentPlayerPosition >= race_end_point ? (
-            <GameOver race_end_point={race_end_point} />
+            <GameOver
+              race_end_point={race_end_point}
+              isOpen={isOpen}
+              onHide={DetailClose}
+            />
           ) : (
             <MainGame />
-          )}
+          )} */}
+          <GameOver
+            race_end_point={race_end_point}
+            isOpen={isOpen}
+            onHide={DetailClose}
+          />
+          <MainGame />
         </div>
       </div>
     </div>

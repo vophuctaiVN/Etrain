@@ -2,8 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "./button";
 import { resetFullGame } from "../../../redux/actions/gameStateActions";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
-const GameOver = ({ race_end_point }) => {
+const GameOver = ({ race_end_point, isOpen, onHide }) => {
   const dispatch = useDispatch();
 
   const currentPlayerInfo = useSelector((state) => state.currentPlayerInfo);
@@ -14,48 +15,30 @@ const GameOver = ({ race_end_point }) => {
 
   const resetFullGameHandler = () => {
     dispatch(resetFullGame());
+    close();
   };
 
+  const close = () => onHide();
   return (
-    <div className="mt-1">
-      <p
-        className={`text-5xl capitalize text-center ${
-          currentPlayerPosition >= race_end_point
-            ? "text-green-500"
-            : "text-red-500"
-        }`}
-      >
-        {opponentPlayerPosition >= race_end_point ? "You lost!" : "You won!"}
-      </p>
-
-      <p
-        className={`text-2xl capitalize text-center mt-5 ${
-          currentPlayerPosition >= race_end_point
-            ? "text-blue-700"
-            : "text-pink-700"
-        }`}
-      >
-        {opponentPlayerPosition >= race_end_point
-          ? `${opponentPlayerName} won, yuck...!`
-          : `YOU won, yeaaaah!`}
-      </p>
-
-      <p className="text-2xl text-yellow-500 capitalize text-center mt-5">
-        game over...
-      </p>
-
-      <div className="mt-3 sm:w-2/12 mx-auto">
-        <Button
-          mainColor="bg-purple-700"
-          hoverColor="bg-purple-500"
-          text="Play Again?"
-          textSize="text-3xl"
-          paddingX="px-3"
-          paddingY="py-2"
-          function_callback={() => resetFullGameHandler()}
-        />
-      </div>
-    </div>
+    <Modal isOpen={isOpen}>
+      <ModalBody style={{ display: "grid" }}>
+        <p
+          className={`text-center ${
+            currentPlayerPosition >= race_end_point
+              ? "font-curve-win"
+              : "font-curve-lost"
+          }`}
+        >
+          {opponentPlayerPosition >= race_end_point ? "You lost!" : "You won!"}
+        </p>
+        <button
+          onClick={() => resetFullGameHandler()}
+          className="btn btn-outline-success"
+        >
+          Play Again?
+        </button>
+      </ModalBody>
+    </Modal>
   );
 };
 

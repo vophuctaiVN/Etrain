@@ -103,14 +103,12 @@
 }
 
 /*order words game*/
-.order-background {
-  background: rgb(255, 250, 222);
-}
 
 .word-box {
   width: 112px;
   height: 62px;
-  background: rgb(255, 217, 0);
+  background: white;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,10 +120,11 @@
   height: 70px;
   border: solid slategray 4px;
   margin: 15px;
+  -webkit-box-shadow: 0 3px 9px;
 }
 
 .words-container {
-  color: slategray;
+  /* color: slategray; */
   font-size: 20px;
   display: flex;
   flex-direction: row;
@@ -142,6 +141,8 @@
   width: 50%;
 }
 
+/*tortoise and hare game*/
+
 .character {
   width: 8rem;
 }
@@ -155,7 +156,7 @@
   margin-left: 90%;
   height: 35%;
   bottom: 10%;
-  text-align: center;
+  transform: scaleX(-1);
 }
 
 .overlapItem2 {
@@ -191,4 +192,31 @@
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.opponent_name {
+  text-align: center;
+  color: brown;
+}
+
+.font-curve {
+  font-family: "Papyrus";
+  font-size: xxx-large;
+  color: green;
+}
+
+.font-curve-win {
+  font-family: "Brush Script MT", cursive;
+  font-size: xxx-large;
+  color: blue;
+}
+
+.font-curve-lost {
+  font-family: "Brush Script MT", cursive;
+  font-size: xxx-large;
+  color: red;
+}
+
+.current-word {
+  cursor: pointer;
 }

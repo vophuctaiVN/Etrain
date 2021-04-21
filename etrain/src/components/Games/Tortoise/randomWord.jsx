@@ -39,7 +39,7 @@ const RandomWord = () => {
 
   useEffect(() => {
     if (randomlyGeneratedWord.length === 0) {
-      dispatch(addAPointToCurrentPlayer(90 / wordArray.length));
+      dispatch(addAPointToCurrentPlayer(90 / wordArray.length + 1));
       dispatch(generateNewWordOnSuccess(wordIndex + 1));
     }
   }, [randomlyGeneratedWord, dispatch]);
@@ -64,22 +64,20 @@ const RandomWord = () => {
       <div className="flex justify-center">
         <div className="inline-block p-3 bg-green-400 bg-opacity-20 rounded-lg">
           {correctKeyPressed ? (
-            <p className="inline-block text-center text-green-800 font-semibold text-3xl">
+            <p className="inline-block text-center  font-curve">
               {randomlyGeneratedWord}
             </p>
           ) : (
             <div>
-              <p className="inline-block text-center text-red-600 font-semibold text-3xl">
+              <p className="inline-block text-center  font-curve">
                 {randomlyGeneratedWord.charAt(0)}
               </p>
-              <p className="inline-block text-center text-green-900 font-semibold text-3xl">
+              <p className="inline-block text-center  font-curve">
                 {randomlyGeneratedWord.substr(1)}
               </p>
             </div>
           )}
-          <p className="text-center text-green-900 font-semibold text-xl">
-            {randomlyGeneratedWord.length}
-          </p>
+          <p className="text-center">{randomlyGeneratedWord.length}</p>
         </div>
       </div>
     </>

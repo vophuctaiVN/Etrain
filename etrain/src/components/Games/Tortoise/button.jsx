@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react"
+import React from "react";
 const Button = ({
   mainColor,
   hoverColor,
@@ -22,12 +22,12 @@ const Button = ({
         style={{ fontFamily: "Schoolbell" }}
         className={`${
           textSize ? textSize : "text-4xl"
-        } tracking-wider text-white text-center`}
+        } tracking-wider text-center`}
       >
         {text}
       </p>
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

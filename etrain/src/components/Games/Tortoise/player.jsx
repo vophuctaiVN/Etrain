@@ -18,11 +18,9 @@ const Player = ({
         className="overlapItem2"
         style={{
           marginLeft: position + "%",
-          // top: `${showKeyboard ? "26vh" : "48vh"}`,
-          //bottom: `${showKeyboard ? "33%" : "10%"}`,
         }}
       >
-        <p className="">{playerName}</p>
+        <p className="opponent_name">{playerName}</p>
         <img className="character" src={charImgSrc} alt={charImgAlt} />
       </div>
     </>
