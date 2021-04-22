@@ -123,6 +123,14 @@
   -webkit-box-shadow: 0 3px 9px;
 }
 
+.suggest-word-frame {
+  width: 120px;
+  height: 70px;
+  border: solid green 4px;
+  margin: 15px;
+  -webkit-box-shadow: 0 3px 9px;
+}
+
 .words-container {
   /* color: slategray; */
   font-size: 20px;
@@ -219,4 +227,14 @@
 
 .current-word {
   cursor: pointer;
+  display: inline-block;
+  margin-right: 10px !important;
+}
+
+.error-current-word {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px !important;
+  color: red;
+  font-weight: bold;
 }

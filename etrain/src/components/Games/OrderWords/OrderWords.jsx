@@ -3,6 +3,7 @@ import ScoreMain from "../MatchingWord/score";
 import Footer from "../MatchingWord/footer";
 import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
+import { BsFillQuestionOctagonFill } from "react-icons/bs";
 
 class OrderWords extends Component {
   constructor(props) {
@@ -30,7 +31,13 @@ class OrderWords extends Component {
 
   itemByCharacter(exampleProps) {
     const items = [];
-    exampleProps.forEach((object) => items.push(object.example.split(" ")));
+    exampleProps.forEach((object) => {
+      let setence =
+        object.example.split("/(?<=.)/") ||
+        object.example.split("/(?<=?)/") ||
+        object.example.split("/(?<=!)/");
+      items.push(setence[0].split(" "));
+    });
     return items;
   }
 
@@ -69,7 +76,7 @@ class OrderWords extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 10,
+      questionTimeDuration: 10000,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -113,7 +120,7 @@ class OrderWords extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 1000,
+      questionTimeDuration: 10,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -175,9 +182,12 @@ class WordsArray extends Component {
     this.state = {
       items: this.shuffle([...this.props.sentence]),
       userAnswer: [],
+      suggestWord: "",
+      myFault: "",
     };
     this.wordClick = this.wordClick.bind(this);
     this.wordBack = this.wordBack.bind(this);
+    this.suggestWord = this.suggestWord.bind(this);
   }
 
   //state chỉ khởi tạo 1 lần
@@ -250,10 +260,10 @@ class WordsArray extends Component {
   };
 
   wordChecking() {
+    //2 tu trung thi sao?
     const array1 = this.state.items;
     const array2 = this.props.sentence;
     const array3 = this.state.userAnswer;
-    console.log(array3);
     if (
       (array1.length === array2.length &&
         array1.every(function (value, index) {
@@ -271,18 +281,14 @@ class WordsArray extends Component {
     }
   }
 
-  wordClick(word, index) {
-    this.setState((prevState) => {
+  async wordClick(word, index) {
+    await this.setState((prevState) => {
       let newArray = [...prevState.userAnswer];
       newArray.push(word);
       let removedItems = [...prevState.items];
       removedItems.splice(index, 1);
       return { items: removedItems, userAnswer: newArray };
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log("x");
     this.wordChecking();
   }
 
@@ -292,8 +298,35 @@ class WordsArray extends Component {
       newArray.push(word);
       let removedItems = [...prevState.userAnswer];
       removedItems.splice(index, 1);
-      return { items: newArray, userAnswer: removedItems };
+      return { items: newArray, userAnswer: removedItems, myFault: "" };
     });
+  }
+
+  suggestWord() {
+    const arrRight = this.props.sentence;
+    const arrMine = this.state.userAnswer;
+    let indexWrong;
+
+    for (var index = 0; index < arrMine.length; ++index) {
+      if (arrMine[index] !== arrRight[index]) {
+        indexWrong = index;
+        break;
+      }
+    }
+
+    if (indexWrong !== undefined) {
+      //answer wrong
+      this.setState({
+        myFault: arrMine[indexWrong],
+      });
+      return;
+    } else {
+      //answer is allright up to now & no word
+      this.setState({
+        suggestWord: this.props.sentence[arrMine.length],
+      });
+      return;
+    }
   }
 
   render() {
@@ -304,7 +337,11 @@ class WordsArray extends Component {
             <li
               key={item}
               onDragOver={() => this.onDragOver(idx)}
-              className="word-frame"
+              className={
+                item == this.state.suggestWord
+                  ? "suggest-word-frame"
+                  : "word-frame"
+              }
               onClick={() => this.wordClick(item, idx)}
             >
               <div
@@ -317,11 +354,13 @@ class WordsArray extends Component {
             </li>
           ))}
         </ul>
+        <BsFillQuestionOctagonFill onClick={this.suggestWord} size={50} />
         {this.state.userAnswer.length > 0 ? (
           <Result
             myanswer={this.state.userAnswer}
             wordBack={this.wordBack}
             checkResult={this.wordChecking}
+            badWord={this.state.myFault}
           />
         ) : null}
       </>
@@ -339,7 +378,11 @@ class Result extends Component {
               {this.props.myanswer.map((item, index) => (
                 <h1
                   key={item}
-                  className="current-word"
+                  className={
+                    item === this.props.badWord
+                      ? "error-current-word"
+                      : "current-word"
+                  }
                   onClick={() => this.props.wordBack(item, index)}
                 >
                   {item}

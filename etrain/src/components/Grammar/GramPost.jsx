@@ -24,7 +24,6 @@ class GramPost extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if (prevProps.match.params.lessonid !== this.props.match.params.lessonid) {
       this.getLesson(this.props.match.params.lessonid);
       //localStorage.removeItem("tempimg");

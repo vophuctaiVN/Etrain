@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Button from "./button";
 import { resetFullGame } from "../../../redux/actions/gameStateActions";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 
 const GameOver = ({ race_end_point, isOpen, onHide }) => {
   const dispatch = useDispatch();
