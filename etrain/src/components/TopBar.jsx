@@ -115,14 +115,14 @@ class TopBar extends Component {
         </li>
       );
 
-      QAnav = (
+      /*   QAnav = (
         <li className="nav-item">
           <Link to={`/login`} className="nav-link">
             {" "}
             Q/A{" "}
           </Link>
         </li>
-      );
+      ); */
     }
 
     let iconStore;
@@ -198,11 +198,13 @@ class TopBar extends Component {
                         Home
                       </a>
                     </li>
-                    <li className="nav-item active">
-                      <Link to={`/journey`} className="nav-link">
-                        My journey
-                      </Link>
-                    </li>
+                    {this.isLogin ? (
+                      <li className="nav-item active">
+                        <Link to={`/journey`} className="nav-link">
+                          My journey
+                        </Link>
+                      </li>
+                    ) : null}
                     <li className="nav-item dropdown">
                       <a
                         className="nav-link dropdown-toggle"
