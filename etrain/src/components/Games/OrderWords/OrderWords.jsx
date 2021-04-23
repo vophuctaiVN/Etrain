@@ -76,7 +76,7 @@ class OrderWords extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 10000,
+      questionTimeDuration: 30,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -120,7 +120,7 @@ class OrderWords extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 10,
+      questionTimeDuration: 30,
       message: "Good Job",
       hideReplay: true,
       stopTimer: false,
@@ -194,12 +194,7 @@ class WordsArray extends Component {
   componentWillReceiveProps(nextProps) {
     const array1 = nextProps.sentence;
     const array2 = this.props.sentence;
-    if (
-      array1.length != array2.length ||
-      array1.every(function (value, index) {
-        return value !== array2[index];
-      })
-    )
+    if (JSON.stringify(array1) !== JSON.stringify(array2))
       this.prepareComponentState(nextProps);
   }
 
@@ -298,7 +293,12 @@ class WordsArray extends Component {
       newArray.push(word);
       let removedItems = [...prevState.userAnswer];
       removedItems.splice(index, 1);
-      return { items: newArray, userAnswer: removedItems, myFault: "" };
+      return {
+        items: newArray,
+        userAnswer: removedItems,
+        myFault: "",
+        suggestWord: "",
+      };
     });
   }
 

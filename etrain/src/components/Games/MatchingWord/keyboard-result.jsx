@@ -95,7 +95,7 @@ class KeyBoardAndResult extends React.Component {
 
           <div className="col-md-12">
             <div className="question">
-              <h1 className="current-word">{this.props.word}</h1>
+              <h1 className="current-word-center">{this.props.word}</h1>
             </div>
           </div>
         </div>

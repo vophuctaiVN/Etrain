@@ -173,10 +173,9 @@ class TopBar extends Component {
           <div className="row align-items-center">
             <div className="col-lg-12">
               <nav className="navbar navbar-expand-lg navbar-light">
-                <a className="navbar-brand" href="index.html">
-                  {" "}
+                <Link to={`/homepage`} className="navbar-brand">
                   <img src="img/logo.png" alt="logo" />{" "}
-                </a>
+                </Link>
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -194,11 +193,11 @@ class TopBar extends Component {
                 >
                   <ul className="navbar-nav align-items-center">
                     <li className="nav-item active">
-                      <a className="nav-link" href="index.html">
+                      <Link to={`/homepage`} className="nav-link">
                         Home
-                      </a>
+                      </Link>
                     </li>
-                    {this.isLogin ? (
+                    {this.state.isLogin ? (
                       <li className="nav-item active">
                         <Link to={`/journey`} className="nav-link">
                           My journey

@@ -370,6 +370,9 @@ account_create:BEGIN
     INSERT INTO `userInfo` (`ID_account`, `Name`, `Email`) VALUES (@AccountID, _Name, _Email);
     -- create new scoreInfo    
     INSERT INTO `user_scoreInfo` (`ID_account`) VALUES (@AccountID);
+    -- create first lesson by default A1 data
+    	INSERT INTO  todaylessons (`ID_account`, `ID_lesson`) VALUES (@AccountID, 1);
+
 
     SELECT @AccountID Result, 'Last username inserted' ErrorDesc;
 END$$

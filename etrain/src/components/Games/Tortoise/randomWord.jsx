@@ -39,7 +39,7 @@ const RandomWord = () => {
 
   useEffect(() => {
     if (randomlyGeneratedWord.length === 0) {
-      dispatch(addAPointToCurrentPlayer(90 / wordArray.length + 1));
+      dispatch(addAPointToCurrentPlayer(Math.ceil(90 / wordArray.length)));
       dispatch(generateNewWordOnSuccess(wordIndex + 1));
     }
   }, [randomlyGeneratedWord, dispatch]);

@@ -20,9 +20,14 @@ const MainGame = () => {
     opponentPlayerName,
   } = opponentPlayerInfo;
 
+  const race_end_point = 90;
+
   return (
     <>
-      <RandomWord />
+      {opponentPlayerPosition >= race_end_point ||
+      currentPlayerPosition >= race_end_point ? null : (
+        <RandomWord />
+      )}
       <div className="container-game">
         <Player
           className="overlapItem1"

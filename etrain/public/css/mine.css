@@ -230,7 +230,10 @@
   display: inline-block;
   margin-right: 10px !important;
 }
-
+.current-word-center {
+  cursor: pointer;
+  text-align: center;
+}
 .error-current-word {
   cursor: pointer;
   display: inline-block;

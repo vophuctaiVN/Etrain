@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   startOpponentRun,
@@ -64,6 +64,12 @@ export default function Home(props) {
       dispatch(setFirstwordArray(words));
     }
   }, [dispatch, wordArray]);
+
+  useLayoutEffect(() => {
+    return () => {
+      localStorage.removeItem("tempitems");
+    };
+  }, []);
 
   return (
     <div className="w-screen h-screen">
