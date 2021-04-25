@@ -67,7 +67,7 @@ CREATE PROCEDURE `reviewLessons_query` (
     _IDaccount INT
 )
 reviewLessons_query:BEGIN
-	SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE `ID_account` = _IDaccount AND ( DATEDIFF(now(), `FirstDate`) >= 1 AND `Times`=1 OR DATEDIFF(now(), `FirstDate`) >= 7 AND `Times`=2 OR DATEDIFF(now(), `FirstDate`) >= 30 AND `Times`=3) ORDER BY Times ASC; 
+	SELECT todaylessons.ID, ID_account, Times, FirstDate, Level, LessonsID, ExerciseID  FROM todaylessons INNER JOIN lessons ON todaylessons.ID_lesson = lessons.ID WHERE `ID_account` = _IDaccount AND ( (DATEDIFF(now(), `FirstDate`) >= 1 AND `Times`=1) OR (DATEDIFF(now(), `FirstDate`) >= 7 AND `Times`=2) OR (DATEDIFF(now(), `FirstDate`) >= 30 AND `Times`=3)) ORDER BY Times ASC; 
 END$$
 
 DELIMITER ;

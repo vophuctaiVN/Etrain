@@ -5,7 +5,7 @@ import Product from "../../components/Store/Product";
 
 const contents = {
   description:
-    "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.",
+    "We cannot show great content because of intellectual property rights infringement. Instead, you can refer to them through these books. This is the best way to contribute to our team and the author.",
 };
 
 class MenuView extends Component {
@@ -40,7 +40,7 @@ class MenuView extends Component {
           <div className="row justify-content-center my-5">
             <div className="col-md-7 heading-section text-center">
               <span className="subheading">Discover</span>
-              <h2 className="mb-4">Our Products</h2>
+              <h2 className="mb-4">Our Books</h2>
               <p>{contents.description}</p>
             </div>
           </div>

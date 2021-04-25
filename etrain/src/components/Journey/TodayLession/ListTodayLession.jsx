@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { GiSecretBook, GiCardPick } from "react-icons/gi";
 import { getCookiesValue } from "../../../utils/helpers";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 export class ListTodayLession extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ export class ListTodayLession extends Component {
       showMoreVocab: false,
       todayLesson: [],
       showMoreToggle: [],
+
+      userInfo: {},
     };
   }
 
@@ -38,10 +41,20 @@ export class ListTodayLession extends Component {
         items[0].arrayLesson.forEach((item) =>
           arrayStatusForToggle.push(false)
         );
-        this.setState({
-          todayLesson: items,
-          showMoreToggle: arrayStatusForToggle,
-        });
+        //get user info after get lesson
+        const queryObj = {
+          userid: getCookiesValue("userID"),
+        };
+        window
+          .UserInfo_Query(queryObj)
+          .then((info) =>
+            this.setState({
+              todayLesson: items,
+              showMoreToggle: arrayStatusForToggle,
+              userInfo: info.json.result.items[0],
+            })
+          )
+          .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   };
@@ -59,6 +72,9 @@ export class ListTodayLession extends Component {
           case 404:
           case 500:
           case 200:
+            this.getTodayContent({
+              iDaccount: getCookiesValue("userID"),
+            });
             break;
           default:
             break;
@@ -72,7 +88,7 @@ export class ListTodayLession extends Component {
     let gramVocab;
     if (lesson)
       gramVocab = lesson.arrayLesson.map((les, index) => (
-        <div className="bt_bb_accordion_item btWithIcon">
+        <div key={index} className="bt_bb_accordion_item btWithIcon">
           <div className="bt_bb_accordion_item_title_content">
             <div className="bt_bb_accordion_item_title">
               {les.type == "g" ? (
@@ -214,11 +230,74 @@ export class ListTodayLession extends Component {
                 </div>
               </div>{" "}
             </div>
+
+            {lesson.level !== this.state.userInfo.level ? (
+              <UperLevel
+                userProfile={this.state.userInfo}
+                level={lesson.level}
+              />
+            ) : null}
           </section>
-        ) : null}
+        ) : (
+          <section className="ftco-menu mb-5 pb-5 blog_area section_padding">
+            <div className="container">
+              <div className="row justify-content-center my-5">
+                <div className="col-md-7 heading-section text-center">
+                  <span className="subheading">Sorry</span>
+                  <h2 className="mb-4">Our Bad</h2>
+                  <p>
+                    Chúng tôi rất tiếc phải thông báo rằng không có bài học nào
+                    trong hệ thống phù hợp với bạn.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
       </>
     );
   }
 }
+
+const UperLevel = (props) => {
+  const [Isopen, setIsopen] = useState(true);
+  const close = () => setIsopen(false);
+
+  //  const close = () => props.onHide();
+  useEffect(() => {
+    console.log("change level");
+    const userProfile = props.userProfile;
+    const formData = {
+      IDaccount: getCookiesValue("userID"),
+      Score: userProfile.score,
+      PostLeft: userProfile.postLeft,
+      Level: props.level,
+    };
+    window
+      .SaveLevelAPI(formData)
+      .then((result) => {
+        switch (result.statusCode) {
+          case 400:
+          case 404:
+          case 500:
+          case 200:
+            break;
+          default:
+            break;
+        }
+      })
+      .catch((error) => console.log(error));
+  });
+  return (
+    <Modal isOpen={Isopen}>
+      <ModalHeader toggle={close}></ModalHeader>
+      <ModalBody style={{ display: "grid" }}>
+        <h2 className="mb-4">
+          Good Job {props.userProfile.name}! You are up to level {props.level}
+        </h2>
+      </ModalBody>
+    </Modal>
+  );
+};
 
 export default ListTodayLession;

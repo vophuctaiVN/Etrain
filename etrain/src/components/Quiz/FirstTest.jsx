@@ -173,7 +173,6 @@ class FirstTest extends Component {
               levelInfo.level === userLevelInfo.level ? "lightblue" : null,
           }}
         >
-          <h1>{userLevelInfo.level}</h1>
           <h2>{levelInfo.level}</h2>
           <h5>{levelInfo.levelName}</h5>
           <p>
@@ -213,15 +212,15 @@ class FirstTest extends Component {
             <br />
             <p>{userLevelInfo.levelExplain}</p>
             <div className="row align-items-sm-center align-items-lg-stretch">
-              <div className="col-md-3 col-lg-3 containerCenter">
+              {/* <div className="col-md-3 col-lg-3 containerCenter">
                 <Chart
                   options={this.state.options}
                   series={percentage}
                   type="radialBar"
                   width="200"
                 />
-              </div>
-              <div className="col-md-9 col-lg-9">
+              </div> */}
+              <div /* className="col-md-9 col-lg-9" */ className="col">
                 <div className="blog_details">
                   <h2>
                     <span className="ti-pencil-alt" />
@@ -233,15 +232,15 @@ class FirstTest extends Component {
             </div>
             <hr />
             <div className="row align-items-sm-center align-items-lg-stretch">
-              <div className="col-md-3 col-lg-3 containerCenter">
+              {/* <div className="col-md-3 col-lg-3 containerCenter">
                 <Chart
                   options={this.state.options}
                   series={percentage}
                   type="radialBar"
                   width="200"
                 />
-              </div>
-              <div className="col-md-9 col-lg-9">
+              </div> */}
+              <div /* className="col-md-9 col-lg-9" */ className="col">
                 <div className="blog_details">
                   <h2>
                     <span className="ti-ruler-pencil" />
@@ -305,7 +304,7 @@ class FirstTest extends Component {
           quiz={quiz}
           shuffle={true}
           showDefaultResult={false}
-          showInstantFeedback={true}
+          showInstantFeedback={false}
           customResultPage={this.renderCustomResultPage}
         />
       );
@@ -315,7 +314,9 @@ class FirstTest extends Component {
       <section className="blog_area section_padding">
         <div className="container">
           <div className="container">
-            <div className="row justify-content-center">{FullQuiz}</div>
+            <div className="row justify-content-center first-test">
+              {FullQuiz}
+            </div>
           </div>
         </div>
       </section>

@@ -38,6 +38,11 @@ export class ListReview extends Component {
           level={info.level}
           firstDate={info.firstDate}
           times={info.times}
+          realoadReview={() =>
+            this.getReviewList({
+              IDaccount: getCookiesValue("userID"),
+            })
+          }
           key={Math.random()}
         />
         {info.arrayLesson.map((less) => (

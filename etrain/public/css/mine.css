@@ -87,6 +87,10 @@
   border: none !important;
 }
 
+.first-test .incorrect,
+.first-test .correct {
+  background: black !important;
+}
 /*vocab topic*/
 
 .blog_item {

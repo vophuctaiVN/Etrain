@@ -15,6 +15,7 @@ class ReviewCard extends Component {
           case 404:
           case 500:
           case 200:
+            this.props.realoadReview();
             break;
           default:
             break;
@@ -26,9 +27,7 @@ class ReviewCard extends Component {
   render() {
     var dateNow = new Date();
     var date = Date.parse(this.props.firstDate.toString());
-    const daysAgo = Math.floor(
-      Math.abs(dateNow - date) / (1000 * 60 * 60 * 24)
-    );
+    const daysAgo = Math.ceil(Math.abs(dateNow - date) / (1000 * 60 * 60 * 24)); //Math floor khi đủ 24 giờ mới tính, nhưng theo mysql qua qua ngày là tính 1 (qua 12h)
 
     const dateObj = new Date(this.props.firstDate);
     const month = dateObj.getMonth() + 1;
