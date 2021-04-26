@@ -84,7 +84,16 @@
 .react-quiz-container .quiz-result-filter select {
   padding: 0 !important;
   height: 40px !important;
-  border: none !important;
+  border: 0px;
+  outline: 0px;
+}
+
+.react-quiz-container .questionWrapper .card-body {
+  display: block !important;
+}
+
+.react-quiz-container .quiz-result-filter {
+  display: 100%;
 }
 
 .first-test .incorrect,

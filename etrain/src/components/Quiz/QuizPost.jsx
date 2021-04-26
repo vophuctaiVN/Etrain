@@ -75,6 +75,7 @@ class QuizPost extends Component {
           shuffle={true}
           showDefaultResult={true}
           showInstantFeedback={true}
+          continueTillCorrect={true}
         />
       );
     }
