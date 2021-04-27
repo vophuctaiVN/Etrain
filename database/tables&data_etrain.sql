@@ -91,6 +91,7 @@ CREATE TABLE `quiz_question` (
     `answerSelectionType` VARCHAR(16) NOT NULL,
     `answers` VARCHAR(1024) NOT NULL,   
     `correctAnswer` VARCHAR(16) NOT NULL,
+    `explanation` VARCHAR(256),
     PRIMARY KEY (`ID`)
 );
 
