@@ -53,7 +53,7 @@ class QuizPost extends Component {
           correctAnswer: correctA,
           messageForCorrectAnswer: "Correct answer. Good job.",
           messageForIncorrectAnswer: "Incorrect answer. Please try again.",
-          explanation: "This is your explaination.",
+          explanation: q.explanation,
           point: "10",
         };
 

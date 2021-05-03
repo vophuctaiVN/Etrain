@@ -74,7 +74,7 @@ class AnswerPage extends Component {
     });
   }
 
-  render() { console.log(this.state);
+  render() {
     const localItem = JSON.parse(localStorage.getItem("tempimg"));
     var question = {};
     var profile = {};
@@ -144,7 +144,9 @@ class AnswerPage extends Component {
               </div>
             </div>
 
-            <h3>{this.state.totalitems/* question.numberOfAnswer */} Answers</h3>
+            <h3>
+              {this.state.totalitems /* question.numberOfAnswer */} Answers
+            </h3>
 
             {listanswers}
 
