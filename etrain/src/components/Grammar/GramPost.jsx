@@ -94,7 +94,7 @@ class GramPost extends Component {
 
             <div className="col-lg-4 right-contents">
               <MoreLesson />
-              {/* <GramQ /> */}
+              <GramQ />
             </div>
           </div>
         </div>
