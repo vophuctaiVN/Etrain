@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
-import routes from '../routes';
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import TopBar from "../components/TopBar";
+import Footer from "../components/Footer";
+import routes from "../routes";
 
 class HomepageLayout extends Component {
   render() {
@@ -13,6 +13,7 @@ class HomepageLayout extends Component {
           {getRoutes(routes)}
           <Redirect from="*" to="/homepage" />
         </Switch>
+        <div className="alert alert-primary d-none" id="alert"></div>
         <Footer />
       </>
     );
@@ -21,10 +22,15 @@ class HomepageLayout extends Component {
 
 function getRoutes(routes) {
   return routes.map((value, key) => {
-    if ('' === value.layout)
-      return (<Route key={key} path={value.layout + value.path} component={value.component} />);
-    else
-      return null;
+    if ("" === value.layout)
+      return (
+        <Route
+          key={key}
+          path={value.layout + value.path}
+          component={value.component}
+        />
+      );
+    else return null;
   });
 }
 

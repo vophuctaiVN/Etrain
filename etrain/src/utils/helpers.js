@@ -1,7 +1,6 @@
 import crypto from "crypto";
 import React from "react";
 import ReactDOM from "react-dom";
-import { userInfo } from "os";
 
 export const DOMAIN = "http://localhost:5000";
 export const USER_IMAGE_DOMAIN = "http://localhost:5000/userImage";
@@ -57,9 +56,10 @@ export function getRandomProducts(products) {
 }
 
 export function showAlert(message, detail) {
+  console.log("SHOW ELERT WORKS");
   const value = (
     <>
-      <b>{message}</b> {detail}
+      <strong class="text-danger">{message}</strong> {detail}
     </>
   );
   const alert = document.getElementById("alert");

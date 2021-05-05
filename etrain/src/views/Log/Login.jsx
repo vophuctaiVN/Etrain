@@ -4,6 +4,7 @@ import {
   setCookiesValue,
   hashToSHA1,
   getCookiesValue,
+  showAlert,
 } from "../../utils/helpers";
 
 class Login extends React.Component {
@@ -23,15 +24,16 @@ class Login extends React.Component {
     };
     window
       .AccountAPIsService_Authenticate(requestBody)
-      .then((result) => { console.log(result);
+      .then((result) => {
+        console.log(result);
         switch (result.statusCode) {
           case 401:
           case 404:
           case 500:
-            //            notify(result.json.error.message, result.json.error.detail, "error");
+            showAlert(result.json.error.message, result.json.error.detail);
             break;
-          case 200: 
-            setCookiesValue("authToken", result.json.result.token);            
+          case 200:
+            setCookiesValue("authToken", result.json.result.token);
             setCookiesValue("userID", result.json.result.id);
             window.location.href = "/hompage";
             window.location.reload();
