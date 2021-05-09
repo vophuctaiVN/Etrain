@@ -355,11 +355,11 @@ account_create:BEGIN
         _Username IS NULL OR _Username = '' OR
         _Password IS NULL OR _Password = ''
     ) THEN
-		SELECT -15 Result, 'Input enough information' ErrorDesc;
+		SELECT -20 Result, 'Input enough information' ErrorDesc;
 		LEAVE account_create;
     END IF;
     IF EXISTS (SELECT 1 FROM `account` WHERE _Username = `Username`) THEN
-		SELECT -8 Result, 'Duplicated user name for insert account' ErrorDesc;
+		SELECT -21 Result, 'Duplicated user name for insert account' ErrorDesc;
 		LEAVE account_create;
 	END IF;
     -- create new account

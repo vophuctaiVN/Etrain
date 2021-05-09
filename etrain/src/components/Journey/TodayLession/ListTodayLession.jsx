@@ -144,7 +144,7 @@ export class ListTodayLession extends Component {
 
     return (
       <>
-        {lesson ? (
+        {lesson && this.state.userInfo.level !== "No Level" ? (
           <section className="blog_area section_padding">
             <div className="container">
               <div className="bt_bb_cell">
@@ -246,8 +246,16 @@ export class ListTodayLession extends Component {
                   <span className="subheading">Sorry</span>
                   <h2 className="mb-4">Our Bad</h2>
                   <p>
-                    Chúng tôi rất tiếc phải thông báo rằng không có bài học nào
-                    trong hệ thống phù hợp với bạn.
+                    Sorry that we don't have any lesson for you now. Take a test
+                    to check your level!
+                  </p>
+                  <p>
+                    <Link
+                      to="/first-test"
+                      className="btn btn-primary btn-outline-primary px-4 py-3"
+                    >
+                      Take a test
+                    </Link>
                   </p>
                 </div>
               </div>

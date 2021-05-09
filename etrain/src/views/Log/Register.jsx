@@ -29,7 +29,6 @@ class Register extends React.Component {
               result.json.error.message,
               "Create new Account successfull"
             );
-            //notify(result.json.error.message, 'Create new Account successfull', "success");
             window.location.href = "/login";
             break;
           default:

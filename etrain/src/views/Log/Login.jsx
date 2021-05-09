@@ -35,6 +35,7 @@ class Login extends React.Component {
           case 200:
             setCookiesValue("authToken", result.json.result.token);
             setCookiesValue("userID", result.json.result.id);
+            showAlert(result.json.error.message, "Login successfull");
             window.location.href = "/hompage";
             window.location.reload();
             break;

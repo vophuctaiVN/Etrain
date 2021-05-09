@@ -86,7 +86,7 @@ namespace aspnetcore.Services
                 }).FirstOrDefault();
             int ID = result.Result;
             if (0 > ID)
-                return ((ResultCode)Math.Abs(ID), null);
+                return ((ResultCode)Math.Abs(ID), null); //result code là enum nên đếm thứ tự như array khi error 15 thì đếm từ 0-15 là ra.
 
             return (ResultCode.SUCCESS, ID);
         }

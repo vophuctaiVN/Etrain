@@ -56,7 +56,6 @@ export function getRandomProducts(products) {
 }
 
 export function showAlert(message, detail) {
-  console.log("SHOW ELERT WORKS");
   const value = (
     <>
       <strong class="text-danger">{message}</strong> {detail}
