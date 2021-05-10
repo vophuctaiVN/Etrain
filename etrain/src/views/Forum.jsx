@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { AskQuestion } from "../components/ForumQ/AskQuestion";
 import { QuestionElement } from "../components/ForumQ/Question-Element";
 import Pagination from "../components/Pagination";
-import { setCookiesValue, hashToSHA1, getCookiesValue } from "../utils/helpers";
 class Forum extends Component {
   constructor(props) {
     super(props);

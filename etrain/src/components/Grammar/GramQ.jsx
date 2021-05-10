@@ -1,7 +1,116 @@
 import React, { Component } from "react";
+import {
+  getCookiesValue,
+  showAlert,
+  USER_IMAGE_DOMAIN,
+} from "../../utils/helpers";
 
 class GramQ extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questionList: [],
+      totalitems: 0,
+      pageNo: 1,
+      pageSize: 5,
+    };
+  }
+
+  componentDidMount() {
+    this.getQuestionList({
+      Search: document.getElementById("question").value,
+      PageNo: this.state.pageNo,
+      PageSize: this.state.pageSize,
+    });
+  }
+
+  getQuestionList = (object) => {
+    const { PageNo, PageSize, Search } = object;
+    const queryObj = {
+      PageNo,
+      PageSize,
+      Search,
+    };
+    window
+      .ForumQuestionList_Query(queryObj)
+      .then((result) =>
+        this.setState({
+          questionList: result.json.result.items,
+          totalitems: result.json.result.totalRows,
+          pageNo: PageNo,
+          pageSize: PageSize,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+
+  handleSubmitQuestion(event) {
+    event.preventDefault();
+    const formData = {
+      Question: document.getElementById("question").value,
+      Topic: window.location.pathname.replace("/", ""),
+      Detail: "",
+      IDaccount: getCookiesValue("userID"),
+    };
+    window
+      .Question_Create_APIsService_Update(formData)
+      .then((result) => {
+        switch (result.statusCode) {
+          case 400:
+          case 404:
+          case 500:
+            //notify(result.json.error.message, result.json.error.detail, "error");
+            break;
+          case 200:
+            showAlert(result.json.error.message, "You added new question!");
+            window.location.reload();
+            break;
+          default:
+            break;
+        }
+      })
+      .catch((error) => console.log(error));
+  }
   render() {
+    console.log(this.state.questionList);
+    let lisquestions = this.state.questionList.map((element) => (
+      <div className="comment-list">
+        <div className="single-comment single-reviews justify-content-between d-flex">
+          <div className="user justify-content-between d-flex">
+            <div className="thumb">
+              <img
+                src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
+                alt=""
+              />
+            </div>
+            <div className="desc">
+              <h5>
+                <a href="# ">{element.profile.name}</a>
+              </h5>
+              <div className="rating">
+                <a href="# ">
+                  <img src="img/icon/color_star.svg" alt="" />
+                </a>
+                <a href="# ">
+                  <img src="img/icon/color_star.svg" alt="" />
+                </a>
+                <a href="# ">
+                  <img src="img/icon/color_star.svg" alt="" />
+                </a>
+                <a href="# ">
+                  <img src="img/icon/color_star.svg" alt="" />
+                </a>
+                <a href="# ">
+                  <img src="img/icon/star.svg" alt="" />
+                </a>
+              </div>
+              <p className="comment">{element.question.question}</p>
+            </div>
+          </div>
+          {/* <p style={{ float: "right" }}>{element.question.question}</p> */}
+        </div>
+      </div>
+    ));
     return (
       <>
         <h4 className="title">Question?</h4>
@@ -13,118 +122,19 @@ class GramQ extends Component {
               cols={10}
               rows={10}
               defaultValue={""}
+              id="question"
             />
             <div className="mt-10 text-right">
-              <a href="# " className="btn_1">
+              <a
+                href="# "
+                className="btn_1"
+                onClick={this.handleSubmitQuestion.bind(this)}
+              >
                 Send your question
               </a>
             </div>
           </div>
-          <div className="comments-area mb-30">
-            <div className="comment-list">
-              <div className="single-comment single-reviews justify-content-between d-flex">
-                <div className="user justify-content-between d-flex">
-                  <div className="thumb">
-                    <img src="img/cource/cource_1.png" alt="" />
-                  </div>
-                  <div className="desc">
-                    <h5>
-                      <a href="# ">Emilly Blunt</a>
-                    </h5>
-                    <div className="rating">
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/star.svg" alt="" />
-                      </a>
-                    </div>
-                    <p className="comment">
-                      How many question can i make if i have 4 starts?
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="comment-list">
-              <div className="single-comment single-reviews justify-content-between d-flex">
-                <div className="user justify-content-between d-flex">
-                  <div className="thumb">
-                    <img src="img/cource/cource_2.png" alt="" />
-                  </div>
-                  <div className="desc">
-                    <h5>
-                      <a href="# ">Elsie Cunningham</a>
-                    </h5>
-                    <div className="rating">
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/star.svg" alt="" />
-                      </a>
-                    </div>
-                    <p className="comment">
-                      I am just able to show 3 questions in that fiels. The
-                      pictures will be smaller by length of question
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="comment-list">
-              <div className="single-comment single-reviews justify-content-between d-flex">
-                <div className="user justify-content-between d-flex">
-                  <div className="thumb">
-                    <img src="img/cource/cource_3.png" alt="" />
-                  </div>
-                  <div className="desc">
-                    <h5>
-                      <a href="# ">Maria Luna</a>
-                    </h5>
-                    <div className="rating">
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/color_star.svg" alt="" />
-                      </a>
-                      <a href="# ">
-                        <img src="img/icon/star.svg" alt="" />
-                      </a>
-                    </div>
-                    <p className="comment">
-                      Is there any guys know how to make a sentenses from it?
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className="comments-area mb-30">{lisquestions}</div>
         </div>
       </>
     );
