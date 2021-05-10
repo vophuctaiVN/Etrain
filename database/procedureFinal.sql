@@ -105,3 +105,34 @@ END$$
 
 DELIMITER ;
 
+-- check if words memorize procedure -- get all remember word
+DROP procedure IF EXISTS `getMyWords`;
+DELIMITER $$
+CREATE PROCEDURE `getMyWords` (
+	_IDaccount INT
+)
+getMyWords:BEGIN
+     SELECT * from memorizedwords where `ID_account` = _IDaccount;
+END$$
+DELIMITER ;
+-- remember word
+DROP procedure IF EXISTS `getMyWords`;
+DELIMITER $$
+CREATE PROCEDURE `addMyWords` (
+	_IDaccount INT,
+    _IDword INT
+)
+getMyWords:BEGIN
+     INSERT INTO `memorizedwords` (`ID_account`, `ID_word`) VALUES (_IDaccount, _IDword);
+END$$
+DELIMITER ;
+-- forget word
+DROP procedure IF EXISTS `getMyWords`;
+DELIMITER $$
+CREATE PROCEDURE `getMyWords` (
+	_IDaccount INT
+)
+getMyWords:BEGIN
+     SELECT * from memorizedwords where `ID_account` = _IDaccount;
+END$$
+DELIMITER ;

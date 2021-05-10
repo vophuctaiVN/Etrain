@@ -5,7 +5,6 @@ import { BiStar } from "react-icons/bi";
 class Word extends Component {
   state = { starColor: false };
   MemberForgetWord() {
-    console.log(this.state.starColor);
     this.setState({
       starColor: !this.state.starColor,
     });

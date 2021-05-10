@@ -26,6 +26,17 @@ CREATE TABLE `todaylessons` (
     PRIMARY KEY (`ID`)
 );
 
+
+-- memorizedwords table
+DROP TABLE IF EXISTS `memorizedwords`;
+CREATE TABLE `memorizedwords` (
+    `ID` INT NOT NULL AUTO_INCREMENT,              
+    `ID_account` INT NOT NULL,    
+    `ID_word` INT NOT NULL,            
+    PRIMARY KEY (`ID`)
+);
+
+
 --
 -- Insert Data
 --
