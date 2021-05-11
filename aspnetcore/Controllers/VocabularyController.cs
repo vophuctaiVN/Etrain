@@ -76,5 +76,25 @@ namespace aspnetcore.Controllers
                 new GeneralResponse { Result = queryResult, Error = error };
             return StatusCode(statusCode, response);
         }
+
+        [HttpPost]
+        [ProducesResponseType(typeof (List<int>), 200)]
+        [ProducesResponseType(500)]
+        public IActionResult RememberForgetWord(int accountID, int wordID)
+        {
+            ResultCode resultCode;
+            QueryModel queryResult;
+            (resultCode, queryResult) =
+                _service.RememberForgetWord(accountID, wordID);
+
+            Result error;
+            int statusCode = 0;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response =
+                new GeneralResponse { Result = queryResult, Error = error };
+            return StatusCode(statusCode, response);
+        }
     }
 }

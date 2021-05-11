@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getCookiesValue } from "../../utils/helpers";
 import Word from "./Word";
 import { Link } from "react-router-dom";
 class WordList extends Component {
@@ -6,7 +7,7 @@ class WordList extends Component {
     super(props);
     this.state = {
       items: [],
-      totalitems: 0,
+      rememberWords: [],
     };
   }
 
@@ -22,11 +23,15 @@ class WordList extends Component {
     };
     window
       .VocabularyByTopicAPIsService_Query(queryObj)
-      .then((result) =>
-        this.setState({
-          items: result.json.result.items,
-          totalitems: result.json.result.totalRows,
-        })
+      .then((wordsList) =>
+        window
+          .MyVocabularyQuery({ accountID: getCookiesValue("userID") })
+          .then((rememberwords) =>
+            this.setState({
+              items: wordsList.json.result.items,
+              rememberWords: rememberwords.json.result.items,
+            })
+          )
       )
       .catch((error) => console.log(error));
   };
@@ -39,9 +44,13 @@ class WordList extends Component {
     let allItems = [...this.state.items];
     let listvocab;
     if (allItems)
-      listvocab = allItems.map((vocab) => (
-        <Word key={Math.random()} vocab={vocab} />
-      ));
+      listvocab = allItems.map((vocab) =>
+        this.state.rememberWords.includes(vocab.id) ? (
+          <Word key={Math.random()} vocab={vocab} lightStar={true} />
+        ) : (
+          <Word key={Math.random()} vocab={vocab} lightStar={false} />
+        )
+      );
     return (
       <>
         <section className="blog_area section_padding">
