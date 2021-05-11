@@ -4,9 +4,8 @@ import {
   showAlert,
   USER_IMAGE_DOMAIN,
 } from "../../utils/helpers";
-import GramA from "./GramA";
 
-class GramQ extends Component {
+class GramA extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +13,7 @@ class GramQ extends Component {
       totalitems: 0,
       pageNo: 1,
       pageSize: 5,
-
-      showMoreToggle: [],
     };
-
-    this.ToggleClick = this.ToggleClick.bind(this);
   }
 
   componentDidMount() {
@@ -27,12 +22,6 @@ class GramQ extends Component {
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,
     });
-  }
-
-  ToggleClick(index) {
-    let cloneToggles = this.state.showMoreToggle;
-    cloneToggles[index] = !cloneToggles[index];
-    this.setState({ showMoreToggle: cloneToggles });
   }
 
   getQuestionList = (object) => {
@@ -83,9 +72,8 @@ class GramQ extends Component {
       .catch((error) => console.log(error));
   }
   render() {
-    console.log(this.state.questionList);
-    let lisquestions = this.state.questionList.map((element, index) => (
-      <div key={index} className="comment-list">
+    let lisquestions = this.state.questionList.map((element) => (
+      <div className="comment-list">
         <div className="single-comment single-reviews justify-content-between d-flex">
           <div className="user justify-content-between d-flex">
             <div className="thumb">
@@ -119,20 +107,15 @@ class GramQ extends Component {
             </div>
           </div>
         </div>
-        <p style={{ float: "right" }} onClick={() => this.ToggleClick(index)}>
-          {element.question.numberOfAnswer} answers
-        </p>
-        <p className={this.state.showMoreToggle[index] ? "" : "hidden"}>
-          <GramA />
-        </p>
       </div>
     ));
     return (
       <>
-        <h4 className="title">Question?</h4>
         <div className="content">
+          <div className="comments-area mb-30">{lisquestions}</div>
+
           <div className="feedeback">
-            <textarea
+            <input
               name="feedback"
               className="form-control"
               cols={10}
@@ -146,15 +129,14 @@ class GramQ extends Component {
                 className="btn_1"
                 onClick={this.handleSubmitQuestion.bind(this)}
               >
-                Send your question
+                Send your answer
               </a>
             </div>
           </div>
-          <div className="comments-area mb-30">{lisquestions}</div>
         </div>
       </>
     );
   }
 }
 
-export default GramQ;
+export default GramA;
