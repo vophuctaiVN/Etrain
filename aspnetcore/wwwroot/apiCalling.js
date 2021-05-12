@@ -1007,3 +1007,64 @@ async function StudyOrReviewDoneAPI(formData) {
     throw error;
   }
 }
+
+async function MyVocabularyQuery(queryObject) {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const queryString = serializeQueryString(queryObject);
+  const apiEndpoint = `${DOMAIN}/Vocabulary/MyVocabularyQuery`;
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function RememberForgetWordAPI(formData) {
+  var myHeaders = new Headers();
+  const queryObject = {
+    accountID: formData.accountID,
+    wordID: formData.wordID,
+  };
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  const apiEndpoint = `${DOMAIN}/Vocabulary/RememberForgetWord`;
+  const queryString = serializeQueryString(queryObject);
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+      case 400:
+      case 404:
+      case 500:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}

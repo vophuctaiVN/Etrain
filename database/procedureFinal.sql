@@ -112,27 +112,30 @@ CREATE PROCEDURE `getMyWords` (
 	_IDaccount INT
 )
 getMyWords:BEGIN
-     SELECT * from memorizedwords where `ID_account` = _IDaccount;
+     SELECT ID_word from memorizedwords where `ID_account` = _IDaccount;
 END$$
 DELIMITER ;
+
 -- remember word
-DROP procedure IF EXISTS `getMyWords`;
+DROP procedure IF EXISTS `addMyWords`;
 DELIMITER $$
 CREATE PROCEDURE `addMyWords` (
 	_IDaccount INT,
     _IDword INT
 )
-getMyWords:BEGIN
+addMyWords:BEGIN
      INSERT INTO `memorizedwords` (`ID_account`, `ID_word`) VALUES (_IDaccount, _IDword);
 END$$
 DELIMITER ;
+
 -- forget word
-DROP procedure IF EXISTS `getMyWords`;
+DROP procedure IF EXISTS `deleteMyWords`;
 DELIMITER $$
-CREATE PROCEDURE `getMyWords` (
-	_IDaccount INT
+CREATE PROCEDURE `deleteMyWords` (
+	_IDaccount INT,
+    _IDword INT
 )
-getMyWords:BEGIN
-     SELECT * from memorizedwords where `ID_account` = _IDaccount;
+deleteMyWords:BEGIN
+     DELETE from memorizedwords where `ID_account` = _IDaccount AND `ID_word` = _IDword;
 END$$
 DELIMITER ;

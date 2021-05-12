@@ -1,13 +1,23 @@
 import React, { Component } from "react";
+import { getCookiesValue } from "../../utils/helpers";
 import SpeakerSound from "./Sound";
 import { BiStar } from "react-icons/bi";
 
 class Word extends Component {
-  state = { starColor: false };
+  state = { starColor: this.props.lightStar };
   MemberForgetWord() {
-    this.setState({
-      starColor: !this.state.starColor,
-    });
+    window.AccountAPIsService_CheckAuth(getCookiesValue("authToken")).then(
+      window
+        .RememberForgetWordAPI({
+          accountID: getCookiesValue("userID"),
+          wordID: this.props.vocab.id,
+        })
+        .then(
+          this.setState({
+            starColor: !this.state.starColor,
+          })
+        )
+    );
   }
   render() {
     let vocab = this.props.vocab;
