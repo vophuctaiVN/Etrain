@@ -38,7 +38,8 @@ CREATE TABLE `gram_post_section` (
     `Usage` VARCHAR(1024) NOT NULL DEFAULT 'default.png',
     `Note` VARCHAR(256) NOT NULL DEFAULT 0,
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (ID_topic) REFERENCES gram_topics(ID) ON DELETE CASCADE
 );
 
 -- Grammar_Post_Section_Example table
@@ -49,7 +50,9 @@ CREATE TABLE `gram_post_section_example` (
     `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',
     `Example` VARCHAR(1024) NOT NULL,
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (ID_section) REFERENCES gram_post_section(ID) ON DELETE CASCADE
+
 );
 
 -- vocab_by_topic table
@@ -66,7 +69,8 @@ CREATE TABLE `vocab_by_topic` (
     `Example2` VARCHAR(256) NOT NULL,
     `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',    
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (ID_topic) REFERENCES vocab_topics(ID) ON DELETE CASCADE
 );
 
 -- quiz table
@@ -92,7 +96,8 @@ CREATE TABLE `quiz_question` (
     `answers` VARCHAR(1024) NOT NULL,   
     `correctAnswer` VARCHAR(16) NOT NULL,
     `explanation` VARCHAR(256),
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (ID_quiz) REFERENCES quiz(ID) ON DELETE CASCADE
 );
 
 -- userInfo table
@@ -106,7 +111,8 @@ CREATE TABLE `userInfo` (
     `Image` VARCHAR(1024) NOT NULL DEFAULT 'default.png',    
     `Address` VARCHAR(1024),     
     `About` VARCHAR(1024), 
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+	FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
 
 -- user_scoreInfo table
@@ -117,7 +123,8 @@ CREATE TABLE `user_scoreInfo` (
     `Score` INT NOT NULL DEFAULT 0,      
     `PostLeft` INT NOT NULL DEFAULT 20, 
     `Level` VARCHAR(8) NOT NULL DEFAULT "No Level",
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+	FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
 
 -- question table
@@ -130,7 +137,8 @@ CREATE TABLE `question` (
     `ID_account` INT NOT NULL,    
     `Time` DATETIME,              
     `NumberOfAnswer` INT NOT NULL DEFAULT 0,   
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
 -- answer table
 DROP TABLE IF EXISTS `answer`;
@@ -140,7 +148,8 @@ CREATE TABLE `answer` (
     `Detail` VARCHAR(1024) NOT NULL,         
     `ID_account` INT NOT NULL,    
     `Time` DATETIME,               
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+	FOREIGN KEY (ID_question) REFERENCES question(ID) ON DELETE CASCADE
 );
 
 

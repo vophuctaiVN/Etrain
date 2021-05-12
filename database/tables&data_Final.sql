@@ -23,7 +23,8 @@ CREATE TABLE `todaylessons` (
     `ID_lesson` INT NOT NULL,
     `Times` VARCHAR(4) NOT NULL DEFAULT 0, 
     `FirstDate` DATETIME NOT NULL DEFAULT now(),               
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+	FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
 
 
@@ -33,7 +34,8 @@ CREATE TABLE `memorizedwords` (
     `ID` INT NOT NULL AUTO_INCREMENT,              
     `ID_account` INT NOT NULL,    
     `ID_word` INT NOT NULL,            
-    PRIMARY KEY (`ID`)
+    PRIMARY KEY (`ID`),
+	FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
 
 

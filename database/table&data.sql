@@ -1,4 +1,6 @@
 -- use awakecup database
+DROP DATABASE IF EXISTS awakecup;
+CREATE DATABASE awakecup;
 USE `awakecup`;
 
 --
