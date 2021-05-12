@@ -76,6 +76,7 @@ class GramA extends Component {
       <div className="comment-list">
         <div className="single-comment single-reviews justify-content-between d-flex">
           <div className="user justify-content-between d-flex">
+            <div className="thumb"></div>
             <div className="thumb">
               <img
                 src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
