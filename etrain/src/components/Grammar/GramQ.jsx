@@ -23,7 +23,7 @@ class GramQ extends Component {
 
   componentDidMount() {
     this.getQuestionList({
-      Search: document.getElementById("question").value,
+      Search: /* window.location.pathname.replace("/", "") */ "",
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,
     });
@@ -83,7 +83,7 @@ class GramQ extends Component {
       .catch((error) => console.log(error));
   }
   render() {
-    console.log(this.state.questionList);
+    console.log(this.state.showMoreToggle);
     let lisquestions = this.state.questionList.map((element, index) => (
       <div key={index} className="comment-list">
         <div className="single-comment single-reviews justify-content-between d-flex">
@@ -123,7 +123,7 @@ class GramQ extends Component {
           {element.question.numberOfAnswer} answers
         </p>
         <p className={this.state.showMoreToggle[index] ? "" : "hidden"}>
-          <GramA />
+          <GramA questionID={this.state.showMoreToggle[index]} />
         </p>
       </div>
     ));
