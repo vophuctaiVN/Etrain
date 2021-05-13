@@ -9,108 +9,95 @@ class GramA extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionList: [],
+      answerList: [],
       totalitems: 0,
-      pageNo: 1,
-      pageSize: 5,
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.getQuestionList({
-      Search: document.getElementById("question").value,
-      PageNo: this.state.pageNo,
-      PageSize: this.state.pageSize,
-    });
+    this.getListAnswer(this.props.questionID);
   }
 
-  getQuestionList = (object) => {
-    const { PageNo, PageSize, Search } = object;
+  getListAnswer = (fatherID) => {
     const queryObj = {
-      PageNo,
-      PageSize,
-      Search,
+      fatherID,
     };
     window
-      .ForumQuestionList_Query(queryObj)
+      .ForumAnswerList_Query(queryObj)
       .then((result) =>
         this.setState({
-          questionList: result.json.result.items,
+          answerList: result.json.result.items,
           totalitems: result.json.result.totalRows,
-          pageNo: PageNo,
-          pageSize: PageSize,
         })
       )
       .catch((error) => console.log(error));
   };
 
-  handleSubmitQuestion(event) {
+  handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      Question: document.getElementById("question").value,
-      Topic: window.location.pathname.replace("/", ""),
-      Detail: "",
+      Detail: document.getElementById("answerDetail").value,
       IDaccount: getCookiesValue("userID"),
+      IDquestion: this.props.questionID,
     };
-    window
-      .Question_Create_APIsService_Update(formData)
-      .then((result) => {
-        switch (result.statusCode) {
-          case 400:
-          case 404:
-          case 500:
-            //notify(result.json.error.message, result.json.error.detail, "error");
-            break;
-          case 200:
-            showAlert(result.json.error.message, "You added new question!");
-            window.location.reload();
-            break;
-          default:
-            break;
-        }
-      })
-      .catch((error) => console.log(error));
+    window.Answer_Create_APIsService_Update(formData).then((result) => {
+      switch (result.statusCode) {
+        case 400:
+        case 404:
+        case 500:
+          break;
+        case 200:
+          showAlert(result.json.error.message, "You added new answer!");
+          document.getElementById("answerDetail").value = "";
+          this.getListAnswer(this.props.questionID);
+          break;
+        default:
+          break;
+      }
+    });
   }
+
   render() {
-    console.log(this.props);
-    let lisquestions = this.state.questionList.map((element) => (
-      <div className="comment-list">
-        <div className="single-comment single-reviews justify-content-between d-flex">
-          <div className="user justify-content-between d-flex">
-            <div className="thumb" style={{ width: "100px" }}></div>
-            <div className="thumb">
-              <img
-                src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
-                alt=""
-              />
-            </div>
-            <div className="desc">
-              <h5>
-                <a href="# ">{element.profile.name}</a>
-              </h5>
-              <div className="rating">
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/star.svg" alt="" />
-                </a>
+    const date = (Time) => {
+      console.log(Time);
+      const dateObj = new Date(Time);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const year = dateObj.getFullYear();
+      const hour = dateObj.getHours();
+      const minutes = dateObj.getMinutes();
+
+      const newdate = year + "/" + month + "/" + day;
+      const time = hour + ":" + minutes;
+
+      return newdate + " at " + time;
+    };
+
+    let lisquestions;
+    if (this.state.answerList)
+      lisquestions = this.state.answerList.map((element, index) => (
+        <div key={index} className="comment-list">
+          <div className="single-comment single-reviews justify-content-between d-flex">
+            <div className="user justify-content-between d-flex">
+              <div className="thumb" style={{ width: "100px" }}></div>
+              <div className="thumb">
+                <img
+                  src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
+                  alt=""
+                />
               </div>
-              <p className="comment">{element.question.question}</p>
+              <div className="desc">
+                <h5>
+                  <a href="# ">{element.profile.name}</a>
+                </h5>
+                <div className="rating">{element.answer.detail}</div>
+                <p className="comment">{date(element.answer.time)}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ));
+      ));
     return (
       <>
         <div className="content">
@@ -123,13 +110,13 @@ class GramA extends Component {
               cols={10}
               rows={10}
               defaultValue={""}
-              id="question"
+              id="answerDetail"
             />
             <div className="mt-10 text-right">
               <a
                 href="# "
                 className="btn_1"
-                onClick={this.handleSubmitQuestion.bind(this)}
+                onClick={this.handleSubmit.bind(this)}
               >
                 Send your answer
               </a>

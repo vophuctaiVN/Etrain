@@ -23,15 +23,16 @@ class GramQ extends Component {
 
   componentDidMount() {
     this.getQuestionList({
-      Search: /* window.location.pathname.replace("/", "") */ "",
+      Search: window.location.pathname.replace("/", ""),
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,
     });
   }
 
-  ToggleClick(index) {
+  ToggleClick(index, id) {
     let cloneToggles = this.state.showMoreToggle;
-    cloneToggles[index] = !cloneToggles[index];
+    if (!cloneToggles[index]) cloneToggles[index] = id;
+    else cloneToggles[index] = false;
     this.setState({ showMoreToggle: cloneToggles });
   }
 
@@ -60,7 +61,7 @@ class GramQ extends Component {
     const formData = {
       Question: document.getElementById("question").value,
       Topic: window.location.pathname.replace("/", ""),
-      Detail: "",
+      Detail: "No detail",
       IDaccount: getCookiesValue("userID"),
     };
     window
@@ -70,11 +71,15 @@ class GramQ extends Component {
           case 400:
           case 404:
           case 500:
-            //notify(result.json.error.message, result.json.error.detail, "error");
             break;
           case 200:
             showAlert(result.json.error.message, "You added new question!");
-            window.location.reload();
+            document.getElementById("question").value = "";
+            this.getQuestionList({
+              Search: window.location.pathname.replace("/", ""),
+              PageNo: this.state.pageNo,
+              PageSize: this.state.pageSize,
+            });
             break;
           default:
             break;
@@ -83,7 +88,21 @@ class GramQ extends Component {
       .catch((error) => console.log(error));
   }
   render() {
-    console.log(this.state.showMoreToggle);
+    const date = (Time) => {
+      console.log(Time);
+      const dateObj = new Date(Time);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const year = dateObj.getFullYear();
+      const hour = dateObj.getHours();
+      const minutes = dateObj.getMinutes();
+
+      const newdate = year + "/" + month + "/" + day;
+      const time = hour + ":" + minutes;
+
+      return newdate + " at " + time;
+    };
+
     let lisquestions = this.state.questionList.map((element, index) => (
       <div key={index} className="comment-list">
         <div className="single-comment single-reviews justify-content-between d-flex">
@@ -98,33 +117,20 @@ class GramQ extends Component {
               <h5>
                 <a href="# ">{element.profile.name}</a>
               </h5>
-              <div className="rating">
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/color_star.svg" alt="" />
-                </a>
-                <a href="# ">
-                  <img src="img/icon/star.svg" alt="" />
-                </a>
-              </div>
-              <p className="comment">{element.question.question}</p>
+              <div className="rating">{element.question.question}</div>
+              <p className="comment">{date(element.question.time)}</p>
             </div>
           </div>
         </div>
-        <p style={{ float: "right" }} onClick={() => this.ToggleClick(index)}>
+        <p
+          style={{ float: "right" }}
+          onClick={() => this.ToggleClick(index, element.question.id)}
+        >
           {element.question.numberOfAnswer} answers
         </p>
-        <p className={this.state.showMoreToggle[index] ? "" : "hidden"}>
+        {this.state.showMoreToggle[index] && (
           <GramA questionID={this.state.showMoreToggle[index]} />
-        </p>
+        )}
       </div>
     ));
     return (
