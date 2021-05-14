@@ -60,7 +60,6 @@ class GramA extends Component {
 
   render() {
     const date = (Time) => {
-      console.log(Time);
       const dateObj = new Date(Time);
       const month = dateObj.getMonth() + 1;
       const day = dateObj.getDate();

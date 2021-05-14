@@ -51,6 +51,7 @@ class GramQ extends Component {
           totalitems: result.json.result.totalRows,
           pageNo: PageNo,
           pageSize: PageSize,
+          showMoreToggle: [],
         })
       )
       .catch((error) => console.log(error));
@@ -89,7 +90,6 @@ class GramQ extends Component {
   }
   render() {
     const date = (Time) => {
-      console.log(Time);
       const dateObj = new Date(Time);
       const month = dateObj.getMonth() + 1;
       const day = dateObj.getDate();
@@ -106,7 +106,7 @@ class GramQ extends Component {
     let lisquestions = this.state.questionList.map((element, index) => (
       <div key={index} className="comment-list">
         <div className="single-comment single-reviews justify-content-between d-flex">
-          <div className="user justify-content-between d-flex">
+          <div className="user justify-content-between display-webkit-box">
             <div className="thumb">
               <img
                 src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
