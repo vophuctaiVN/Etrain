@@ -104,3 +104,12 @@ export async function getUserInfo() {
     .catch((error) => console.log(error));
   return userInfo;
 }
+
+export async function isLogin() {
+  let isLogin = false;
+  await window
+    .AccountAPIsService_CheckAuth(getCookiesValue("authToken"))
+    .then(() => (isLogin = true))
+    .catch((error) => (isLogin = false));
+  return isLogin;
+}

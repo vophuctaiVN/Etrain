@@ -4,6 +4,7 @@ import {
   showAlert,
   USER_IMAGE_DOMAIN,
 } from "../../utils/helpers";
+import { Link } from "react-router-dom";
 
 class GramA extends Component {
   constructor(props) {
@@ -78,10 +79,10 @@ class GramA extends Component {
       lisquestions = this.state.answerList.map((element, index) => (
         <div key={index} className="comment-list">
           <div className="single-comment single-reviews justify-content-between d-flex">
-            <div className="user justify-content-between d-flex">
-              <div className="thumb" style={{ width: "100px" }}></div>
-              <div className="thumb">
+            <div className="user justify-content-between display-webkit-box">
+              <div>
                 <img
+                  className="gram-answer-image"
                   src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
                   alt=""
                 />
@@ -99,28 +100,36 @@ class GramA extends Component {
       ));
     return (
       <>
-        <div className="content">
+        <div
+          className="content"
+          style={{ marginLeft: "30px", marginRight: "70px" }}
+        >
           <div className="comments-area mb-30">{lisquestions}</div>
-
-          <div className="feedeback">
-            <input
-              name="feedback"
-              className="form-control"
-              cols={10}
-              rows={10}
-              defaultValue={""}
-              id="answerDetail"
-            />
-            <div className="mt-10 text-right">
-              <a
-                href="# "
-                className="btn_1"
-                onClick={this.handleSubmit.bind(this)}
-              >
-                Send your answer
-              </a>
+          {this.props.isLogin ? (
+            <div className="feedeback" style={{ marginRight: "-70px" }}>
+              <textarea
+                name="feedback"
+                className="form-control"
+                cols={10}
+                rows={10}
+                defaultValue={""}
+                id="answerDetail"
+              />
+              <div className="mt-10 text-right">
+                <a
+                  href="# "
+                  className="btn_1"
+                  onClick={this.handleSubmit.bind(this)}
+                >
+                  Send
+                </a>
+              </div>
             </div>
-          </div>
+          ) : (
+            <p>
+              <Link to={`/login`}> Login </Link> to show your answer
+            </p>
+          )}
         </div>
       </>
     );

@@ -79,6 +79,7 @@ class Vocabulary extends Component {
     });
   }
   render() {
+    console.log(this.state);
     let rand_items;
     if (this.state.totalitems >= 6)
       rand_items = getRandomProducts(this.state.VocabList);
@@ -156,31 +157,18 @@ class Vocabulary extends Component {
                     <h4 className="widget_title">Category</h4>
                     <ul className="list cat-list">
                       <li>
-                        <a href="# " className="d-flex">
+                        <Link to={`/vocabulary`} className="d-flex">
                           <p>Vocabulary by Topic</p>
-                          <p>(37)</p>
-                        </a>
-                      </li>
-                      {/* <li>
-                        <Link to={`/flashcard`} className="d-flex">
-                          FlashCard
-                        </Link>
-                      </li> */}
-                      <li>
-                        <Link to={`/matchingword`} className="d-flex">
-                          Matching Words
+                          <p style={{ marginLeft: "5px" }}>
+                            ({this.state.totalitems})
+                          </p>
                         </Link>
                       </li>
                       <li>
-                        <Link to={`/orderwords`} className="d-flex">
-                          Order Sentence
+                        <Link to={`/mywords`} className="d-flex">
+                          My Words
                         </Link>
                       </li>
-                      {/* <li>
-                        <a href="# " className="d-flex">
-                          <p>My List</p>
-                        </a>
-                      </li> */}
                     </ul>
                   </aside>
                   <aside className="single_sidebar_widget popular_post_widget">

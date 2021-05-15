@@ -6,8 +6,12 @@ import GramPost from "./components/Grammar/GramPost";
 import WordList from "./components/Vocabulary/WordList.jsx";
 import Carousel_Card from "./components/Vocabulary/FlashCard/Carousel_Card.jsx";
 import QuizPage from "./views/Quiz.jsx";
+
+import MyWords from "./components/Vocabulary/MyWords.jsx";
+
 import Login from "./views/Log/Login.jsx";
 import Register from "./views/Log/Register.jsx";
+
 import QuizPost from "./components/Quiz/QuizPost.jsx";
 import Forum from "./views/Forum.jsx";
 import AnswerPage from "./components/ForumQ/AnswerPage.jsx";
@@ -60,6 +64,11 @@ const routes = [
     path: "/flashcard",
     layout: "",
     component: Carousel_Card,
+  },
+  {
+    path: "/mywords",
+    layout: "",
+    component: MyWords,
   },
   {
     path: "/quizs",

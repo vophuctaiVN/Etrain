@@ -5,7 +5,11 @@ class TopicCard extends React.Component {
     return (
       <article className="blog_item">
         <div className="blog_item_img">
-          <img className="card-img rounded-0" src={this.props.imgUrl} alt="" />
+          <img
+            className="card-img rounded-0 vocabtopic-image"
+            src={this.props.imgUrl}
+            alt=""
+          />
           <a className="blog_item_date" href="# ">
             <p>{this.props.level}</p>
           </a>

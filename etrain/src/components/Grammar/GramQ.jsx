@@ -3,14 +3,17 @@ import {
   getCookiesValue,
   showAlert,
   USER_IMAGE_DOMAIN,
+  isLogin,
 } from "../../utils/helpers";
 import GramA from "./GramA";
+import { Link } from "react-router-dom";
 
 class GramQ extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questionList: [],
+      loginStt: false,
       totalitems: 0,
       pageNo: 1,
       pageSize: 5,
@@ -45,15 +48,17 @@ class GramQ extends Component {
     };
     window
       .ForumQuestionList_Query(queryObj)
-      .then((result) =>
+      .then(async (result) => {
+        const x = await isLogin();
         this.setState({
           questionList: result.json.result.items,
           totalitems: result.json.result.totalRows,
           pageNo: PageNo,
           pageSize: PageSize,
           showMoreToggle: [],
-        })
-      )
+          loginStt: x,
+        });
+      })
       .catch((error) => console.log(error));
   };
 
@@ -104,7 +109,11 @@ class GramQ extends Component {
     };
 
     let lisquestions = this.state.questionList.map((element, index) => (
-      <div key={index} className="comment-list">
+      <div
+        key={index}
+        className="comment-list"
+        style={{ marginRight: "100px" }}
+      >
         <div className="single-comment single-reviews justify-content-between d-flex">
           <div className="user justify-content-between display-webkit-box">
             <div className="thumb">
@@ -129,7 +138,10 @@ class GramQ extends Component {
           {element.question.numberOfAnswer} answers
         </p>
         {this.state.showMoreToggle[index] && (
-          <GramA questionID={this.state.showMoreToggle[index]} />
+          <GramA
+            questionID={this.state.showMoreToggle[index]}
+            isLogin={this.state.loginStt}
+          />
         )}
       </div>
     ));
@@ -137,25 +149,31 @@ class GramQ extends Component {
       <>
         <h4 className="title">Question?</h4>
         <div className="content">
-          <div className="feedeback">
-            <textarea
-              name="feedback"
-              className="form-control"
-              cols={10}
-              rows={10}
-              defaultValue={""}
-              id="question"
-            />
-            <div className="mt-10 text-right">
-              <a
-                href="# "
-                className="btn_1"
-                onClick={this.handleSubmitQuestion.bind(this)}
-              >
-                Send your question
-              </a>
+          {this.state.loginStt ? (
+            <div className="feedeback">
+              <textarea
+                name="feedback"
+                className="form-control"
+                cols={10}
+                rows={10}
+                defaultValue={""}
+                id="question"
+              />
+              <div className="mt-10 text-right">
+                <a
+                  href="# "
+                  className="btn_1"
+                  onClick={this.handleSubmitQuestion.bind(this)}
+                >
+                  Send your question
+                </a>
+              </div>
             </div>
-          </div>
+          ) : (
+            <p>
+              <Link to={`/login`}> Login </Link> to ask question
+            </p>
+          )}
           <div className="comments-area mb-30">{lisquestions}</div>
         </div>
       </>
