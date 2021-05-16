@@ -41,7 +41,32 @@ class MyWords extends Component {
               <div className="col-lg-12 mb-5 mb-lg-0">
                 <div className="blog_right_sidebar">
                   <aside className="single_sidebar_widget popular_post_widget">
-                    <h3 className="widget_title">My Vocabulary</h3>
+                    <h3 className="widget_title">
+                      My Vocabulary{" "}
+                      <li
+                        className="nav-item dropdown"
+                        style={{ float: "right" }}
+                      >
+                        <a>Review</a>
+                        <div
+                          className="dropdown-menu"
+                          aria-labelledby="navbarDropdown"
+                        >
+                          <Link to={`/flashcard`} className="dropdown-item">
+                            {" "}
+                            FlashCard{" "}
+                          </Link>
+                          <Link to={`/matchingword`} className="dropdown-item">
+                            {" "}
+                            Matching Game{" "}
+                          </Link>
+                          <Link to={`/tortoise`} className="dropdown-item">
+                            {" "}
+                            Tortoise Game{" "}
+                          </Link>
+                        </div>
+                      </li>
+                    </h3>
                     {listvocab}
                   </aside>
                   <Link
@@ -52,7 +77,7 @@ class MyWords extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     FlashCard
                   </Link>
@@ -64,7 +89,7 @@ class MyWords extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     Matching Game
                   </Link>
@@ -77,7 +102,7 @@ class MyWords extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     Tortoise Game
                   </Link>

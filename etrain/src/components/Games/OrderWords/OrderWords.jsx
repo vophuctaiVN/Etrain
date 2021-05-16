@@ -33,9 +33,11 @@ class OrderWords extends Component {
     const items = [];
     exampleProps.forEach((object) => {
       let setence =
-        object.example.split("/(?<=.)/") ||
-        object.example.split("/(?<=?)/") ||
-        object.example.split("/(?<=!)/");
+        object.example.split(/(?<=\.)/) ||
+        object.example.split(/(?<=\?)/) ||
+        object.example.split(/(?<=\!)/);
+
+      console.log(setence);
       items.push(setence[0].split(" "));
     });
     return items;
@@ -157,8 +159,7 @@ class OrderWords extends Component {
                   this.exampleProps[this.state.currentQuestionIndex - 1]
                     .imageURL
                 }
-                height="500px"
-                width="500px"
+                style={{ height: "300px", width: "500px" }}
                 className="center"
               />
             </div>
@@ -353,8 +354,14 @@ class WordsArray extends Component {
               </div>
             </li>
           ))}
-        </ul>
-        <BsFillQuestionOctagonFill onClick={this.suggestWord} size={50} />
+        </ul>{" "}
+        <div className="suggestWord">
+          <BsFillQuestionOctagonFill
+            onClick={this.suggestWord}
+            size={50}
+            color="darkolivegreen"
+          />
+        </div>
         {this.state.userAnswer.length > 0 ? (
           <Result
             myanswer={this.state.userAnswer}

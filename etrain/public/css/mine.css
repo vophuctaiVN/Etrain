@@ -263,3 +263,12 @@
   height: 500px;
   object-fit: cover;
 }
+
+@media only screen and (min-width: 768px) {
+  .flashcard {
+    display: flex;
+  }
+  .fullWidth {
+    width: 400px;
+  }
+}

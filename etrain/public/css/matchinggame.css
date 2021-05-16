@@ -1,13 +1,13 @@
 /* Styles go here */
 
 .gamebackground {
-  background-color: #fcbd34;
+  background-color: beige;
   color: #fff;
 }
 
 .game-header,
 .game-footer {
-  background-color: #ff9a00;
+  background-color: cornsilk;
   padding: 10px;
 }
 .main-area {
@@ -54,7 +54,7 @@ h3#message {
 }
 .modal-content {
   position: relative;
-  background-color: wheat;
+  background-color: ivory;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid #711292;
@@ -81,9 +81,14 @@ h3#message {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  /* margin-right: -15px; */
   margin-left: -15px;
 }
 .charaterbuttion {
   background-color: white;
+}
+
+.suggestWord {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
 }

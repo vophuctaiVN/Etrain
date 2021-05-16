@@ -86,7 +86,7 @@ class GramPost extends Component {
                   },
                 }}
                 className="genric-btn success-border circle"
-                style={{ float: "right" }}
+                style={{ float: "right", marginTop: "20px" }}
               >
                 Order Sentense
               </Link>

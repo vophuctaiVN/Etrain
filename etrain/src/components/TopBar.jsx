@@ -114,15 +114,6 @@ class TopBar extends Component {
           </Link>
         </li>
       );
-
-      /*   QAnav = (
-        <li className="nav-item">
-          <Link to={`/login`} className="nav-link">
-            {" "}
-            Q/A{" "}
-          </Link>
-        </li>
-      ); */
     }
 
     let iconStore;
