@@ -27,12 +27,15 @@ class Word extends Component {
           <img className="vocab-img" src={vocab.imageURL} alt="post" />
           <div className="media-body">
             <h2>{vocab.en} </h2>
-            <BiStar
-              size={20}
-              color={this.state.starColor ? "#f9b700" : null}
-              style={{ float: "right", margin: "10px" }}
-              onClick={() => this.MemberForgetWord()}
-            />
+            {this.props.isShow ? (
+              <BiStar
+                size={20}
+                color={this.state.starColor ? "#f9b700" : null}
+                style={{ float: "right", margin: "10px" }}
+                onClick={() => this.MemberForgetWord()}
+              />
+            ) : null}
+
             <div>
               /{vocab.ipa}/ <SpeakerSound url={vocab.soundURL} />
             </div>
