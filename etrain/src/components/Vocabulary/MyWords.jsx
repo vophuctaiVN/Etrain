@@ -35,7 +35,12 @@ class MyWords extends Component {
     let listvocab;
     if (allItems)
       listvocab = allItems.map((vocab) => (
-        <Word key={Math.random()} vocab={vocab} lightStar={false} />
+        <Word
+          key={Math.random()}
+          vocab={vocab}
+          lightStar={false}
+          crossIcon={true}
+        />
       ));
     return (
       <>
