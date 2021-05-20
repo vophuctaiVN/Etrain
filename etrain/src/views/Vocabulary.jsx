@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TopicsList from "../components/Vocabulary/TopicsList";
 import Pagination from "../components/Pagination";
-import { getRandomProducts } from "../utils/helpers";
+import { getRandomProducts, isLogin } from "../utils/helpers";
 import { Link } from "react-router-dom";
 class Vocabulary extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Vocabulary extends Component {
     };
     window
       .VocabularyAPIsService_Query(queryObj)
-      .then((result) =>
+      .then(async (result) =>
         this.setState({
           VocabList: result.json.result.items,
           totalitems: result.json.result.totalRows,
@@ -43,6 +43,7 @@ class Vocabulary extends Component {
           pageSize: PageSize,
           //pagination
           lastpage: Math.ceil(result.json.result.totalRows / PageSize),
+          login: await isLogin(),
         })
       )
       .catch((error) => console.log(error));
@@ -164,11 +165,13 @@ class Vocabulary extends Component {
                           </p>
                         </Link>
                       </li>
-                      <li>
-                        <Link to={`/mywords`} className="d-flex">
-                          My Words
-                        </Link>
-                      </li>
+                      {this.state.login ? (
+                        <li>
+                          <Link to={`/mywords`} className="d-flex">
+                            My Words
+                          </Link>
+                        </li>
+                      ) : null}
                     </ul>
                   </aside>
                   <aside className="single_sidebar_widget popular_post_widget">

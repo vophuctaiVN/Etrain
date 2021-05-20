@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getCookiesValue } from "../../utils/helpers";
+import { getCookiesValue, isLogin } from "../../utils/helpers";
 import Word from "./Word";
 import { Link } from "react-router-dom";
 class WordList extends Component {
@@ -26,12 +26,14 @@ class WordList extends Component {
       .then((wordsList) =>
         window
           .MyVocabularyQuery({ accountID: getCookiesValue("userID") })
-          .then((rememberwords) =>
+          .then(async (rememberwords) => {
+            const x = await isLogin();
             this.setState({
               items: wordsList.json.result.items,
               rememberWords: rememberwords.json.result.items,
-            })
-          )
+              islogin: x,
+            });
+          })
       )
       .catch((error) => console.log(error));
   };
@@ -46,9 +48,19 @@ class WordList extends Component {
     if (allItems)
       listvocab = allItems.map((vocab) =>
         this.state.rememberWords.includes(vocab.id) ? (
-          <Word key={Math.random()} vocab={vocab} lightStar={true} />
+          <Word
+            key={Math.random()}
+            vocab={vocab}
+            lightStar={true}
+            isShow={this.state.islogin}
+          />
         ) : (
-          <Word key={Math.random()} vocab={vocab} lightStar={false} />
+          <Word
+            key={Math.random()}
+            vocab={vocab}
+            lightStar={false}
+            isShow={this.state.islogin}
+          />
         )
       );
     return (
@@ -65,7 +77,32 @@ class WordList extends Component {
 
                 <div className="blog_right_sidebar">
                   <aside className="single_sidebar_widget popular_post_widget">
-                    <h3 className="widget_title">List Vocabulary</h3>
+                    <h3 className="widget_title">
+                      List Vocabulary
+                      <li
+                        className="nav-item dropdown"
+                        style={{ float: "right" }}
+                      >
+                        <a>Review</a>
+                        <div
+                          className="dropdown-menu"
+                          aria-labelledby="navbarDropdown"
+                        >
+                          <Link to={`/flashcard`} className="dropdown-item">
+                            {" "}
+                            FlashCard{" "}
+                          </Link>
+                          <Link to={`/matchingword`} className="dropdown-item">
+                            {" "}
+                            Matching Game{" "}
+                          </Link>
+                          <Link to={`/tortoise`} className="dropdown-item">
+                            {" "}
+                            Tortoise Game{" "}
+                          </Link>
+                        </div>
+                      </li>
+                    </h3>
                     {listvocab}
                   </aside>
                   <Link
@@ -76,7 +113,7 @@ class WordList extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     FlashCard
                   </Link>
@@ -88,7 +125,7 @@ class WordList extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     Matching Game
                   </Link>
@@ -101,7 +138,7 @@ class WordList extends Component {
                       },
                     }}
                     className="genric-btn success-border circle"
-                    style={{ float: "right" }}
+                    style={{ float: "right", marginLeft: "10px" }}
                   >
                     Tortoise Game
                   </Link>

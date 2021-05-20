@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,11 +62,13 @@ namespace aspnetcore.Controllers
         [HttpGet]
         [ProducesResponseType(typeof (List<int>), 200)]
         [ProducesResponseType(500)]
-        public IActionResult MyVocabularyQuery([FromQuery] int accountID)
+        public IActionResult
+        MyVocabularyQuery([FromQuery] int accountID, Boolean showDetail = false)
         {
             ResultCode resultCode;
             QueryModel queryResult;
-            (resultCode, queryResult) = _service.MyVocabularyQuery(accountID);
+            (resultCode, queryResult) =
+                _service.MyVocabularyQuery(accountID, showDetail);
 
             Result error;
             int statusCode = 0;

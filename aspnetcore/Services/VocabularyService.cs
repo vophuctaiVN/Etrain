@@ -15,7 +15,10 @@ namespace aspnetcore.Services
 
         (ResultCode, QueryModel) VocabByTopicQuery(int ID_topic);
 
-        (ResultCode, QueryModel) MyVocabularyQuery(int accountID);
+        (ResultCode, QueryModel)
+        MyVocabularyQuery(
+            int accountID, Boolean detail = false
+        );
 
         (ResultCode, QueryModel) RememberForgetWord(int accountID, int wordID);
     }
@@ -49,15 +52,30 @@ namespace aspnetcore.Services
             return (ResultCode.SUCCESS, queryResult);
         }
 
-        public (ResultCode, QueryModel) MyVocabularyQuery(int accountID)
+        public (ResultCode, QueryModel)
+        MyVocabularyQuery(int accountID, Boolean detail = false)
         {
             QueryModel queryResult = new QueryModel();
-            List<int> myVocabularyIDs =
-                _procedureHelper
-                    .GetData<int>("getMyWords", new { IDaccount = accountID });
-            queryResult.TotalRows = myVocabularyIDs.Count;
-            queryResult.Items = myVocabularyIDs;
-            return (ResultCode.SUCCESS, queryResult);
+            if (detail)
+            {
+                List<VocabularyByTopicQueryDTO> myVocabularyIDs =
+                    _procedureHelper
+                        .GetData<VocabularyByTopicQueryDTO>("getMyWords",
+                        new { IDaccount = accountID });
+                queryResult.TotalRows = myVocabularyIDs.Count;
+                queryResult.Items = myVocabularyIDs;
+                return (ResultCode.SUCCESS, queryResult);
+            }
+            else
+            {
+                List<int> myVocabularyIDs =
+                    _procedureHelper
+                        .GetData<int>("getMyWords",
+                        new { IDaccount = accountID });
+                queryResult.TotalRows = myVocabularyIDs.Count;
+                queryResult.Items = myVocabularyIDs;
+                return (ResultCode.SUCCESS, queryResult);
+            }
         }
 
         public (ResultCode, QueryModel)

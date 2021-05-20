@@ -112,7 +112,7 @@ CREATE PROCEDURE `getMyWords` (
 	_IDaccount INT
 )
 getMyWords:BEGIN
-     SELECT ID_word from memorizedwords where `ID_account` = _IDaccount;
+     SELECT vocab_by_topic.ID, vocab_by_topic.en, vocab_by_topic.IPA, vocab_by_topic.SoundURL, vocab_by_topic.Type, vocab_by_topic.Vn, vocab_by_topic.Example1, vocab_by_topic.Example2, vocab_by_topic.ImageURL from memorizedwords join vocab_by_topic on memorizedwords.ID_word = vocab_by_topic.ID where `ID_account` = _IDaccount;
 END$$
 DELIMITER ;
 
@@ -139,3 +139,5 @@ deleteMyWords:BEGIN
      DELETE from memorizedwords where `ID_account` = _IDaccount AND `ID_word` = _IDword;
 END$$
 DELIMITER ;
+
+

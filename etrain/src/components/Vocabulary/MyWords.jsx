@@ -17,7 +17,10 @@ class MyWords extends Component {
 
   getMyVocab = () => {
     window
-      .MyVocabularyQuery({ accountID: getCookiesValue("userID") })
+      .MyVocabularyQuery({
+        accountID: getCookiesValue("userID"),
+        showDetail: true,
+      })
       .then((rememberwords) =>
         this.setState({
           items: rememberwords.json.result.items,
@@ -27,11 +30,17 @@ class MyWords extends Component {
   };
 
   render() {
+    console.log(this.state);
     let allItems = [...this.state.items];
     let listvocab;
     if (allItems)
       listvocab = allItems.map((vocab) => (
-        <Word key={Math.random()} vocab={vocab} lightStar={false} />
+        <Word
+          key={Math.random()}
+          vocab={vocab}
+          lightStar={false}
+          crossIcon={true}
+        />
       ));
     return (
       <>
@@ -42,7 +51,7 @@ class MyWords extends Component {
                 <div className="blog_right_sidebar">
                   <aside className="single_sidebar_widget popular_post_widget">
                     <h3 className="widget_title">
-                      My Vocabulary{" "}
+                      My Vocabulary ({this.state.items.length} words)
                       <li
                         className="nav-item dropdown"
                         style={{ float: "right" }}
