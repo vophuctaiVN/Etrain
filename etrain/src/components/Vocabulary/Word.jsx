@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { getCookiesValue } from "../../utils/helpers";
 import SpeakerSound from "./Sound";
 import { BiStar } from "react-icons/bi";
+import Speech from "react-speech";
 
 class Word extends Component {
+  speechRef = React.createRef();
   state = { starColor: this.props.lightStar };
   MemberForgetWord() {
     window.AccountAPIsService_CheckAuth(getCookiesValue("authToken")).then(
@@ -34,7 +36,15 @@ class Word extends Component {
               onClick={() => this.MemberForgetWord()}
             />
             <div>
-              /{vocab.ipa}/ <SpeakerSound url={vocab.soundURL} />
+              /{vocab.ipa}/ {/* <SpeakerSound url={vocab.soundURL} />{" "} */}
+              <Speech
+                text="Welcome to react speech"
+                pitch="1"
+                rate="1"
+                volume="1"
+                lang="en-GB"
+                voice="Google UK English Male"
+              />
             </div>
             <span>
               {vocab.type} {vocab.vn}

@@ -272,3 +272,17 @@
     width: 400px;
   }
 }
+
+.rs-play {
+  background: url(../img/icon/speaker_icon.jpg) no-repeat;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+/* hide all html path*/
+path {
+  display: none;
+}

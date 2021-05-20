@@ -18,7 +18,6 @@ class SpeakerSound extends React.Component {
   }
 
   togglePlay = () => {
-    console.log(this.props.url);
     this.setState({ play: !this.state.play }, () => {
       this.state.play ? this.audio.play() : this.audio.pause();
     });
