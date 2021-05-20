@@ -8,6 +8,14 @@ class FrontCard extends React.Component {
       height: "400px",
       width: "400px",
     };
+    var synonyms = require("synonyms");
+    const related = synonyms(item.en, "n");
+    let lisRelated;
+    if (related !== undefined) {
+      lisRelated = related.map((word) => (
+        <a style={{ marginRight: "30px" }}>{word}</a>
+      ));
+    }
     return (
       <article className="blog_item flashcard">
         <div className="blog_item_img">
@@ -22,8 +30,8 @@ class FrontCard extends React.Component {
           </a>
         </div>
         <div className="blog_details fullWidth">
-          <h2>/{item.ipa}/</h2>
-          <h3>
+          <h2>
+            /{item.ipa}/
             <Speech
               text={item.en}
               pitch="1"
@@ -32,7 +40,8 @@ class FrontCard extends React.Component {
               lang="en-GB"
               voice="Google UK English Male"
             />
-          </h3>
+          </h2>
+          <h3>{item.type}</h3>
           <p>
             {item.example1}{" "}
             <Speech
@@ -44,6 +53,23 @@ class FrontCard extends React.Component {
               voice="Google UK English Male"
             />
           </p>
+          <p>
+            {item.example2}{" "}
+            <Speech
+              text={item.example2}
+              pitch="1"
+              rate="1"
+              volume="1"
+              lang="en-GB"
+              voice="Google UK English Male"
+            />
+          </p>
+          {related !== undefined ? (
+            <>
+              <h3>Related Word</h3>
+              {lisRelated}
+            </>
+          ) : null}
         </div>
       </article>
     );

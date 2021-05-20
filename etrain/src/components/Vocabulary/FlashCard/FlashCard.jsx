@@ -23,11 +23,11 @@ export class FlashCard extends React.Component {
           isFlipped={this.state.isFlipped}
           flipDirection="vertical"
         >
-          <div onClick={this.handleClick}>
-            <FrontCard item = {this.props.item}></FrontCard>
+          <div onDoubleClick={this.handleClick}>
+            <FrontCard item={this.props.item}></FrontCard>
           </div>
-          <div onClick={this.handleClick}>
-            <BackCard item = {this.props.item}></BackCard>
+          <div onDoubleClick={this.handleClick}>
+            <BackCard item={this.props.item}></BackCard>
           </div>
         </ReactCardFlip>
       </>

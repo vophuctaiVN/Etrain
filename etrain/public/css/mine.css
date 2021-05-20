@@ -274,16 +274,19 @@
 }
 
 .rs-play {
-  background: url(../img/icon/speaker_icon.jpg) no-repeat;
+  background: url(../img/icon/speaker_icon.png) no-repeat;
   background-repeat: no-repeat;
   background-position: 0% 0%;
   background-size: 100% 100%;
-  min-width: 50px;
-  min-height: 50px;
+  min-width: 30px;
+  min-height: 30px;
+  margin-left: 20px;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 /* hide all html path*/
-path {
+.rs-play path {
   display: none;
 }
 
