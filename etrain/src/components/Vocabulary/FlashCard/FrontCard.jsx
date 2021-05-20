@@ -1,5 +1,5 @@
 import React from "react";
-import SpeakerSound from "../Sound";
+import Speech from "react-speech";
 
 class FrontCard extends React.Component {
   render() {
@@ -24,9 +24,26 @@ class FrontCard extends React.Component {
         <div className="blog_details fullWidth">
           <h2>/{item.ipa}/</h2>
           <h3>
-            <SpeakerSound url={item.soundURL} />
+            <Speech
+              text={item.en}
+              pitch="1"
+              rate="1"
+              volume="1"
+              lang="en-GB"
+              voice="Google UK English Male"
+            />
           </h3>
-          <p>{item.example1}</p>
+          <p>
+            {item.example1}{" "}
+            <Speech
+              text={item.example1}
+              pitch="1"
+              rate="1"
+              volume="1"
+              lang="en-GB"
+              voice="Google UK English Male"
+            />
+          </p>
         </div>
       </article>
     );

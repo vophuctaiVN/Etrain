@@ -1,4 +1,5 @@
 import React from "react";
+import Speech from "react-speech";
 
 class BackCard extends React.Component {
   render() {
@@ -23,7 +24,17 @@ class BackCard extends React.Component {
         <div className="blog_details fullWidth">
           <h2>/{item.ipa}/ </h2>
           <h3>{item.type}</h3>
-          <p>{item.example2}</p>
+          <p>
+            {item.example2}{" "}
+            <Speech
+              text={item.example2}
+              pitch="1"
+              rate="1"
+              volume="1"
+              lang="en-GB"
+              voice="Google UK English Male"
+            />
+          </p>
         </div>
       </article>
     );

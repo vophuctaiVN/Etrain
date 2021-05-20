@@ -61,24 +61,28 @@ class Word extends Component {
               <span>
                 {vocab.type} {vocab.vn}
               </span>
-              <p>{vocab.example1}</p>{" "}
-              <Speech
-                text={vocab.example1}
-                pitch="1"
-                rate="1"
-                volume="1"
-                lang="en-GB"
-                voice="Google UK English Male"
-              />
-              <p>{vocab.example2}</p>{" "}
-              <Speech
-                text={vocab.example2}
-                pitch="1"
-                rate="1"
-                volume="1"
-                lang="en-GB"
-                voice="Google UK English Male"
-              />
+              <p>
+                {vocab.example1}{" "}
+                <Speech
+                  text={vocab.example1}
+                  pitch="1"
+                  rate="1"
+                  volume="1"
+                  lang="en-GB"
+                  voice="Google UK English Male"
+                />
+              </p>{" "}
+              <p>
+                {vocab.example2}{" "}
+                <Speech
+                  text={vocab.example2}
+                  pitch="1"
+                  rate="1"
+                  volume="1"
+                  lang="en-GB"
+                  voice="Google UK English Male"
+                />
+              </p>{" "}
             </div>
           </div>
         ) : null}
