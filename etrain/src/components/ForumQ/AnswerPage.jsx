@@ -12,14 +12,14 @@ class AnswerPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.query)
+    /* if (this.props.location.query)
       localStorage.setItem(
         "tempimg",
         JSON.stringify(this.props.location.query)
-      );
-    this.getListAnswer(this.props.match.params.lessonid);
+      ); */
+    this.getQnListA(this.props.match.params.lessonid);
   }
-
+  /* 
   componentWillUnmount() {
     localStorage.removeItem("tempimg");
   }
@@ -34,19 +34,29 @@ class AnswerPage extends Component {
         JSON.stringify(this.props.location.query)
       );
   }
-
-  getListAnswer = (fatherID) => {
+ */
+  getQnListA = (fatherID) => {
     const queryObj = {
       fatherID,
     };
+
+    const queryObjQ = {
+      Search: this.props.match.params.lessonid,
+    };
     window
-      .ForumAnswerList_Query(queryObj)
-      .then((result) =>
-        this.setState({
-          answerList: result.json.result.items,
-          totalitems: result.json.result.totalRows,
-        })
-      )
+      .ForumQuestionList_Query(queryObjQ)
+      .then((question) => {
+        window
+          .ForumAnswerList_Query(queryObj)
+          .then((result) =>
+            this.setState({
+              question: question.json.result.items,
+              answerList: result.json.result.items,
+              totalitems: result.json.result.totalRows,
+            })
+          )
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
 

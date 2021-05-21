@@ -12,8 +12,6 @@ class WordList extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.topic_Image)
-      localStorage.setItem("tempimg", this.props.location.query.topic_Image);
     this.getVocabByTopic(this.props.match.params.lessonid);
   }
 
@@ -21,26 +19,29 @@ class WordList extends Component {
     const queryObj = {
       fatherID,
     };
+
     window
-      .VocabularyByTopicAPIsService_Query(queryObj)
-      .then((wordsList) =>
+      .VocabularyAPIsService_Query({ ID: fatherID })
+      .then((topic) => {
         window
-          .MyVocabularyQuery({ accountID: getCookiesValue("userID") })
-          .then(async (rememberwords) => {
-            const x = await isLogin();
-            this.setState({
-              items: wordsList.json.result.items,
-              rememberWords: rememberwords.json.result.items,
-              islogin: x,
-            });
-          })
-      )
+          .VocabularyByTopicAPIsService_Query(queryObj)
+          .then((wordsList) =>
+            window
+              .MyVocabularyQuery({ accountID: getCookiesValue("userID") })
+              .then(async (rememberwords) => {
+                const x = await isLogin();
+                this.setState({
+                  topics: topic.json.result.items,
+                  items: wordsList.json.result.items,
+                  rememberWords: rememberwords.json.result.items,
+                  islogin: x,
+                });
+              })
+          )
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
-
-  componentWillUnmount() {
-    localStorage.removeItem("tempimg");
-  }
 
   render() {
     let allItems = [...this.state.items];
@@ -69,12 +70,13 @@ class WordList extends Component {
           <div className="container">
             <div className="row">
               <div className="col-lg-12 mb-5 mb-lg-0">
-                <img
-                  className="card-img rounded-0 vocab-background-image"
-                  src={localStorage.getItem("tempimg")}
-                  alt=""
-                />
-
+                {this.state.topics ? (
+                  <img
+                    className="card-img rounded-0 vocab-background-image"
+                    src={this.state.topics[0].imageURL}
+                    alt=""
+                  />
+                ) : null}
                 <div className="blog_right_sidebar">
                   <aside className="single_sidebar_widget popular_post_widget">
                     <h3 className="widget_title">

@@ -33,20 +33,15 @@ class MoreLesson extends Component {
       )
       .catch((error) => console.log(error));
   };
-  render() { 
-    let suggested = this.state.suggest.map((suggest) => (
+  render() {
+    let suggested = this.state.suggest.map((suggest, index) => (
       <li>
-        <a className="justify-content-between d-flex" href="# ">
+        <a className="justify-content-between d-flex" ey={index}>
           <p>{suggest.title}</p>
           <span>
             <Link
               className="btn_2 text-uppercase"
-              to={{
-                pathname: `/grammar-${suggest.id}`,
-                query: {
-                  topic_Image: suggest.imageURL,
-                },
-              }}
+              to={`/grammar-${suggest.id}`}
             >
               View Details
             </Link>
@@ -57,7 +52,9 @@ class MoreLesson extends Component {
     return (
       <div className="sidebar_top">
         <ul>{suggested}</ul>
-        <Link to={`/grammar`} className="btn_1 d-block">View all grammar Posts</Link>
+        <Link to={`/grammar`} className="btn_1 d-block">
+          View all grammar Posts
+        </Link>
       </div>
     );
   }

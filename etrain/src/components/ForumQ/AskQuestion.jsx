@@ -22,7 +22,7 @@ export const AskQuestion = (props) => {
       Detail: document.getElementById("detail").value,
       IDaccount: getCookiesValue("userID"),
     };
-    console.log(formData);
+
     window
       .Question_Create_APIsService_Update(formData)
       .then((result) => {
@@ -41,7 +41,7 @@ export const AskQuestion = (props) => {
         }
       })
       .catch((error) => console.log(error));
-  }
+  };
 
   return (
     <div className="AskquestionModal">
@@ -51,7 +51,9 @@ export const AskQuestion = (props) => {
         </ModalHeader>
         <ModalBody>
           {/* Address */}
-          <h6 className="heading-small text-muted mb-4">What is your issue ?</h6>
+          <h6 className="heading-small text-muted mb-4">
+            What is your issue ?
+          </h6>
           <div className="pl-lg-4">
             <Row>
               <Col md="12">
@@ -69,7 +71,7 @@ export const AskQuestion = (props) => {
               </Col>
             </Row>
 
-            <Row style = {{marginTop : 10}}>
+            <Row style={{ marginTop: 10 }}>
               <Col md="6">
                 <FormGroup>
                   <label className="form-control-label" htmlFor="input-address">
@@ -88,7 +90,9 @@ export const AskQuestion = (props) => {
           </div>
           <hr className="my-4" />
           {/* Description */}
-          <h6 className="heading-small text-muted mb-4">Provide further information</h6>
+          <h6 className="heading-small text-muted mb-4">
+            Provide further information
+          </h6>
           <div className="pl-lg-4">
             <FormGroup>
               <label className="form-control-label">Detail</label>
@@ -104,7 +108,11 @@ export const AskQuestion = (props) => {
         </ModalBody>
         <ModalFooter>
           <div className="mt-10 text-right">
-            <a href="javascript:void(0)" className="btn_1" onClick={handleSubmit}>
+            <a
+              href="javascript:void(0)"
+              className="btn_1"
+              onClick={handleSubmit}
+            >
               Post
             </a>
           </div>

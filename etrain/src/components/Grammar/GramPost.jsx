@@ -14,40 +14,39 @@ class GramPost extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.topic_Image)
-      localStorage.setItem("tempimg", this.props.location.query.topic_Image);
     this.getLesson(this.props.match.params.lessonid);
-  }
-
-  componentWillUnmount() {
-    localStorage.removeItem("tempimg");
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.lessonid !== this.props.match.params.lessonid) {
       this.getLesson(this.props.match.params.lessonid);
-      //localStorage.removeItem("tempimg");
     }
-    if (this.props.location.query && this.props.location.query.topic_Image)
-      localStorage.setItem("tempimg", this.props.location.query.topic_Image);
   }
 
   getLesson = (fatherID) => {
-    const queryObj = {
+    const queryObjContent = {
       fatherID,
     };
+    const queryObjTopic = {
+      ID: fatherID,
+    };
     window
-      .LessonAPIsService_Query(queryObj)
-      .then((result) =>
-        this.setState({
-          items: result.json.result.items,
-          totalitems: result.json.result.totalRows,
-        })
-      )
+      .GrammarAPIsService_Query(queryObjTopic)
+      .then((topic) => {
+        window
+          .LessonAPIsService_Query(queryObjContent)
+          .then((result) =>
+            this.setState({
+              topics: topic.json.result.items,
+              items: result.json.result.items,
+              totalitems: result.json.result.totalRows,
+            })
+          )
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
 
-  //game
   getAllExample() {
     let rawExample = [];
     this.state.items.forEach((section) => {
@@ -57,9 +56,9 @@ class GramPost extends Component {
   }
 
   render() {
-    let listLessons = this.state.items.map((lesson) => (
+    let listLessons = this.state.items.map((lesson, index) => (
       <GramLesson
-        key={Math.random()}
+        key={index}
         content={lesson.sectionContent}
         examples={lesson.examples}
       />
@@ -71,11 +70,13 @@ class GramPost extends Component {
           <div className="row">
             <div className="col-lg-8 course_details_left">
               <div className="main_image">
-                <img
-                  className="img-fluid"
-                  src={localStorage.getItem("tempimg")}
-                  alt=""
-                />
+                {this.state.topics ? (
+                  <img
+                    className="img-fluid"
+                    src={this.state.topics[0].imageURL}
+                    alt=""
+                  />
+                ) : null}
               </div>
               {listLessons}
               <Link

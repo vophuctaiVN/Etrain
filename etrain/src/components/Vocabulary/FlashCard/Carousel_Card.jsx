@@ -31,9 +31,11 @@ class Carousel_Card extends React.Component {
 
     let listvocab;
     if (items) {
-      listvocab = items.map((item) => <FlashCard item = {item}></FlashCard>);
+      listvocab = items.map((item) => <FlashCard item={item}></FlashCard>);
     } else {
-      listvocab = this.state.items.map((item) => <FlashCard item = {item}></FlashCard>);
+      listvocab = this.state.items.map((item) => (
+        <FlashCard item={item}></FlashCard>
+      ));
     }
 
     return (
