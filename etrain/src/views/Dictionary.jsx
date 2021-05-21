@@ -9,6 +9,11 @@ class Dictionary extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.match.params.word)
+      this.DicSearchClick(this.props.match.params.word);
+  }
+
   async DicSearchClick(keyword) {
     var data = await getWord(keyword);
     let sentences = data.sentences;

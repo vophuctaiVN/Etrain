@@ -91,6 +91,11 @@ const routes = [
     component: Dictionary,
   },
   {
+    path: "/dictionary-:word",
+    layout: "",
+    component: Dictionary,
+  },
+  {
     path: "/login",
     layout: "",
     component: Login,

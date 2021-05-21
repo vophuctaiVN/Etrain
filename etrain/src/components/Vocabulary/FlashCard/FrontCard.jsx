@@ -1,5 +1,6 @@
 import React from "react";
 import Speech from "react-speech";
+import { Link } from "react-router-dom";
 
 class FrontCard extends React.Component {
   render() {
@@ -13,7 +14,9 @@ class FrontCard extends React.Component {
     let lisRelated;
     if (related !== undefined) {
       lisRelated = related.map((word) => (
-        <a style={{ marginRight: "30px" }}>{word}</a>
+        <Link to={`/dictionary-${word}`} style={{ marginRight: "30px" }}>
+          {word}
+        </Link>
       ));
     }
     return (
