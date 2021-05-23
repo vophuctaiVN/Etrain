@@ -5,31 +5,51 @@ import getWord from "../../../utils/helpers";
 class BackCard extends React.Component {
   state = { Sentences: [], wordtitle: false, youtubeinfo: null };
 
+  componentDidMount() {
+    this.DicSearchClick(this.props.item.en);
+  }
+
   async DicSearchClick(keyword) {
     var data = await getWord(keyword);
     let sentences = data.sentences;
-    const listword = sentences.map((sentence, index) => (
-      <div key={index}>
-        <p dangerouslySetInnerHTML={{ __html: sentence.fields.en }} />{" "}
-        <Speech
-          text={{ __html: sentence.fields.en }}
-          pitch="1"
-          rate="1"
-          volume="1"
-          lang="en-GB"
-          voice="Google UK English Male"
-        />
-        <hr />
-      </div>
-    ));
+    let examples = this.chose5examples(sentences);
+    const listword = examples.map((sentence, index) => {
+      return (
+        <p key={index}>
+          {sentence}{" "}
+          <Speech
+            text={sentence}
+            pitch="1"
+            rate="1"
+            volume="1"
+            lang="en-GB"
+            voice="Google UK English Male"
+          />
+        </p>
+      );
+    });
     this.setState({
       Sentences: listword,
     });
   }
 
+  chose5examples(sentences) {
+    var i;
+    let newArray = [];
+    for (i = 3; i > 0 && newArray.length === 0; i--) {
+      newArray = [];
+      sentences.forEach((sentence) => {
+        const english = sentence.fields.en
+          .replaceAll("<em>", "")
+          .replaceAll("</em>", "");
+        if (english.match(/\w+/g).length > i) newArray.push(english);
+      });
+    }
+    return newArray.slice(0, 3);
+  }
+
   render() {
     let item = this.props.item;
-    this.DicSearchClick(this.props.item.en);
     var divStyle = {
       height: "400px",
       width: "400px",
@@ -52,7 +72,7 @@ class BackCard extends React.Component {
         <div className="blog_details fullWidth">
           <h2>/{item.ipa}/ </h2>
           <h3>{item.type}</h3>
-          <div className="row">{array}</div>
+          {array}
         </div>
       </article>
     );

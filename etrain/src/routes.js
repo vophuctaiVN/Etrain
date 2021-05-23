@@ -61,7 +61,7 @@ const routes = [
     component: WordList,
   },
   {
-    path: "/flashcard",
+    path: "/flashcard-:idtopic",
     layout: "",
     component: Carousel_Card,
   },

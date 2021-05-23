@@ -90,7 +90,10 @@ class WordList extends Component {
                           className="dropdown-menu"
                           aria-labelledby="navbarDropdown"
                         >
-                          <Link to={`/flashcard`} className="dropdown-item">
+                          <Link
+                            to={`/flashcard-${this.props.match.params.lessonid}`}
+                            className="dropdown-item"
+                          >
                             {" "}
                             FlashCard{" "}
                           </Link>
@@ -109,7 +112,7 @@ class WordList extends Component {
                   </aside>
                   <Link
                     to={{
-                      pathname: `/flashcard`,
+                      pathname: `/flashcard-${this.props.match.params.lessonid}`,
                       query: {
                         items: this.state.items,
                       },

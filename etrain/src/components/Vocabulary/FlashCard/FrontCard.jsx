@@ -13,8 +13,12 @@ class FrontCard extends React.Component {
     const related = synonyms(item.en, "n");
     let lisRelated;
     if (related !== undefined) {
-      lisRelated = related.map((word) => (
-        <Link to={`/dictionary-${word}`} style={{ marginRight: "30px" }}>
+      lisRelated = related.map((word, index) => (
+        <Link
+          to={`/dictionary-${word}`}
+          style={{ marginRight: "30px" }}
+          key={index}
+        >
           {word}
         </Link>
       ));

@@ -11,27 +11,25 @@ class Carousel_Card extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.location.query && this.props.location.query.items) {
-      localStorage.setItem(
-        "tempitems",
-        JSON.stringify(this.props.location.query.items)
-      );
-      this.setState({
-        items: this.props.location.query.items,
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    localStorage.removeItem("tempitems");
+    window
+      .VocabularyByTopicAPIsService_Query({
+        fatherID: this.props.match.params.idtopic,
+      })
+      .then((wordsList) =>
+        this.setState({
+          items: wordsList.json.result.items,
+        })
+      )
+      .catch((error) => console.log(error));
   }
 
   render() {
-    let items = JSON.parse(localStorage.getItem("tempitems")); //state để trick cho reRender vì tempitems lần getItem lần đầu là null
-
+    let items = this.state.items;
     let listvocab;
     if (items) {
-      listvocab = items.map((item) => <FlashCard item={item}></FlashCard>);
+      listvocab = items.map((item, index) => (
+        <FlashCard item={item} key={index}></FlashCard>
+      ));
     } else {
       listvocab = this.state.items.map((item) => (
         <FlashCard item={item}></FlashCard>

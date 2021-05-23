@@ -94,14 +94,7 @@ class Vocabulary extends Component {
           alt="post"
         />
         <div className="media-body">
-          <Link
-            to={{
-              pathname: `/vocabulary-${vocab.id}`,
-              query: {
-                topic_Image: vocab.imageURL,
-              },
-            }}
-          >
+          <Link to={`/vocabulary-${vocab.id}`}>
             {" "}
             <h3>{vocab.title}</h3>{" "}
           </Link>

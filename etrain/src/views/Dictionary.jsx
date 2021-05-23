@@ -91,25 +91,38 @@ class Dictionary extends Component {
                   </div>
                 </div>
               </div>
-              <div className="row justify-content-center">
-                <div className="col-xl-7">
-                  {this.state.wordtitle ? (
-                    <>
+              {this.state.youtubeinfo ? (
+                <>
+                  <div className="row justify-content-center">
+                    <div className="col-xl-7">
                       <h1>{this.state.wordtitle}</h1>
                       <Video
                         key={this.state.youtubeinfo.youtube_id}
                         second={this.state.youtubeinfo.start}
                         videoid={this.state.youtubeinfo.youtube_id}
                       />
-                    </>
-                  ) : null}
-                  <br />
-                  <br />
-                  <br />
-                </div>
-              </div>
 
-              <div className="row">{array}</div>
+                      <br />
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+                  <div className="row">{array}</div>{" "}
+                </>
+              ) : (
+                <div className="container">
+                  <div className="row justify-content-center my-5">
+                    <div className="col-md-7 heading-section text-center">
+                      <span className="subheading">Sorry</span>
+                      <h2 className="mb-4">Our Bad</h2>
+                      <p>
+                        Sorry that we don't have any result about this word. You
+                        can check your spelling again!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
