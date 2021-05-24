@@ -116,12 +116,12 @@ const routes = [
     component: AnswerPage,
   },
   {
-    path: "/matchingword",
+    path: "/matchingword-:vocabID",
     layout: "",
     component: MatchingWord,
   },
   {
-    path: "/orderwords",
+    path: "/orderwords-:lessonid",
     layout: "",
     component: OrderWords,
   },

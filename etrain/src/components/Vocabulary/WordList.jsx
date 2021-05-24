@@ -97,11 +97,17 @@ class WordList extends Component {
                             {" "}
                             FlashCard{" "}
                           </Link>
-                          <Link to={`/matchingword`} className="dropdown-item">
+                          <Link
+                            to={`/matchingword-${this.props.match.params.lessonid}`}
+                            className="dropdown-item"
+                          >
                             {" "}
                             Matching Game{" "}
                           </Link>
-                          <Link to={`/tortoise`} className="dropdown-item">
+                          <Link
+                            to={`/tortoise-${this.props.match.params.lessonid}`}
+                            className="dropdown-item"
+                          >
                             {" "}
                             Tortoise Game{" "}
                           </Link>
@@ -124,7 +130,7 @@ class WordList extends Component {
                   </Link>
                   <Link
                     to={{
-                      pathname: `/matchingword`,
+                      pathname: `/matchingword-${this.props.match.params.lessonid}`,
                       query: {
                         items: this.state.items,
                       },
@@ -137,7 +143,7 @@ class WordList extends Component {
 
                   <Link
                     to={{
-                      pathname: `/tortoise`,
+                      pathname: `/tortoise-${this.props.match.params.lessonid}`,
                       query: {
                         items: this.state.items,
                       },

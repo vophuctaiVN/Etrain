@@ -17,30 +17,32 @@ class Dictionary extends Component {
   async DicSearchClick(keyword) {
     var data = await getWord(keyword);
     let sentences = data.sentences;
-    const listword = sentences.map((sentence, index) => (
-      <div className="col-sm-6 col-xl-3">
-        <div className="single_feature">
-          <div className="single_feature_part">
-            <div key={index}>
-              <p
-                style={{ color: "#0033cc", fontSize: "18px" }}
-                dangerouslySetInnerHTML={{ __html: sentence.fields.en }}
-              />
-              <p
-                style={{ color: "#99b3ff" }}
-                dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
-              />
-              <hr />
+    if (data.sentences) {
+      const listword = sentences.map((sentence, index) => (
+        <div className="col-sm-6 col-xl-3">
+          <div className="single_feature">
+            <div className="single_feature_part">
+              <div key={index}>
+                <p
+                  style={{ color: "#0033cc", fontSize: "18px" }}
+                  dangerouslySetInnerHTML={{ __html: sentence.fields.en }}
+                />
+                <p
+                  style={{ color: "#99b3ff" }}
+                  dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
+                />
+                <hr />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ));
-    this.setState({
-      Sentences: listword,
-      wordtitle: keyword,
-      youtubeinfo: data.youtubeinfo,
-    });
+      ));
+      this.setState({
+        Sentences: listword,
+        wordtitle: keyword,
+        youtubeinfo: data.youtubeinfo,
+      });
+    }
   }
 
   handleSearch(e) {
@@ -68,7 +70,10 @@ class Dictionary extends Component {
                                 id="SearchInput"
                                 type="text"
                                 className="form-control"
-                                placeholder="Search Keyword"
+                                placeholder={
+                                  this.props.match.params.word ||
+                                  "Search Keyword"
+                                }
                               />
                               <div className="input-group-append">
                                 <button className="btn" type="button">
@@ -109,7 +114,7 @@ class Dictionary extends Component {
                   </div>
                   <div className="row">{array}</div>{" "}
                 </>
-              ) : (
+              ) : document.getElementById("SearchInput") ? (
                 <div className="container">
                   <div className="row justify-content-center my-5">
                     <div className="col-md-7 heading-section text-center">
@@ -122,7 +127,7 @@ class Dictionary extends Component {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         </section>

@@ -8,18 +8,6 @@ class MatchingWord extends React.Component {
   constructor(props) {
     super(props);
 
-    this.words = [];
-    this.questions = [];
-    let listwords =
-      JSON.parse(localStorage.getItem("tempitems")) ||
-      this.props.location.query.items;
-    listwords.forEach((element) => {
-      this.words.push({
-        answer: element.en.toUpperCase(),
-        question: this.replaceRandomWord(element.en.toUpperCase()),
-      });
-    });
-
     this.randomIndex = this.randomIndex.bind(this);
     this.getInitialState = this.getInitialState.bind(this);
     this._showMessage = this._showMessage.bind(this);
@@ -27,8 +15,12 @@ class MatchingWord extends React.Component {
     this.durationEnd = this.durationEnd.bind(this);
     this.updateAnswer = this.updateAnswer.bind(this);
     this._playAgain = this._playAgain.bind(this);
+    this.getWords = this.getWords.bind(this);
 
-    this.state = this.getInitialState();
+    this.words = [];
+    this.questions = [];
+    this.state = {};
+    this.getInitialState();
   }
 
   replaceRandomWord(fullword) {
@@ -41,20 +33,25 @@ class MatchingWord extends React.Component {
     return str.substring(0, index) + chr + str.substring(index + 1);
   }
 
-  componentDidMount() {
-    if (this.props.location.query && this.props.location.query.items) {
-      localStorage.setItem(
-        "tempitems",
-        JSON.stringify(this.props.location.query.items)
-      );
-    }
+  async getWords() {
+    let listwords;
+    await window
+      .VocabularyByTopicAPIsService_Query({
+        fatherID: this.props.match.params.vocabID,
+      })
+      .then((wordsList) => (listwords = wordsList.json.result.items))
+      .catch((error) => console.log(error));
+
+    listwords.forEach((element) => {
+      this.words.push({
+        answer: element.en.toUpperCase(),
+        question: this.replaceRandomWord(element.en.toUpperCase()),
+      });
+    });
   }
 
-  componentWillUnmount() {
-    localStorage.removeItem("tempitems");
-  }
-
-  getInitialState() {
+  async getInitialState() {
+    await this.getWords();
     var randomNumber = this.randomIndex();
     var word = this.words[randomNumber];
     var question = null;
@@ -99,7 +96,7 @@ class MatchingWord extends React.Component {
       }, 2000);
     });
 
-    return {
+    this.setState({
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.words.length,
@@ -112,7 +109,7 @@ class MatchingWord extends React.Component {
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
-    };
+    });
   }
 
   _showMessage(type) {
@@ -186,40 +183,45 @@ class MatchingWord extends React.Component {
   render() {
     let DetailClose = () =>
       this.setState({ hideReplay: false, stopTimer: true, isOpen: false });
+
     return (
-      <section className="blog_area section_padding">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="gamebackground">
-              <ResultModal
-                isOpen={this.state.isOpen}
-                score={this.state.score}
-                onHide={DetailClose}
-              />
-              <ScoreMain
-                score={this.state.score}
-                current={this.state.currentQuestionIndex}
-                questionlimit={this.state.questionLimit}
-                duration={this.state.questionTimeDuration}
-                ontimeup={this.durationEnd}
-                stopTimer={this.state.stopTimer}
-              />
-              <KeyBoardAndResult
-                answer={this.state.currentAnswer}
-                setAnswer={this.updateAnswer}
-                word={this.state.currentQuestion}
-                myanswer={this.state.myanswer}
-              />
-              <Footer
-                hideReplay={this.state.hideReplay}
-                onRefresh={this._playAgain}
-                message={this.state.message}
-                skipquestion={this._changeWord}
-              />
-            </div>{" "}
-          </div>
-        </div>
-      </section>
+      <>
+        {this.state.score !== undefined ? (
+          <section className="blog_area section_padding">
+            <div className="container">
+              <div className="row justify-content-center">
+                <div className="gamebackground">
+                  <ResultModal
+                    isOpen={this.state.isOpen}
+                    score={this.state.score}
+                    onHide={DetailClose}
+                  />
+                  <ScoreMain
+                    score={this.state.score}
+                    current={this.state.currentQuestionIndex}
+                    questionlimit={this.state.questionLimit}
+                    duration={this.state.questionTimeDuration}
+                    ontimeup={this.durationEnd}
+                    stopTimer={this.state.stopTimer}
+                  />
+                  <KeyBoardAndResult
+                    answer={this.state.currentAnswer}
+                    setAnswer={this.updateAnswer}
+                    word={this.state.currentQuestion}
+                    myanswer={this.state.myanswer}
+                  />
+                  <Footer
+                    hideReplay={this.state.hideReplay}
+                    onRefresh={this._playAgain}
+                    message={this.state.message}
+                    skipquestion={this._changeWord}
+                  />
+                </div>{" "}
+              </div>
+            </div>
+          </section>
+        ) : null}
+      </>
     );
   }
 }
