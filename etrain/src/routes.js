@@ -126,7 +126,7 @@ const routes = [
     component: OrderWords,
   },
   {
-    path: "/tortoise",
+    path: "/tortoise-:vocabID",
     layout: "",
     component: Home,
   },

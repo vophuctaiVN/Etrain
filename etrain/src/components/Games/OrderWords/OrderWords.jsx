@@ -8,25 +8,15 @@ import { BsFillQuestionOctagonFill } from "react-icons/bs";
 class OrderWords extends Component {
   constructor(props) {
     super(props);
-    this.exampleProps =
-      JSON.parse(localStorage.getItem("tempitems")) ||
-      this.props.location.query.items;
-
-    this.items = [
-      ["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"],
-      ["a", "b", "c"],
-      ["d", "e", "f"],
-      ["g", "h", "l"],
-      ["m", "n", "o"],
-    ];
-    this.items = [];
-    this.items = this.itemByCharacter(this.exampleProps);
-
-    this.state = this.getInitialState();
     this._showMessage = this._showMessage.bind(this);
     this._changeWord = this._changeWord.bind(this);
     this.durationEnd = this.durationEnd.bind(this);
     this._playAgain = this._playAgain.bind(this);
+
+    this.examples = [];
+    this.items = [];
+    this.state = {};
+    this.getInitialState();
   }
 
   itemByCharacter(exampleProps) {
@@ -43,22 +33,26 @@ class OrderWords extends Component {
     return items;
   }
 
-  componentDidMount() {
-    if (this.props.location.query && this.props.location.query.items) {
-      localStorage.setItem(
-        "tempitems",
-        JSON.stringify(this.props.location.query.items)
-      );
-    }
+  getAllExample(lesson) {
+    let rawExample = [];
+    lesson.forEach((section) => {
+      rawExample = rawExample.concat(section.examples);
+    });
+    return rawExample;
   }
 
-  componentWillUnmount() {
-    localStorage.removeItem("tempitems");
-  }
+  async getInitialState() {
+    let lesson;
+    await window
+      .LessonAPIsService_Query({
+        fatherID: this.props.match.params.lessonid,
+      })
+      .then((result) => (lesson = result.json.result.items))
+      .catch((error) => console.log(error));
+    this.examples = this.getAllExample(lesson);
+    this.items = this.itemByCharacter(this.examples);
 
-  getInitialState() {
     var self = this;
-
     window.addEventListener("wordmatched", function (event) {
       self.setState({
         score: self.state.score + 10,
@@ -74,7 +68,7 @@ class OrderWords extends Component {
       }, 2000);
     });
 
-    return {
+    this.setState({
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
@@ -83,7 +77,7 @@ class OrderWords extends Component {
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
-    };
+    });
   }
 
   _showMessage(type) {
@@ -137,42 +131,46 @@ class OrderWords extends Component {
     const nowSentence = this.items[this.state.currentQuestionIndex - 1];
 
     return (
-      <section className="blog_area section_padding">
-        <div className="container">
-          <div className="row justify-content-center words-container gamebackground">
-            <ResultModal
-              isOpen={this.state.isOpen}
-              score={this.state.score}
-              onHide={DetailClose}
-            />
-            <ScoreMain
-              score={this.state.score}
-              current={this.state.currentQuestionIndex}
-              questionlimit={this.state.questionLimit}
-              duration={this.state.questionTimeDuration}
-              ontimeup={this.durationEnd}
-              stopTimer={this.state.stopTimer}
-            />
-            <div className="container-fluid">
-              <img
-                src={
-                  this.exampleProps[this.state.currentQuestionIndex - 1]
-                    .imageURL
-                }
-                style={{ height: "300px", width: "500px" }}
-                className="center"
-              />
+      <>
+        {this.state.score !== undefined ? (
+          <section className="blog_area section_padding">
+            <div className="container">
+              <div className="row justify-content-center words-container gamebackground">
+                <ResultModal
+                  isOpen={this.state.isOpen}
+                  score={this.state.score}
+                  onHide={DetailClose}
+                />
+                <ScoreMain
+                  score={this.state.score}
+                  current={this.state.currentQuestionIndex}
+                  questionlimit={this.state.questionLimit}
+                  duration={this.state.questionTimeDuration}
+                  ontimeup={this.durationEnd}
+                  stopTimer={this.state.stopTimer}
+                />
+                <div className="container-fluid">
+                  <img
+                    src={
+                      this.examples[this.state.currentQuestionIndex - 1]
+                        .imageURL
+                    }
+                    style={{ height: "300px", width: "500px" }}
+                    className="center"
+                  />
+                </div>
+                <WordsArray sentence={nowSentence} />
+                <Footer
+                  hideReplay={this.state.hideReplay}
+                  onRefresh={this._playAgain}
+                  message={this.state.message}
+                  skipquestion={this._changeWord}
+                />
+              </div>
             </div>
-            <WordsArray sentence={nowSentence} />
-            <Footer
-              hideReplay={this.state.hideReplay}
-              onRefresh={this._playAgain}
-              message={this.state.message}
-              skipquestion={this._changeWord}
-            />
-          </div>
-        </div>
-      </section>
+          </section>
+        ) : null}
+      </>
     );
   }
 }

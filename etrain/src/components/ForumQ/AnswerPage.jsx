@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { getCookiesValue, USER_IMAGE_DOMAIN } from "../../utils/helpers";
+import {
+  getCookiesValue,
+  USER_IMAGE_DOMAIN,
+  showAlert,
+} from "../../utils/helpers";
 import { AnswerElement } from "./AnswerElement";
 class AnswerPage extends Component {
   constructor(props) {
@@ -12,36 +16,16 @@ class AnswerPage extends Component {
   }
 
   componentDidMount() {
-    /* if (this.props.location.query)
-      localStorage.setItem(
-        "tempimg",
-        JSON.stringify(this.props.location.query)
-      ); */
     this.getQnListA(this.props.match.params.lessonid);
   }
-  /* 
-  componentWillUnmount() {
-    localStorage.removeItem("tempimg");
-  }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.lessonid !== this.props.match.params.lessonid) {
-      this.getListAnswer(this.props.match.params.lessonid);
-    }
-    if (this.props.location.query)
-      localStorage.setItem(
-        "tempimg",
-        JSON.stringify(this.props.location.query)
-      );
-  }
- */
   getQnListA = (fatherID) => {
     const queryObj = {
       fatherID,
     };
 
     const queryObjQ = {
-      Search: this.props.match.params.lessonid,
+      ID: this.props.match.params.lessonid,
     };
     window
       .ForumQuestionList_Query(queryObjQ)
@@ -50,7 +34,7 @@ class AnswerPage extends Component {
           .ForumAnswerList_Query(queryObj)
           .then((result) =>
             this.setState({
-              question: question.json.result.items,
+              question: question.json.result.items[0],
               answerList: result.json.result.items,
               totalitems: result.json.result.totalRows,
             })
@@ -72,11 +56,10 @@ class AnswerPage extends Component {
         case 400:
         case 404:
         case 500:
-          //notify(result.json.error.message, result.json.error.detail, "error");
           break;
         case 200:
-          //notify(result.json.error.message, 'Create new Account successfull', "success");
-          window.location.reload();
+          showAlert(result.json.error.message, "You added new answer!");
+          this.getQnListA(this.props.match.params.lessonid);
           break;
         default:
           break;
@@ -85,7 +68,7 @@ class AnswerPage extends Component {
   }
 
   render() {
-    const localItem = JSON.parse(localStorage.getItem("tempimg"));
+    const localItem = this.state.question;
     var question = {};
     var profile = {};
     var dateObj;
@@ -96,7 +79,8 @@ class AnswerPage extends Component {
     var minutes;
     var newdate;
     var time;
-    if (localItem) {
+
+    if (localItem !== undefined) {
       question = localItem.question;
       profile = localItem.profile;
 
@@ -154,9 +138,7 @@ class AnswerPage extends Component {
               </div>
             </div>
 
-            <h3>
-              {this.state.totalitems /* question.numberOfAnswer */} Answers
-            </h3>
+            <h3>{this.state.totalitems} Answers</h3>
 
             {listanswers}
 

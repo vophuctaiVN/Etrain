@@ -494,10 +494,11 @@ DROP procedure IF EXISTS `question_query`;
 
 DELIMITER $$
 CREATE PROCEDURE `question_query` (
-    _Search VARCHAR(32), _Sorting VARCHAR(32), _PageNo INT, _PageSize INT
+   _ID INT, _Search VARCHAR(32), _Sorting VARCHAR(32), _PageNo INT, _PageSize INT
 )
 BEGIN
     -- preprocessing input params
+	IF _ID IS NULL THEN SET @ID = "NULL"; ELSE SET @ID = _ID; END IF;
     IF _Search IS NULL THEN SET @Search = "''"; ELSE SET @Search = CONCAT("'",_Search,"'"); END IF;
     IF _Sorting IS NULL OR NOT(_Sorting LIKE '%ASC' OR _Sorting LIKE '%DESC')
     THEN SET @Sorting = 'ID DESC'; ELSE SET @Sorting = _Sorting; END IF;
@@ -505,7 +506,7 @@ BEGIN
     IF _PageNo IS NULL OR _PageNo = 0 THEN SET @Offset_ = 0; ELSE SET @Offset_ = @Size * (_PageNo - 1); END IF;
     -- build statements
     SET @WhereStmt = CONCAT("
-        WHERE (
+        WHERE (",@ID," IS NULL OR ",@ID," = `ID`) AND (
                 is_substr(",@Search,", `Question`) > 0
                 OR is_substr(",@Search,", `Topic`) > 0
             )

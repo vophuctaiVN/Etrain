@@ -81,7 +81,7 @@ class GramPost extends Component {
               {listLessons}
               <Link
                 to={{
-                  pathname: `/orderwords`,
+                  pathname: `/orderwords-${this.props.match.params.lessonid}`,
                   query: {
                     items: this.getAllExample(),
                   },

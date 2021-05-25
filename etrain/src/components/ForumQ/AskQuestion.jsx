@@ -4,13 +4,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
   FormGroup,
   Input,
   Row,
   Col,
 } from "reactstrap";
-import { getCookiesValue, USER_IMAGE_DOMAIN } from "../../utils/helpers";
+import { getCookiesValue, showAlert } from "../../utils/helpers";
 
 export const AskQuestion = (props) => {
   const close = () => props.onHide();
@@ -30,10 +29,9 @@ export const AskQuestion = (props) => {
           case 400:
           case 404:
           case 500:
-            //notify(result.json.error.message, result.json.error.detail, "error");
             break;
           case 200:
-            //notify(result.json.error.message, 'Create new Account successfull', "success");
+            showAlert(result.json.error.message, "You added new question!");
             window.location.reload();
             break;
           default:
