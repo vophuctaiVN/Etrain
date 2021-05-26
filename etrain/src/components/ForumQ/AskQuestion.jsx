@@ -42,121 +42,73 @@ export const AskQuestion = (props) => {
   };
 
   return (
-    <div className="AskquestionModal">
-      <Modal isOpen={props.isOpen}>
-        <ModalHeader toggle={close}>
-          <h4 className="mb-0">Add question</h4>
-        </ModalHeader>
-        <ModalBody>
-          {/* Address */}
-          <h6 className="heading-small text-muted mb-4">
-            What is your issue ?
-          </h6>
-          <div className="pl-lg-4">
-            <Row>
-              <Col md="12">
-                <FormGroup>
-                  <label className="form-control-label" htmlFor="input-address">
-                    Question
-                  </label>
-                  <Input
-                    className="form-control-alternative"
-                    id="question"
-                    //placeholder="What is....?"
-                    type="text"
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
+    <Modal isOpen={props.isOpen}>
+      <ModalHeader toggle={close}>
+        <h4 className="mb-0">Add question</h4>
+      </ModalHeader>
+      <ModalBody>
+        <h6 className="heading-small text-muted mb-4">What is your issue ?</h6>
+        <div className="pl-lg-4">
+          <Row>
+            <Col md="12">
+              <FormGroup>
+                <label className="form-control-label" htmlFor="input-address">
+                  Question
+                </label>
+                <Input
+                  className="form-control-alternative"
+                  id="question"
+                  //placeholder="What is....?"
+                  type="text"
+                />
+              </FormGroup>
+            </Col>
+          </Row>
 
-            <Row style={{ marginTop: 10 }}>
-              <Col md="6">
-                <FormGroup>
-                  <label className="form-control-label" htmlFor="input-address">
-                    Topic
-                  </label>
-                  <Input type="select" id="topic">
-                    <option>Grammar</option>
-                    <option>Vocabulary</option>
-                    <option>Method</option>
-                    <option>Test</option>
-                    <option>Usage</option>
-                  </Input>
-                </FormGroup>
-              </Col>
-            </Row>
-          </div>
-          <hr className="my-4" />
-          {/* Description */}
-          <h6 className="heading-small text-muted mb-4">
-            Provide further information
-          </h6>
-          <div className="pl-lg-4">
-            <FormGroup>
-              <label className="form-control-label">Detail</label>
-              <Input
-                className="form-control-alternative"
-                id="detail"
-                placeholder="A few words about your problem ..."
-                rows="4"
-                type="textarea"
-              />
-            </FormGroup>
-          </div>
-        </ModalBody>
-        <ModalFooter>
-          <div className="mt-10 text-right">
-            <a
-              href="javascript:void(0)"
-              className="btn_1"
-              onClick={handleSubmit}
-            >
-              Post
-            </a>
-          </div>
-        </ModalFooter>
-      </Modal>
-    </div>
+          <Row style={{ marginTop: 10 }}>
+            <Col md="6">
+              <FormGroup>
+                <label className="form-control-label" htmlFor="input-address">
+                  Topic
+                </label>
+                <Input type="select" id="topic">
+                  <option>Grammar</option>
+                  <option>Vocabulary</option>
+                  <option>Method</option>
+                  <option>Test</option>
+                  <option>Usage</option>
+                </Input>
+              </FormGroup>
+            </Col>
+          </Row>
+        </div>
+        <hr className="my-4" />
+        {/* Description */}
+        <h6 className="heading-small text-muted mb-4">
+          Provide further information
+        </h6>
+        <div className="pl-lg-4">
+          <FormGroup>
+            <label className="form-control-label">Detail</label>
+            <Input
+              className="form-control-alternative"
+              id="detail"
+              placeholder="A few words about your problem ..."
+              rows="4"
+              type="textarea"
+            />
+          </FormGroup>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <div className="mt-10 text-right">
+          <a href="javascript:void(0)" className="btn_1" onClick={handleSubmit}>
+            Post
+          </a>
+        </div>
+      </ModalFooter>
+    </Modal>
   );
 };
-
-/* export class AskQuestion extends Component {
-  render() {
-    return (
-      <section className="special_cource padding_top">
-          <h4 className="title">Your Answer</h4>
-        <div className="content">
-          <div className="feedeback">
-            <input
-              name="feedback"
-              className="form-control"
-              cols={10}
-              rows={10}
-              defaultValue={""}
-            />
-          </div>
-        </div>
-        
-        <h4 className="title">Your Answer</h4>
-        <div className="content">
-          <div className="feedeback">
-            <textarea
-              name="feedback"
-              className="form-control"
-              cols={10}
-              rows={10}
-              defaultValue={""}
-            />
-            <div className="mt-10 text-right">
-              <a href="# " className="btn_1">
-                Post
-              </a>
-            </div>
-          </div>{" "}
-        </div>
-      </section>
-    );
-  }
-} */
 
 export default AskQuestion;

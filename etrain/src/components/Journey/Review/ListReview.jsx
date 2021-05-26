@@ -54,25 +54,11 @@ export class ListReview extends Component {
                   {less.content.level}
                 </a>
                 {less.type == "g" ? (
-                  <Link
-                    to={{
-                      pathname: `/grammar-${less.content.id}`,
-                      query: {
-                        topic_Image: less.content.imageURL,
-                      },
-                    }}
-                  >
+                  <Link to={`/grammar-${less.content.id}`}>
                     <h3>{less.content.title}</h3>
                   </Link>
                 ) : (
-                  <Link
-                    to={{
-                      pathname: `/vocabulary-${less.content.id}`,
-                      query: {
-                        topic_Image: less.content.imageURL,
-                      },
-                    }}
-                  >
+                  <Link to={`/vocabulary-${less.content.id}`}>
                     <h3>{less.content.title}</h3>
                   </Link>
                 )}

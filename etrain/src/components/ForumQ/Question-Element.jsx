@@ -28,17 +28,7 @@ export class QuestionElement extends React.Component {
           </div>
           <div className="summary">
             <h3>
-              <Link
-                to={{
-                  pathname: `/forum-${question.id}`,
-                  query: {
-                    question: question,
-                    profile: profile
-                  },
-                }}
-              >
-                {question.question}
-              </Link>
+              <Link to={`/forum-${question.id}`}>{question.question}</Link>
             </h3>
             <div className="excerpt">{question.detail}</div>
             <div className="topic">

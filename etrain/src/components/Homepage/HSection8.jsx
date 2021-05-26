@@ -53,14 +53,7 @@ class HSection1 extends Component {
               {/* <a href="blog.html">
               <h5 className="card-title">Dry beginning sea over tree</h5>
             </a> */}
-              <Link
-                to={{
-                  pathname: `/vocabulary-${vocab.id}`,
-                  query: {
-                    topic_Image: vocab.imageURL,
-                  },
-                }}
-              >
+              <Link to={`/vocabulary-${vocab.id}`}>
                 {" "}
                 <h5 className="card-title">{vocab.title}</h5>{" "}
               </Link>

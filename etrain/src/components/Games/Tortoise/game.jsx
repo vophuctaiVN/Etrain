@@ -6,9 +6,11 @@ import {
   endOpponentRun,
   endTypingCountdown,
   setFirstwordArray,
+  resetFullGame,
 } from "../../../redux/actions/gameStateActions";
 import GameOver from "./gameOver";
 import MainGame from "./MainGame";
+import { getCookiesValue } from "../../../utils/helpers";
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -49,12 +51,21 @@ export default function Home(props) {
     let words = [];
     let listwords;
     async function fetchMyAPI() {
-      await window
-        .VocabularyByTopicAPIsService_Query({
-          fatherID: props.match.params.vocabID,
-        })
-        .then((wordsList) => (listwords = wordsList.json.result.items))
-        .catch((error) => console.log(error));
+      if (props.match.params.vocabID === "mine")
+        await window
+          .MyVocabularyQuery({
+            accountID: getCookiesValue("userID"),
+            showDetail: true,
+          })
+          .then((wordsList) => (listwords = wordsList.json.result.items))
+          .catch((error) => console.log(error));
+      else
+        await window
+          .VocabularyByTopicAPIsService_Query({
+            fatherID: props.match.params.vocabID,
+          })
+          .then((wordsList) => (listwords = wordsList.json.result.items))
+          .catch((error) => console.log(error));
 
       listwords.forEach((element) => {
         words.push(element.en.toLowerCase());
@@ -66,6 +77,14 @@ export default function Home(props) {
     }
     fetchMyAPI();
   }, [dispatch, wordArray]);
+
+  useLayoutEffect(() => {
+    return () => {
+      dispatch(endOpponentRun());
+      dispatch(endTypingCountdown());
+      dispatch(resetFullGame()); //clear all state to start game again after routing
+    };
+  }, []);
 
   return (
     <>

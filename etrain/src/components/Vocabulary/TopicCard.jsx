@@ -15,14 +15,7 @@ class TopicCard extends React.Component {
           </a>
         </div>
         <div className="blog_details">
-          <Link
-            to={{
-              pathname: `/vocabulary-${this.props.id}`,
-              query: {
-                topic_Image: this.props.imgUrl,
-              },
-            }}
-          >
+          <Link to={`/vocabulary-${this.props.id}`}>
             {" "}
             <h2>{this.props.title}</h2>{" "}
           </Link>

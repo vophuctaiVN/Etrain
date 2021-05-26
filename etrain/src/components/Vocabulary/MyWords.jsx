@@ -61,15 +61,21 @@ class MyWords extends Component {
                           className="dropdown-menu"
                           aria-labelledby="navbarDropdown"
                         >
-                          <Link to={`/flashcard`} className="dropdown-item">
+                          <Link
+                            to={`/flashcard-mine`}
+                            className="dropdown-item"
+                          >
                             {" "}
                             FlashCard{" "}
                           </Link>
-                          <Link to={`/matchingword`} className="dropdown-item">
+                          <Link
+                            to={`/matchingword-mine`}
+                            className="dropdown-item"
+                          >
                             {" "}
                             Matching Game{" "}
                           </Link>
-                          <Link to={`/tortoise`} className="dropdown-item">
+                          <Link to={`/tortoise-mine`} className="dropdown-item">
                             {" "}
                             Tortoise Game{" "}
                           </Link>
@@ -79,24 +85,14 @@ class MyWords extends Component {
                     {listvocab}
                   </aside>
                   <Link
-                    to={{
-                      pathname: `/flashcard`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/flashcard-mine`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >
                     FlashCard
                   </Link>
                   <Link
-                    to={{
-                      pathname: `/matchingword`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/matchingword-mine`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >
@@ -104,12 +100,7 @@ class MyWords extends Component {
                   </Link>
 
                   <Link
-                    to={{
-                      pathname: `/tortoise`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/tortoise-mine`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >

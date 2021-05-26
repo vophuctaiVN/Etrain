@@ -80,12 +80,7 @@ class GramPost extends Component {
               </div>
               {listLessons}
               <Link
-                to={{
-                  pathname: `/orderwords-${this.props.match.params.lessonid}`,
-                  query: {
-                    items: this.getAllExample(),
-                  },
-                }}
+                to={`/orderwords-${this.props.match.params.lessonid}`}
                 className="genric-btn success-border circle"
                 style={{ float: "right", marginTop: "20px" }}
               >

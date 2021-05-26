@@ -99,14 +99,7 @@ export class ListTodayLession extends Component {
                     color="darkslategrey"
                     style={{ marginRight: "10px" }}
                   />
-                  <Link
-                    to={{
-                      pathname: `/grammar-${les.content.id}`,
-                      query: {
-                        topic_Image: les.content.imageURL,
-                      },
-                    }}
-                  >
+                  <Link to={`/grammar-${les.content.id}`}>
                     {les.content.title}
                   </Link>
                 </>
@@ -117,14 +110,7 @@ export class ListTodayLession extends Component {
                     color="darkolivegreen"
                     style={{ marginRight: "10px" }}
                   />
-                  <Link
-                    to={{
-                      pathname: `/vocabulary-${les.content.id}`,
-                      query: {
-                        topic_Image: les.content.imageURL,
-                      },
-                    }}
-                  >
+                  <Link to={`/vocabulary-${les.content.id}`}>
                     {les.content.title}
                   </Link>
                 </>

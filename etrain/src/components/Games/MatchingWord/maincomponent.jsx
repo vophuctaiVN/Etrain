@@ -4,6 +4,8 @@ import KeyBoardAndResult from "./keyboard-result";
 import Footer from "./footer";
 import ResultModal from "./modal";
 import $ from "jquery";
+import { getCookiesValue } from "../../../utils/helpers";
+
 class MatchingWord extends React.Component {
   constructor(props) {
     super(props);
@@ -35,12 +37,21 @@ class MatchingWord extends React.Component {
 
   async getWords() {
     let listwords;
-    await window
-      .VocabularyByTopicAPIsService_Query({
-        fatherID: this.props.match.params.vocabID,
-      })
-      .then((wordsList) => (listwords = wordsList.json.result.items))
-      .catch((error) => console.log(error));
+    if (this.props.match.params.vocabID === "mine")
+      await window
+        .MyVocabularyQuery({
+          accountID: getCookiesValue("userID"),
+          showDetail: true,
+        })
+        .then((wordsList) => (listwords = wordsList.json.result.items))
+        .catch((error) => console.log(error));
+    else
+      await window
+        .VocabularyByTopicAPIsService_Query({
+          fatherID: this.props.match.params.vocabID,
+        })
+        .then((wordsList) => (listwords = wordsList.json.result.items))
+        .catch((error) => console.log(error));
 
     listwords.forEach((element) => {
       this.words.push({

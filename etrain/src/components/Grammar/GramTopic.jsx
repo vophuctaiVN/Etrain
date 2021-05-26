@@ -11,14 +11,7 @@ class GramTopic extends Component {
             <a href="course-details.html" className="btn_4">
               {this.props.level}
             </a>
-            <Link
-              to={{
-                pathname: `/grammar-${this.props.id}`,
-                query: {
-                  topic_Image: this.props.imgUrl,
-                },
-              }}
-            >
+            <Link to={`/grammar-${this.props.id}`}>
               <h3>{this.props.title}</h3>
             </Link>
             <p>{this.props.note}</p>

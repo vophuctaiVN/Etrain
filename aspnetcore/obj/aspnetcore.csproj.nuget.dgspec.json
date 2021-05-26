@@ -1,25 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Etrain\\aspnetcore\\aspnetcore.csproj": {}
+    "D:\\KLTN\\Etrain\\aspnetcore\\aspnetcore.csproj": {}
   },
   "projects": {
-    "D:\\Etrain\\aspnetcore\\aspnetcore.csproj": {
+    "D:\\KLTN\\Etrain\\aspnetcore\\aspnetcore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Etrain\\aspnetcore\\aspnetcore.csproj",
+        "projectUniqueName": "D:\\KLTN\\Etrain\\aspnetcore\\aspnetcore.csproj",
         "projectName": "aspnetcore",
-        "projectPath": "D:\\Etrain\\aspnetcore\\aspnetcore.csproj",
-        "packagesPath": "C:\\Users\\vptai\\.nuget\\packages\\",
-        "outputPath": "D:\\Etrain\\aspnetcore\\obj\\",
+        "projectPath": "D:\\KLTN\\Etrain\\aspnetcore\\aspnetcore.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "D:\\KLTN\\Etrain\\aspnetcore\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\vptai\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.409\\RuntimeIdentifierGraph.json"
         }
       }
     }

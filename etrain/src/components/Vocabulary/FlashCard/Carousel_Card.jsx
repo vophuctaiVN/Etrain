@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "react-elastic-carousel";
 import FlashCard from "./FlashCard";
+import { getCookiesValue } from "../../../utils/helpers";
 
 class Carousel_Card extends React.Component {
   constructor(props) {
@@ -11,16 +12,29 @@ class Carousel_Card extends React.Component {
   }
 
   componentDidMount() {
-    window
-      .VocabularyByTopicAPIsService_Query({
-        fatherID: this.props.match.params.idtopic,
-      })
-      .then((wordsList) =>
-        this.setState({
-          items: wordsList.json.result.items,
+    if (this.props.match.params.idtopic === "mine")
+      window
+        .MyVocabularyQuery({
+          accountID: getCookiesValue("userID"),
+          showDetail: true,
         })
-      )
-      .catch((error) => console.log(error));
+        .then((rememberwords) =>
+          this.setState({
+            items: rememberwords.json.result.items,
+          })
+        )
+        .catch((error) => console.log(error));
+    else
+      window
+        .VocabularyByTopicAPIsService_Query({
+          fatherID: this.props.match.params.idtopic,
+        })
+        .then((wordsList) =>
+          this.setState({
+            items: wordsList.json.result.items,
+          })
+        )
+        .catch((error) => console.log(error));
   }
 
   render() {

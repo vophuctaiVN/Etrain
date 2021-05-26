@@ -117,24 +117,14 @@ class WordList extends Component {
                     {listvocab}
                   </aside>
                   <Link
-                    to={{
-                      pathname: `/flashcard-${this.props.match.params.lessonid}`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/flashcard-${this.props.match.params.lessonid}`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >
                     FlashCard
                   </Link>
                   <Link
-                    to={{
-                      pathname: `/matchingword-${this.props.match.params.lessonid}`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/matchingword-${this.props.match.params.lessonid}`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >
@@ -142,12 +132,7 @@ class WordList extends Component {
                   </Link>
 
                   <Link
-                    to={{
-                      pathname: `/tortoise-${this.props.match.params.lessonid}`,
-                      query: {
-                        items: this.state.items,
-                      },
-                    }}
+                    to={`/tortoise-${this.props.match.params.lessonid}`}
                     className="genric-btn success-border circle"
                     style={{ float: "right", marginLeft: "10px" }}
                   >
