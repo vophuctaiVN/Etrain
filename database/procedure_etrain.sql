@@ -324,10 +324,17 @@ BEGIN
     IF (_PageSize IS NULL OR _PageSize = 0) THEN SET @Size = 1; ELSEIF _PageSize > 50 THEN SET @Size = 50; ELSE SET @Size = _PageSize; END IF;
     IF _PageNo IS NULL OR _PageNo = 0 THEN SET @Offset_ = 0; ELSE SET @Offset_ = @Size * (_PageNo - 1); END IF;
     -- build statements   
-    SET @TotalStmt = CONCAT('SELECT COUNT(`ID`) FROM `quiz` ');
+    SET @WhereStmt = CONCAT("
+        WHERE (
+                is_substr(",@Search,", `Title`) > 0
+                OR is_substr(",@Search,", `Description`) > 0
+                OR is_substr(",@Search,", `Level`) > 0
+            )
+    ");
+    SET @TotalStmt = CONCAT('SELECT COUNT(`ID`) FROM `quiz` ', @WhereStmt);
     SET @SortStmt = CONCAT('ORDER BY ', @Sorting, ' ');
     SET @LimitStmt = CONCAT('LIMIT ',@Offset_,', ',@Size);
-    SET @QueryStmt = CONCAT('SELECT (',@TotalStmt,') AS TotalRows, `quiz`.* FROM `quiz` ', @SortStmt, @LimitStmt);
+    SET @QueryStmt = CONCAT('SELECT (',@TotalStmt,') AS TotalRows, `quiz`.* FROM `quiz` ', @WhereStmt, @SortStmt, @LimitStmt);
     -- call query statement
     PREPARE stmt FROM @QueryStmt;
     EXECUTE stmt;

@@ -384,7 +384,6 @@ async function ProductAPIsService_Delete(id, token) {
   };
 
   const apiEndpoint = `${DOMAIN}/Products/Delete?id=${id}`;
-  console.log(apiEndpoint);
 
   try {
     const response = await fetch(apiEndpoint, requestOptions);
@@ -738,7 +737,6 @@ async function Question_Create_APIsService_Update(formData /* , token */) {
   formdata.append("Topic", formData.Topic);
   formdata.append("Detail", formData.Detail);
   formdata.append("IDaccount", formData.IDaccount);
-  console.log(formdata);
   var requestOptions = {
     method: "POST",
     headers: myHeaders,

@@ -53,18 +53,24 @@ class Vocabulary extends Component {
     switch (type) {
       case "next":
         this.getVocabList({
+          Search: document.getElementById("searchField").value,
           PageNo: pageNo + 1,
           PageSize: this.state.pageSize,
         });
         break;
       case "pre":
         this.getVocabList({
+          Search: document.getElementById("searchField").value,
           PageNo: pageNo - 1,
           PageSize: this.state.pageSize,
         });
         break;
       case "number":
-        this.getVocabList({ PageNo: pageNo, PageSize: this.state.pageSize });
+        this.getVocabList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo,
+          PageSize: this.state.pageSize,
+        });
         break;
       default:
         break;
@@ -72,22 +78,21 @@ class Vocabulary extends Component {
   };
 
   SearchTopic() {
-    console.log(document.getElementById("searchField").value);
     this.getVocabList({
       Search: document.getElementById("searchField").value,
-      PageNo: this.state.pageNo,
+      PageNo: 1,
       PageSize: this.state.pageSize,
     });
   }
+
   render() {
-    console.log(this.state);
     let rand_items;
-    if (this.state.totalitems >= 6)
+    if (this.state.VocabList.length >= 6)
       rand_items = getRandomProducts(this.state.VocabList);
     else rand_items = this.state.VocabList;
 
-    let suggest = rand_items.map((vocab) => (
-      <div className="media post_item">
+    let suggest = rand_items.map((vocab, key) => (
+      <div className="media post_item" key={key}>
         <img
           className="suggested_vocab_topic"
           src={vocab.imageURL}
@@ -127,6 +132,7 @@ class Vocabulary extends Component {
                             type="text"
                             className="form-control"
                             placeholder="Search Keyword"
+                            onChange={this.SearchTopic}
                           />
                           <div className="input-group-append">
                             <button className="btn" type="button">
@@ -138,13 +144,6 @@ class Vocabulary extends Component {
                           </div>
                         </div>
                       </div>
-                      <button
-                        className="button rounded-0 primary-bg text-white w-100 btn_1"
-                        type="submit"
-                        onClick={this.SearchTopic}
-                      >
-                        Search
-                      </button>
                     </form>
                   </aside>
                   <aside className="single_sidebar_widget post_category_widget">

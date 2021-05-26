@@ -14,6 +14,7 @@ class Grammar extends Component {
       lastpage: 1,
     };
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.SearchTopic = this.SearchTopic.bind(this);
   }
 
   componentDidMount() {
@@ -24,10 +25,11 @@ class Grammar extends Component {
   }
 
   getGramList = (object) => {
-    const { PageNo, PageSize } = object;
+    const { PageNo, PageSize, Search } = object;
     const queryObj = {
       PageNo,
       PageSize,
+      Search,
     };
     window
       .GrammarAPIsService_Query(queryObj)
@@ -47,20 +49,40 @@ class Grammar extends Component {
   handlePageChange = (type, pageNo) => {
     switch (type) {
       case "next":
-        this.getGramList({ PageNo: pageNo + 1, PageSize: this.state.pageSize });
+        this.getGramList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo + 1,
+          PageSize: this.state.pageSize,
+        });
         break;
       case "pre":
-        this.getGramList({ PageNo: pageNo - 1, PageSize: this.state.pageSize });
+        this.getGramList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo - 1,
+          PageSize: this.state.pageSize,
+        });
         break;
       case "number":
-        this.getGramList({ PageNo: pageNo, PageSize: this.state.pageSize });
+        this.getGramList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo,
+          PageSize: this.state.pageSize,
+        });
         break;
       default:
         break;
     }
   };
 
-  render() { 
+  SearchTopic() {
+    this.getGramList({
+      Search: document.getElementById("searchField").value,
+      PageNo: 1,
+      PageSize: this.state.pageSize,
+    });
+  }
+
+  render() {
     return (
       <>
         <section className="special_cource padding_top">
@@ -70,6 +92,34 @@ class Grammar extends Component {
                 <div className="section_tittle text-center">
                   <p>popular courses</p>
                   <h2>Special Courses</h2>
+                  <div
+                    className="blog_right_sidebar"
+                    style={{ marginTop: "10px" }}
+                  >
+                    <aside className="single_sidebar_widget search_widget">
+                      <form action="#">
+                        <div className="form-group">
+                          <div className="input-group mb-3">
+                            <input
+                              id="searchField"
+                              type="text"
+                              className="form-control"
+                              placeholder="Search Keyword"
+                              onChange={this.SearchTopic}
+                            />
+                            <div className="input-group-append">
+                              <button className="btn" type="button">
+                                <i
+                                  className="ti-search"
+                                  onClick={this.SearchTopic}
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </aside>
+                  </div>
                 </div>
               </div>
             </div>

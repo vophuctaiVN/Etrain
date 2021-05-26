@@ -32,7 +32,7 @@ namespace aspnetcore.Services
                     new { IDaccount = IDaccount, Level = Level })
                     .FirstOrDefault();
             int ID = result.Result;
-            if (0 > ID) return ((ResultCode) Math.Abs(ID), null);
+            if (0 > ID) return ((ResultCode)Math.Abs(ID), null);
 
             return (ResultCode.SUCCESS, ID);
         }
@@ -51,15 +51,13 @@ namespace aspnetcore.Services
                 LessonJourneyModel lesson = new LessonJourneyModel(item);
 
                 List<ExpandoObject> ArrayGramVocab = new List<ExpandoObject>();
-                foreach (var obj in ((dynamic) lesson).ArrayLesson)
+                foreach (var obj in ((dynamic)lesson).ArrayLesson)
                 {
-                    Console.WriteLine(obj.key);
                     if (obj.key.Equals("g"))
                     {
                         QueryModel queryGramResult = new QueryModel();
                         GrammarQueryRequest filter = new GrammarQueryRequest();
                         filter.ID = Int32.Parse(obj.value);
-                        Console.WriteLine(filter.ID);
                         List<GrammarQueryDTO> grammarDTOs =
                             _procedureHelper
                                 .GetData
@@ -69,7 +67,7 @@ namespace aspnetcore.Services
                         dynamic dynObject = new ExpandoObject();
                         dynObject.content = grammarDTOs[0];
                         dynObject.type = obj.key;
-                        ArrayGramVocab.Add (dynObject);
+                        ArrayGramVocab.Add(dynObject);
                     }
                     else if (obj.key.Equals("v"))
                     {
@@ -77,7 +75,6 @@ namespace aspnetcore.Services
                         VocabularyQueryRequest filter =
                             new VocabularyQueryRequest();
                         filter.ID = Int32.Parse(obj.value);
-                        Console.WriteLine(filter.ID);
                         List<GrammarQueryDTO> grammarDTOs =
                             _procedureHelper
                                 .GetData
@@ -87,11 +84,11 @@ namespace aspnetcore.Services
                         dynamic dynObject = new ExpandoObject();
                         dynObject.content = grammarDTOs[0];
                         dynObject.type = obj.key;
-                        ArrayGramVocab.Add (dynObject);
+                        ArrayGramVocab.Add(dynObject);
                     }
                 }
-                ((dynamic) lesson).ArrayLesson = ArrayGramVocab;
-                lessons.Add (lesson);
+                ((dynamic)lesson).ArrayLesson = ArrayGramVocab;
+                lessons.Add(lesson);
             }
             queryResult.Items = lessons;
             return (ResultCode.SUCCESS, queryResult);
@@ -111,15 +108,13 @@ namespace aspnetcore.Services
                 LessonJourneyModel lesson = new LessonJourneyModel(item);
 
                 List<ExpandoObject> ArrayGramVocab = new List<ExpandoObject>();
-                foreach (var obj in ((dynamic) lesson).ArrayLesson)
+                foreach (var obj in ((dynamic)lesson).ArrayLesson)
                 {
-                    Console.WriteLine(obj.key);
                     if (obj.key.Equals("g"))
                     {
                         QueryModel queryGramResult = new QueryModel();
                         GrammarQueryRequest filter = new GrammarQueryRequest();
                         filter.ID = Int32.Parse(obj.value);
-                        Console.WriteLine(filter.ID);
                         List<GrammarQueryDTO> grammarDTOs =
                             _procedureHelper
                                 .GetData
@@ -129,7 +124,7 @@ namespace aspnetcore.Services
                         dynamic dynObject = new ExpandoObject();
                         dynObject.content = grammarDTOs[0];
                         dynObject.type = obj.key;
-                        ArrayGramVocab.Add (dynObject);
+                        ArrayGramVocab.Add(dynObject);
                     }
                     else if (obj.key.Equals("v"))
                     {
@@ -137,7 +132,6 @@ namespace aspnetcore.Services
                         VocabularyQueryRequest filter =
                             new VocabularyQueryRequest();
                         filter.ID = Int32.Parse(obj.value);
-                        Console.WriteLine(filter.ID);
                         List<GrammarQueryDTO> grammarDTOs =
                             _procedureHelper
                                 .GetData
@@ -147,11 +141,11 @@ namespace aspnetcore.Services
                         dynamic dynObject = new ExpandoObject();
                         dynObject.content = grammarDTOs[0];
                         dynObject.type = obj.key;
-                        ArrayGramVocab.Add (dynObject);
+                        ArrayGramVocab.Add(dynObject);
                     }
                 }
-                ((dynamic) lesson).ArrayLesson = ArrayGramVocab;
-                lessons.Add (lesson);
+                ((dynamic)lesson).ArrayLesson = ArrayGramVocab;
+                lessons.Add(lesson);
             }
             queryResult.Items = lessons;
             return (ResultCode.SUCCESS, queryResult);
@@ -169,7 +163,7 @@ namespace aspnetcore.Services
                     .GetData<ResultDTO>(url, new { IDreviewRow = IDrow })
                     .FirstOrDefault();
             int ID = result.Result;
-            if (0 > ID) return ((ResultCode) Math.Abs(ID), null);
+            if (0 > ID) return ((ResultCode)Math.Abs(ID), null);
 
             return (ResultCode.SUCCESS, ID);
         }

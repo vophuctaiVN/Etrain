@@ -7,6 +7,7 @@ class Dictionary extends Component {
   constructor(props) {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,14 @@ class Dictionary extends Component {
     this.DicSearchClick(wordInput);
   }
 
+  handleChange(e) {
+    e.preventDefault();
+    let wordInput = document.getElementById("SearchInput").value;
+    if (wordInput === "") {
+      this.setState({ Sentences: [], wordtitle: false, youtubeinfo: null });
+    }
+  }
+
   render() {
     const array = this.state.Sentences;
     return (
@@ -74,6 +83,7 @@ class Dictionary extends Component {
                                   this.props.match.params.word ||
                                   "Search Keyword"
                                 }
+                                onChange={this.handleChange}
                               />
                               <div className="input-group-append">
                                 <button className="btn" type="button">
@@ -114,7 +124,7 @@ class Dictionary extends Component {
                   </div>
                   <div className="row">{array}</div>{" "}
                 </>
-              ) : document.getElementById("SearchInput") ? (
+              ) : this.state.wordtitle ? (
                 <div className="container">
                   <div className="row justify-content-center my-5">
                     <div className="col-md-7 heading-section text-center">

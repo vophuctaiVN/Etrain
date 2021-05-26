@@ -52,7 +52,7 @@ class Forum extends Component {
   SearchQuestion() {
     this.getQuestionList({
       Search: document.getElementById("searchField").value,
-      PageNo: this.state.pageNo,
+      PageNo: 1,
       PageSize: this.state.pageSize,
     });
   }
@@ -60,18 +60,31 @@ class Forum extends Component {
   handlePageChange = (type, pageNo) => {
     switch (type) {
       case "next":
-        this.getGramList({ PageNo: pageNo + 1, PageSize: this.state.pageSize });
+        this.getQuestionList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo + 1,
+          PageSize: this.state.pageSize,
+        });
         break;
       case "pre":
-        this.getGramList({ PageNo: pageNo - 1, PageSize: this.state.pageSize });
+        this.getQuestionList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo - 1,
+          PageSize: this.state.pageSize,
+        });
         break;
       case "number":
-        this.getGramList({ PageNo: pageNo, PageSize: this.state.pageSize });
+        this.getQuestionList({
+          Search: document.getElementById("searchField").value,
+          PageNo: pageNo,
+          PageSize: this.state.pageSize,
+        });
         break;
       default:
         break;
     }
   };
+
   render() {
     let addModalClose = () => this.setState({ isOpen: false });
     let lisquestions = this.state.questionList.map((element) => (
@@ -126,9 +139,10 @@ class Forum extends Component {
                       type="text"
                       className="form-control"
                       placeholder="Search Keyword"
+                      onChange={this.SearchQuestion}
                     />
                     <div className="input-group-append">
-                      <button className="btn" type="button">
+                      <button className="btn" type="submit">
                         <i
                           className="ti-search"
                           onClick={this.SearchQuestion}
@@ -148,60 +162,6 @@ class Forum extends Component {
                     handlePageChange={this.handlePageChange}
                     pageinfo={this.state}
                   />
-                  {/* <div className="page">
-                    <span className="selected">1</span>
-                    <a
-                      aria-current="page"
-                      className="active"
-                      title="go to page 2"
-                      href="/view/discussions?sort=active&page=2"
-                    >
-                      2
-                    </a>
-                    <a
-                      aria-current="page"
-                      className="active"
-                      title="go to page 3"
-                      href="/view/discussions?sort=active&page=3"
-                    >
-                      3
-                    </a>
-                    <a
-                      aria-current="page"
-                      className="active"
-                      title="go to page 2"
-                      href="/view/discussions?sort=active&page=2"
-                    >
-                      next
-                    </a>
-                  </div>
-                  <div className="page">
-                    <a
-                      aria-current="page"
-                      className="active"
-                      title="show 15 items per page"
-                      href="/view/discussions?pagesize=15"
-                    >
-                      15
-                    </a>
-                    <a
-                      aria-current="page"
-                      className="active"
-                      title="show 30 items per page"
-                      href="/view/discussions?pagesize=30"
-                    >
-                      30
-                    </a>
-                    <a
-                      aria-current="page"
-                      className="selected active"
-                      title="show 50 items per page"
-                      href="/view/discussions?pagesize=50"
-                    >
-                      50
-                    </a>
-                    <span className="dots">per page</span>
-                  </div> */}
                 </div>
               </div>
             </div>
