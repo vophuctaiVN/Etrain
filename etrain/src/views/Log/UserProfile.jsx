@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import Ranking from "./Ranking.jsx";
 import { getCookiesValue, USER_IMAGE_DOMAIN } from "../../utils/helpers";
 
 class Profile extends React.Component {
@@ -45,6 +46,7 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const queryObj = {
       userid: getCookiesValue("userID"),
     };
@@ -81,7 +83,6 @@ class Profile extends React.Component {
           case 400:
           case 404:
           case 500:
-            //notify(result.json.error.message, result.json.error.detail, "error");
             break;
           case 200:
             //notify(result.json.error.message, 'Create new Account successfull', "success");
@@ -176,6 +177,8 @@ class Profile extends React.Component {
                     </div>
                   </CardBody>
                 </Card>
+
+                <Ranking />
               </Col>
               <Col className="order-xl-1" xl="8">
                 <Card className="bg-secondary shadow">

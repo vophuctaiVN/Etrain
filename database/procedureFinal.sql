@@ -13,7 +13,7 @@ CREATE PROCEDURE `user_scoreInfo_update` (
     _IDaccount INT,    
     _Score INT,      
     _PostLeft INT, 
-    _Level VARCHAR(4)
+    _Level VARCHAR(8)
 )
 user_scoreInfo_update:BEGIN
     UPDATE `user_scoreInfo` SET `Score` = _Score, `PostLeft` = _PostLeft, `Level` = _Level
@@ -140,4 +140,15 @@ deleteMyWords:BEGIN
 END$$
 DELIMITER ;
 
+-- get Top 5 Ranking
+DROP procedure IF EXISTS `ranking_get`;
+DELIMITER $$
+CREATE PROCEDURE `ranking_get` (
+    _Top INT
+)
+ranking_get:BEGIN
+     SELECT * from user_scoreInfo INNER JOIN userInfo ON userInfo.ID_account= user_scoreInfo.ID_account
+ ORDER BY Score DESC LIMIT _Top;
+END$$
+DELIMITER ;
 

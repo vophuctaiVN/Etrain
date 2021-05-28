@@ -11,6 +11,7 @@ class Dictionary extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.match.params.word)
       this.DicSearchClick(this.props.match.params.word);
   }

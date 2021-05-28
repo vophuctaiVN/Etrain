@@ -33,6 +33,7 @@ class FirstTest extends Component {
   }
 
   async componentDidMount() {
+    window.scrollTo(0, 0);
     this.getLesson(45);
   }
 

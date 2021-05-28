@@ -689,6 +689,32 @@ async function UserInfo_Query(queryObject) {
   }
 }
 
+async function Rank_Query(queryObject) {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const queryString = serializeQueryString(queryObject);
+  const apiEndpoint = `${DOMAIN}/Accounts/Rank_Query`;
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function UserInfoAPIsService_Update(formData /* , token */) {
   var myHeaders = new Headers();
   //myHeaders.append("Authorization", `Bearer ${token}`);
@@ -728,10 +754,8 @@ async function UserInfoAPIsService_Update(formData /* , token */) {
   }
 }
 
-async function Question_Create_APIsService_Update(formData /* , token */) {
+async function Question_Create_APIsService_Update(formData) {
   var myHeaders = new Headers();
-  //myHeaders.append("Authorization", `Bearer ${token}`);
-
   var formdata = new FormData();
   formdata.append("Question", formData.Question);
   formdata.append("Topic", formData.Topic);
@@ -789,10 +813,8 @@ async function ForumQuestionList_Query(queryObject) {
   }
 }
 
-async function Answer_Create_APIsService_Update(formData /* , token */) {
+async function Answer_Create_APIsService_Update(formData) {
   var myHeaders = new Headers();
-  //myHeaders.append("Authorization", `Bearer ${token}`);
-
   var formdata = new FormData();
   formdata.append("Detail", formData.Detail);
   formdata.append("IDaccount", formData.IDaccount);

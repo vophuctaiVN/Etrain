@@ -1,40 +1,55 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { GramList } from "../Grammar/GramList";
+import { getRndInteger } from "../../utils/helpers";
+class HSection4 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //suggest
+      suggest: [],
+    };
+  }
 
-class HSection1 extends Component {
+  componentDidMount() {
+    const number = getRndInteger(1, 3);
+    this.getRandGramList({
+      PageNo: number,
+      PageSize: 3,
+    });
+  }
+
+  getRandGramList = (object) => {
+    const { PageNo, PageSize } = object;
+    const queryObj = {
+      PageNo,
+      PageSize,
+    };
+    window
+      .GrammarAPIsService_Query(queryObj)
+      .then((result) =>
+        this.setState({
+          suggest: result.json.result.items,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
   render() {
     return (
-      <section className="member_counter">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-3 col-sm-6">
-            <div className="single_member_counter">
-              <span className="counter">1024</span>
-              <h4>All Teachers</h4>
+      <section className="special_cource padding_top">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-xl-5">
+              <div className="section_tittle text-center">
+                <p>popular courses</p>
+                <h2>Grammar Courses</h2>
+              </div>
             </div>
           </div>
-          <div className="col-lg-3 col-sm-6">
-            <div className="single_member_counter">
-              <span className="counter">960</span>
-              <h4> All Students</h4>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6">
-            <div className="single_member_counter">
-              <span className="counter">1019</span>
-              <h4>Online Students</h4>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6">
-            <div className="single_member_counter">
-              <span className="counter">819</span>
-              <h4>Ofline Students</h4>
-            </div>
-          </div>
+          <GramList gramList={this.state.suggest} />
         </div>
-      </div>
-    </section>
+      </section>
     );
   }
 }
 
-export default HSection1;
+export default HSection4;

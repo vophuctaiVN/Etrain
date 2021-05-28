@@ -14,6 +14,7 @@ class Login extends React.Component {
     window
       .AccountAPIsService_CheckAuth(getCookiesValue("authToken"))
       .then(() => this.props.history.push("hompage"));
+    window.scrollTo(0, 0);
   }
 
   handleSignInClick = (event) => {

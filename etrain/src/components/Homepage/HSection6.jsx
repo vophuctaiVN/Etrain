@@ -1,47 +1,93 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { GramList } from "../Grammar/GramList";
+import { getRndInteger } from "../../utils/helpers";
+import { Link } from "react-router-dom";
+class HSection6 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //suggest
+      suggest: [],
+    };
+  }
 
-class HSection1 extends Component {
+  componentDidMount() {
+    const number = getRndInteger(1, 3);
+    this.getVocabList({
+      PageNo: number,
+      PageSize: 3,
+    });
+  }
+
+  getVocabList = (object) => {
+    const { PageNo, PageSize } = object;
+    const queryObj = {
+      PageNo,
+      PageSize,
+    };
+    window
+      .VocabularyAPIsService_Query(queryObj)
+      .then((result) =>
+        this.setState({
+          suggest: result.json.result.items,
+        })
+      )
+      .catch((error) => console.log(error));
+  };
+  truncate = (str) => {
+    return str.length > 100 ? str.substring(0, 100) + "..." : str;
+  };
   render() {
-    return (
-      <section className="advance_feature learning_part">
-      <div className="container">
-        <div className="row align-items-sm-center align-items-xl-stretch">
-          <div className="col-md-6 col-lg-6">
-            <div className="learning_member_text">
-              <h5>Advance feature</h5>
-              <h2>Our Advance Educator
-                Learning System</h2>
-              <p>Fifth saying upon divide divide rule for deep their female all hath brind mid Days
-                and beast greater grass signs abundantly have greater also use over face earth
-                days years under brought moveth she star</p>
-              <div className="row">
-                <div className="col-sm-6 col-md-12 col-lg-6">
-                  <div className="learning_member_text_iner">
-                    <span className="ti-pencil-alt" />
-                    <h4>Learn Anywhere</h4>
-                    <p>There earth face earth behold she star so made void two given and also our</p>
-                  </div>
-                </div>
-                <div className="col-sm-6 col-md-12 col-lg-6">
-                  <div className="learning_member_text_iner">
-                    <span className="ti-stamp" />
-                    <h4>Expert Teacher</h4>
-                    <p>There earth face earth behold she star so made void two given and also our</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6">
-            <div className="learning_img">
-              <img src="img/advance_feature_img.png" alt="" />
+    this.state.suggest.forEach((topicInfo) => {
+      topicInfo.description = this.truncate(topicInfo.description);
+    });
+    let suggest = this.state.suggest.map((vocab) => (
+      <div className="col-sm-6 col-lg-4 col-xl-4">
+        <div className="single-home-blog">
+          <div className="card">
+            <img src={vocab.imageURL} className="card-img-top" alt="blog" />
+            <div className="card-body">
+              <a href="# " className="btn_4">
+                {vocab.level}
+              </a>
+
+              <Link to={`/vocabulary-${vocab.id}`}>
+                {" "}
+                <h5 className="card-title">{vocab.title}</h5>{" "}
+              </Link>
+              <p>{vocab.description}</p>
+              {/*    <ul>
+                <li>
+                  {" "}
+                  <span className="ti-comments" />2 Comments
+                </li>
+                <li>
+                  {" "}
+                  <span className="ti-heart" />
+                  2k Like
+                </li>
+              </ul> */}
             </div>
           </div>
         </div>
       </div>
-    </section>
+    ));
+    return (
+      <section className="blog_part section_padding">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-xl-5">
+              <div className="section_tittle text-center">
+                <p>Our Posts</p>
+                <h2>Vocab Topics</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">{suggest}</div>
+        </div>
+      </section>
     );
   }
 }
 
-export default HSection1;
+export default HSection6;

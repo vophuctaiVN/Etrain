@@ -23,6 +23,7 @@ class MatchingWord extends React.Component {
     this.questions = [];
     this.state = {};
     this.getInitialState();
+    window.scrollTo(0, 0);
   }
 
   replaceRandomWord(fullword) {

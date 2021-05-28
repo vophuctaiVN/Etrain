@@ -120,7 +120,8 @@ class TopBar extends Component {
     if (
       window.location.pathname === "/menu" ||
       window.location.pathname === "/cart" ||
-      window.location.pathname === "/checkout"
+      window.location.pathname === "/checkout" ||
+      window.location.pathname.includes("/product-")
     )
       iconStore = (
         <Link

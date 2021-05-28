@@ -20,6 +20,7 @@ class Vocabulary extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getVocabList({
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,

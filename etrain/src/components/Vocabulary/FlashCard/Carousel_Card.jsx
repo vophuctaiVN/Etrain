@@ -12,6 +12,7 @@ class Carousel_Card extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.match.params.idtopic === "mine")
       window
         .MyVocabularyQuery({

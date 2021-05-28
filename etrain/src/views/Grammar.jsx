@@ -18,6 +18,7 @@ class Grammar extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getGramList({
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,

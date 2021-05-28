@@ -11,6 +11,7 @@ const contents = {
 class MenuView extends Component {
   state = { categories: [], products: [] };
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getAllCategories();
     this.getAllProducts();
   }

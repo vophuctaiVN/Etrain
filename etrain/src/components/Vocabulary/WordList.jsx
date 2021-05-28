@@ -12,6 +12,7 @@ class WordList extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getVocabByTopic(this.props.match.params.lessonid);
   }
 

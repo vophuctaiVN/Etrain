@@ -52,7 +52,6 @@ CREATE TABLE `gram_post_section_example` (
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
     PRIMARY KEY (`ID`),
     FOREIGN KEY (ID_section) REFERENCES gram_post_section(ID) ON DELETE CASCADE
-
 );
 
 -- vocab_by_topic table

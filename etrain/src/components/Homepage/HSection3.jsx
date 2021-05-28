@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class HSection1 extends Component {
+class HSection3 extends Component {
   render() {
     return (
       <section className="learning_part">
@@ -17,18 +17,21 @@ class HSection1 extends Component {
                 <h5>About us</h5>
                 <h2>Learning with Love and Laughter</h2>
                 <p>
-                  Fifth saying upon divide divide rule for deep their female all
-                  hath brind Days and beast greater grass signs abundantly have
-                  greater also days years under brought moveth.
+                  Language acquisition also benefits a person by creating a
+                  greater comprehension for how language works and is used. The
+                  study found individuals with multilingual communication were
+                  able to better read and interpret social situations, which
+                  improved their performance in social settings.
                 </p>
                 <ul>
                   <li>
                     <span className="ti-pencil-alt" />
-                    Him lights given i heaven second yielding seas gathered wear
+                    We have a lot of lessons for you to study from A1 to B2
+                    level.
                   </li>
                   <li>
                     <span className="ti-ruler-pencil" />
-                    Fly female them whales fly them day deep given night.
+                    We suggest lesson for you better if you have an account.
                   </li>
                 </ul>
                 <Link to={`/register`} className="btn_1">
@@ -43,4 +46,4 @@ class HSection1 extends Component {
   }
 }
 
-export default HSection1;
+export default HSection3;

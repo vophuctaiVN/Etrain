@@ -17,6 +17,7 @@ class OrderWords extends Component {
     this.items = [];
     this.state = {};
     this.getInitialState();
+    window.scrollTo(0, 0);
   }
 
   itemByCharacter(exampleProps) {

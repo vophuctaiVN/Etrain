@@ -10,8 +10,8 @@ import { DOMAIN } from "../../utils/helpers";
 export default class ProductView extends Component {
   render() {
     return (
-      <> 
-        <section className="ftco-section" style = {{"margin-top": "100px"}}>
+      <>
+        <section className="ftco-section" style={{ "margin-top": "100px" }}>
           <div className="container">
             <ProductDetail productCode={this.props.match.params.productCode} />
           </div>
@@ -26,6 +26,8 @@ function ProductDetail(props) {
   const [product, setProduct] = React.useState(null);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
+
     window
       .ProductAPIsService_Search({ Code: props.productCode })
       .then((result) => setProduct(result.json.result.items[0]))

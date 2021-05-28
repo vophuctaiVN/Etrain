@@ -160,5 +160,25 @@ namespace aspnetcore.Controllers
                 new GeneralResponse { Result = ID, Error = error };
             return StatusCode(statusCode, response);
         }
+
+        [HttpGet]
+        //[Authorize]
+        [ProducesResponseType(typeof (List<ProfileQueryDTO>), 200)]
+        [ProducesResponseType(500)]
+        public IActionResult Rank_Query([FromQuery] int top)
+        {
+            ResultCode resultCode;
+            QueryModel queryResult;
+            (resultCode, queryResult) = _service.Rank_Query(top);
+
+            Result error;
+            int statusCode;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response =
+                new GeneralResponse { Result = queryResult, Error = error };
+            return StatusCode(statusCode, response);
+        }
     }
 }

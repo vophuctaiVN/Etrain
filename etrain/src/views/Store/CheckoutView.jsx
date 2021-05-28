@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { showAlert } from "../../utils/helpers";
 import Loader from "../../components/Store/Loader";
 
-import {FaAngleDown} from "react-icons/fa"
+import { FaAngleDown } from "react-icons/fa";
 
 class CheckoutView extends Component {
   state = {
@@ -16,6 +16,7 @@ class CheckoutView extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.handleAddressSelect(null, "Tỉnh/Thành");
   }
 
@@ -65,7 +66,7 @@ class CheckoutView extends Component {
 
   render() {
     return (
-      <section className="ftco-section"  style = {{"margin-top": "100px"}}>
+      <section className="ftco-section" style={{ "margin-top": "100px" }}>
         <div className="container">
           <div className="row">
             <div className="col-xl-8 mb-4">
@@ -99,7 +100,7 @@ class CheckoutView extends Component {
                       <label form="country">Province</label>
                       <div className="select-wrap">
                         <div className="icon">
-                        <FaAngleDown/>
+                          <FaAngleDown />
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select
@@ -130,7 +131,7 @@ class CheckoutView extends Component {
                       <label form="country">District</label>
                       <div className="select-wrap">
                         <div className="icon">
-                        <FaAngleDown/>
+                          <FaAngleDown />
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select
@@ -161,7 +162,7 @@ class CheckoutView extends Component {
                       <label form="country">Commune</label>
                       <div className="select-wrap">
                         <div className="icon">
-                        <FaAngleDown/>
+                          <FaAngleDown />
                           <i className="fas fa-chevron-down"></i>
                         </div>
                         <select id="commune" name="" className="form-control">
@@ -199,7 +200,10 @@ class CheckoutView extends Component {
                     </div>
                   </div>
                   <div className="col-md-12">
-                    <p className="text-primary" style = {{"margin-top": "20px"}}>
+                    <p
+                      className="text-primary"
+                      style={{ "margin-top": "20px" }}
+                    >
                       *Vui lòng ghi nhớ thông tin dưới đây để xác nhận đơn hàng
                     </p>
                   </div>
@@ -255,7 +259,6 @@ class CheckoutView extends Component {
                   </p>
                 </div>
                 <div className="cart-detail ftco-bg-dark p-3 p-md-4 col-xl-12 col-md-6">
-                  
                   <h3 className="billing-heading mb-4">Payment Method</h3>
                   <div className="form-group">
                     <div className="col-md-12">

@@ -72,11 +72,14 @@ export const AskQuestion = (props) => {
                   Topic
                 </label>
                 <Input type="select" id="topic">
-                  <option>Grammar</option>
-                  <option>Vocabulary</option>
-                  <option>Method</option>
-                  <option>Test</option>
-                  <option>Usage</option>
+                  <option style={{ backgroundColor: "white" }}>Grammar</option>
+                  <option style={{ backgroundColor: "white" }}>
+                    Vocabulary
+                  </option>
+                  <option style={{ backgroundColor: "white" }}>Method</option>
+                  <option style={{ backgroundColor: "white" }}>Test</option>
+                  <option style={{ backgroundColor: "white" }}>Usage</option>
+                  <option style={{ backgroundColor: "white" }}>Another</option>
                 </Input>
               </FormGroup>
             </Col>

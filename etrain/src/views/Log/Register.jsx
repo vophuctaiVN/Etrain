@@ -5,6 +5,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.handleCreateClick = this.handleCreateClick.bind(this);
+    window.scrollTo(0, 0);
   }
   handleCreateClick(e) {
     e.preventDefault();

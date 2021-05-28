@@ -21,6 +21,7 @@ class Forum extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getQuestionList({
       PageNo: this.state.pageNo,
       PageSize: this.state.pageSize,
