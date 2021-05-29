@@ -165,7 +165,7 @@ class Profile extends React.Component {
                             <span className="heading font-weight-light">
                               {userInfo.postLeft}
                             </span>
-                            <span className="description">Post Left</span>
+                            <span className="description">Tickets</span>
                           </div>
                         </div>
                       </div>

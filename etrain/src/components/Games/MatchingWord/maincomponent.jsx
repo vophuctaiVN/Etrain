@@ -24,6 +24,7 @@ class MatchingWord extends React.Component {
     this.state = {};
     this.getInitialState();
     window.scrollTo(0, 0);
+    this.listIndex = [];
   }
 
   replaceRandomWord(fullword) {
@@ -139,6 +140,11 @@ class MatchingWord extends React.Component {
     }
     if (this.state.currentQuestionIndex < this.state.questionLimit) {
       var randNum = this.randomIndex();
+      do {
+        randNum = this.randomIndex();
+      } while (this.listIndex.includes(randNum));
+
+      this.listIndex.push(randNum);
       var word = this.words[randNum];
       this.setState({
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
@@ -190,6 +196,7 @@ class MatchingWord extends React.Component {
       isOpen: false,
       myanswer: null,
     });
+    this.listIndex = [];
   }
 
   render() {

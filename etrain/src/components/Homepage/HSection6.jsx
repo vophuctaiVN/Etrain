@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { GramList } from "../Grammar/GramList";
 import { getRndInteger } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 class HSection6 extends Component {
@@ -12,7 +11,7 @@ class HSection6 extends Component {
   }
 
   componentDidMount() {
-    const number = getRndInteger(1, 3);
+    const number = getRndInteger(1, 6);
     this.getVocabList({
       PageNo: number,
       PageSize: 3,

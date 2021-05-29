@@ -11,10 +11,17 @@ const ResultModal = (props) => {
     window
       .UserInfo_Query(queryObj)
       .then((result) => {
+        const nowScore = parseInt(result.json.result.items[0].score);
+        let tikets = parseInt(result.json.result.items[0].postLeft);
+        if (
+          Math.floor((nowScore + props.score) / 100) !==
+          Math.floor(nowScore / 100)
+        )
+          tikets += 10;
         window.ScoreInfo_UpdateAPI({
           IDaccount: getCookiesValue("userID"),
-          Score: parseInt(result.json.result.items[0].score) + props.score,
-          PostLeft: result.json.result.items[0].postLeft,
+          Score: nowScore + props.score,
+          PostLeft: tikets,
           Level: result.json.result.items[0].level,
         });
         showAlert(result.json.error.message, "Save score successfull");

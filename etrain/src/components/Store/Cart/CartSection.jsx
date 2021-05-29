@@ -10,10 +10,10 @@ import { FiMinusCircle } from "react-icons/fi";
 import { BiPlusCircle } from "react-icons/bi";
 
 // backend
-import { DOMAIN } from "../../../utils/helpers";
+import { DOMAIN, getCookiesValue } from "../../../utils/helpers";
 
 class CartSection extends Component {
-  state = { cart: this.props.cart };
+  state = { cart: this.props.cart, discount: 0 };
 
   handleChangeQuantity(cartDetail, quantity) {
     if (quantity < 1 || quantity > 99) return;
@@ -29,7 +29,7 @@ class CartSection extends Component {
       (x) => x.product.id === cartDetail.product.id
     );
     if (index > -1) cart.cartDetails.splice(index, 1);
-    calculateCartTotal(cart);
+    calculateCartTotal(cart, this.state.discount);
     this.setState({ cart });
     store.dispatch(changeAllCart(this.state.cart));
   }
@@ -38,11 +38,30 @@ class CartSection extends Component {
     store.dispatch(changeAllCart(this.state.cart));
   }
 
+  componentDidMount() {
+    const queryObj = {
+      userid: getCookiesValue("userID"),
+    };
+    window
+      .UserInfo_Query(queryObj)
+      .then((result) => {
+        let tikets = parseInt(result.json.result.items[0].postLeft);
+        if (tikets)
+          this.setState({
+            discount: tikets,
+          });
+      })
+      .catch((error) => console.log(error));
+  }
+
   render() {
     const { cart } = this.state;
-    calculateCartTotal(cart);
-    return ( 
-      <section className="ftco-section ftco-cart" style = {{"margin-top": "100px"}}>
+    calculateCartTotal(cart, this.state.discount);
+    return (
+      <section
+        className="ftco-section ftco-cart"
+        style={{ "margin-top": "100px" }}
+      >
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -69,7 +88,7 @@ class CartSection extends Component {
                         <tr className="text-center" key={key}>
                           <td className="product-remove">
                             <i onClick={() => this.handleRemoveProduct(value)}>
-                            <TiTimes size={20}/>
+                              <TiTimes size={20} />
                             </i>
                           </td>
                           <td className="image-prod">
@@ -98,7 +117,7 @@ class CartSection extends Component {
                                     )
                                   }
                                 >
-                                  <FiMinusCircle/>
+                                  <FiMinusCircle />
                                   <i className="fas fa-minus"></i>
                                 </button>
                               </span>
@@ -126,7 +145,7 @@ class CartSection extends Component {
                                     )
                                   }
                                 >
-                                  <BiPlusCircle/>
+                                  <BiPlusCircle />
                                   <i className="fas fa-plus"></i>
                                 </button>
                               </span>
@@ -144,23 +163,25 @@ class CartSection extends Component {
           <div className="row justify-content-end">
             <div className="col col-lg-3 col-md-6 mt-5 cart-wrap">
               <div className="cart-total mb-3">
-                <h3>Cart Totals</h3>
+                <h3 style={{ color: "white" }}>Cart Totals</h3>
                 <p className="d-flex">
                   <span>Subtotal</span>
-                  <span style = {{"text-align": "right"}}>{cart.subtotal}</span>
+                  <span style={{ "text-align": "right" }}>{cart.subtotal}</span>
                 </p>
                 <p className="d-flex">
                   <span>Delivery</span>
-                  <span style = {{"text-align": "right"}}>{cart.delivery}</span>
+                  <span style={{ "text-align": "right" }}>{cart.delivery}</span>
                 </p>
                 <p className="d-flex">
                   <span>Discount</span>
-                  <span style = {{"text-align": "right"}}>{cart.discount}</span>
+                  <span style={{ "text-align": "right" }}>
+                    {this.state.discount}
+                  </span>
                 </p>
                 <hr />
                 <p className="d-flex total-price">
                   <span>Total</span>
-                  <span style = {{"text-align": "right"}}>{cart.total}</span>
+                  <span style={{ "text-align": "right" }}>{cart.total}</span>
                 </p>
               </div>
               <p className="text-center">
@@ -176,14 +197,15 @@ class CartSection extends Component {
   }
 }
 
-function calculateCartTotal(cart) {
+function calculateCartTotal(cart, discount) {
+  if (discount > cart.subtotal) discount = 0;
   cart.subtotal = 0;
   for (let i = 0; i < cart.cartDetails.length; i++) {
     const detail = cart.cartDetails[i];
     detail.total = detail.quantity * detail.product.price;
     cart.subtotal += detail.total;
   }
-  cart.total = cart.subtotal + cart.delivery - cart.discount;
+  cart.total = cart.subtotal + cart.delivery - discount /* cart.discount */;
 }
 
 function EmptyCart(props) {

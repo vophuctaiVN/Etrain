@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Quiz from "react-quiz-component";
+import GramQ from "../Grammar/GramQ";
+
 class QuizPost extends Component {
   constructor(props) {
     super(props);
@@ -85,6 +87,9 @@ class QuizPost extends Component {
         <div className="container">
           <div className="container">
             <div className="row justify-content-center">{FullQuiz}</div>
+          </div>
+          <div style={{ marginTop: "100px" }}>
+            <GramQ />
           </div>
         </div>
       </section>

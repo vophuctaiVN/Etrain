@@ -17,6 +17,7 @@ class GramQ extends Component {
       totalitems: 0,
       pageNo: 1,
       pageSize: 5,
+      ranking: [],
 
       showMoreToggle: [],
     };
@@ -48,16 +49,22 @@ class GramQ extends Component {
     };
     window
       .ForumQuestionList_Query(queryObj)
-      .then(async (result) => {
-        const x = await isLogin();
-        this.setState({
-          questionList: result.json.result.items,
-          totalitems: result.json.result.totalRows,
-          pageNo: PageNo,
-          pageSize: PageSize,
-          showMoreToggle: [],
-          loginStt: x,
-        });
+      .then((result) => {
+        window
+          .Rank_Query({ top: 5 })
+          .then(async (ranking) => {
+            const x = await isLogin();
+            this.setState({
+              questionList: result.json.result.items,
+              totalitems: result.json.result.totalRows,
+              pageNo: PageNo,
+              pageSize: PageSize,
+              showMoreToggle: [],
+              loginStt: x,
+              ranking: ranking.json.result.items,
+            });
+          })
+          .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
   };
@@ -94,6 +101,7 @@ class GramQ extends Component {
       .catch((error) => console.log(error));
   }
   render() {
+    console.log(this.state);
     const date = (Time) => {
       const dateObj = new Date(Time);
       const month = dateObj.getMonth() + 1;
@@ -108,43 +116,57 @@ class GramQ extends Component {
       return newdate + " at " + time;
     };
 
-    let lisquestions = this.state.questionList.map((element, index) => (
-      <div
-        key={index}
-        className="comment-list"
-        style={{ marginRight: "100px" }}
-      >
-        <div className="single-comment single-reviews justify-content-between d-flex">
-          <div className="user justify-content-between display-webkit-box">
-            <div className="thumb">
-              <img
-                src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
-                alt=""
-              />
-            </div>
-            <div className="desc">
-              <h5>
-                <a href="# ">{element.profile.name}</a>
-              </h5>
-              <div className="rating">{element.question.question}</div>
-              <p className="comment">{date(element.question.time)}</p>
+    let lisquestions = this.state.questionList.map((element, index) => {
+      let isStar = false;
+      this.state.ranking.forEach((profile) => {
+        if (profile.id_account == element.profile.id_account) isStar = true;
+      });
+      return (
+        <div
+          key={index}
+          className="comment-list"
+          style={{ marginRight: "100px" }}
+        >
+          <div className="single-comment single-reviews justify-content-between d-flex">
+            <div className="user justify-content-between display-webkit-box">
+              <div className="thumb">
+                <img
+                  src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
+                  alt=""
+                />
+              </div>
+              <div className="desc">
+                <h5>
+                  {element.profile.name}
+                  {isStar ? (
+                    <a>
+                      <img
+                        src="img/icon/color_star.svg"
+                        style={{ marginLeft: "5px" }}
+                      />
+                    </a>
+                  ) : null}
+                </h5>
+                <div className="rating">{element.question.question}</div>
+                <p className="comment">{date(element.question.time)}</p>
+              </div>
             </div>
           </div>
+          <p
+            style={{ float: "right" }}
+            onClick={() => this.ToggleClick(index, element.question.id)}
+          >
+            {element.question.numberOfAnswer} answers
+          </p>
+          {this.state.showMoreToggle[index] && (
+            <GramA
+              questionID={this.state.showMoreToggle[index]}
+              isLogin={this.state.loginStt}
+            />
+          )}
         </div>
-        <p
-          style={{ float: "right" }}
-          onClick={() => this.ToggleClick(index, element.question.id)}
-        >
-          {element.question.numberOfAnswer} answers
-        </p>
-        {this.state.showMoreToggle[index] && (
-          <GramA
-            questionID={this.state.showMoreToggle[index]}
-            isLogin={this.state.loginStt}
-          />
-        )}
-      </div>
-    ));
+      );
+    });
     return (
       <>
         <h4 className="title">Question?</h4>

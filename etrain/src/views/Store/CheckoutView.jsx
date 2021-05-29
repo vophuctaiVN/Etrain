@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { showAlert } from "../../utils/helpers";
+import { showAlert, getCookiesValue } from "../../utils/helpers";
 import Loader from "../../components/Store/Loader";
 
 import { FaAngleDown } from "react-icons/fa";
@@ -13,11 +13,25 @@ class CheckoutView extends Component {
     provinces: [],
     districts: [],
     communes: [],
+    myInfo: {},
   };
 
   componentDidMount() {
     window.scrollTo(0, 0);
     this.handleAddressSelect(null, "Tỉnh/Thành");
+
+    const queryObj = {
+      userid: getCookiesValue("userID"),
+    };
+    window
+      .UserInfo_Query(queryObj)
+      .then((result) => {
+        let tikets = parseInt(result.json.result.items[0].postLeft);
+        this.setState({
+          myInfo: result.json.result.items[0],
+        });
+      })
+      .catch((error) => console.log(error));
   }
 
   handleAddressSelect(fatherID, level) {
@@ -51,7 +65,7 @@ class CheckoutView extends Component {
       showAlert("Invalid Info", "Your input information is too long");
       return;
     }
-    Loader.showLoader();
+    //Loader.showLoader();
     const requestBody = convertOrderCreateData(formData, this.props.cart);
     window
       .OrderAPIsService_Create(requestBody)
@@ -59,12 +73,22 @@ class CheckoutView extends Component {
         showAlert(result.json.error.message, result.json.error.detail);
         if (200 === result.statusCode)
           document.getElementById("order-id").value = result.json.result;
-        Loader.closeLoader();
+        // Loader.closeLoader();
       })
       .catch((error) => console.log(error));
   }
 
   render() {
+    let firstName = "";
+    let lastName = "";
+    let discount = 0;
+
+    if (this.state.myInfo.name) {
+      var fullName = this.state.myInfo.name.split(" ");
+      firstName = fullName[0];
+      if (fullName.length !== 1) lastName = fullName[fullName.length - 1];
+      discount = this.state.myInfo.postLeft;
+    }
     return (
       <section className="ftco-section" style={{ "margin-top": "100px" }}>
         <div className="container">
@@ -80,7 +104,7 @@ class CheckoutView extends Component {
                         id="firstname"
                         type="text"
                         className="form-control"
-                        placeholder=""
+                        defaultValue={firstName}
                       />
                     </div>
                   </div>
@@ -91,7 +115,7 @@ class CheckoutView extends Component {
                         id="lastname"
                         type="text"
                         className="form-control"
-                        placeholder=""
+                        defaultValue={lastName}
                       />
                     </div>
                   </div>
@@ -214,7 +238,7 @@ class CheckoutView extends Component {
                         id="phone"
                         type="tel"
                         className="form-control"
-                        placeholder=""
+                        defaultValue={this.state.myInfo.phone}
                         onKeyPress={(e) => {
                           if (!/[0-9 ]/.test(e.key)) e.preventDefault();
                         }}
@@ -250,7 +274,7 @@ class CheckoutView extends Component {
                   </p>
                   <p className="d-flex">
                     <span>Discount</span>
-                    <span>{this.props.cart.discount} Đ</span>
+                    <span>{discount} Đ</span>
                   </p>
                   <hr />
                   <p className="d-flex total-price">

@@ -127,12 +127,12 @@ class TopBar extends Component {
         <Link
           to="/cart"
           className="nav-link"
-          onClick={() =>
+          /* onClick={() =>
             window.scrollTo({
               top: window.innerHeight - 60,
               behavior: "smooth",
             })
-          }
+          } */
         >
           <IoMdCart
             size={20}
