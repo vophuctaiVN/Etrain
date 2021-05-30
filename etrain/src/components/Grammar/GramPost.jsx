@@ -3,6 +3,8 @@ import GramLesson from "./GramLesson";
 import MoreLesson from "./MoreLesson";
 import GramQ from "./GramQ";
 import { Link } from "react-router-dom";
+import getWord from "../../utils/helpers";
+import Video from "../Dictionary/Video";
 
 class GramPost extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class GramPost extends Component {
     this.state = {
       items: [],
       totalitems: 0,
+      youtubeinfo: {},
     };
   }
 
@@ -33,14 +36,16 @@ class GramPost extends Component {
     };
     window
       .GrammarAPIsService_Query(queryObjTopic)
-      .then((topic) => {
+      .then(async (topic) => {
+        var data = await getWord(topic.json.result.items[0].title);
         window
           .LessonAPIsService_Query(queryObjContent)
           .then((result) =>
             this.setState({
-              topics: topic.json.result.items,
+              topics: topic.json.result.items[0],
               items: result.json.result.items,
               totalitems: result.json.result.totalRows,
+              youtubeinfo: data.youtubeinfo,
             })
           )
           .catch((error) => console.log(error));
@@ -74,12 +79,23 @@ class GramPost extends Component {
                 {this.state.topics ? (
                   <img
                     className="img-fluid"
-                    src={this.state.topics[0].imageURL}
+                    src={this.state.topics.imageURL}
                     alt=""
                   />
                 ) : null}
               </div>
               {listLessons}
+
+              <div className="single-post-area">
+                <div className="blog-author">
+                  <Video
+                    key={this.state.youtubeinfo.youtube_id}
+                    second={this.state.youtubeinfo.start}
+                    videoid={this.state.youtubeinfo.youtube_id}
+                  />
+                </div>
+              </div>
+
               <Link
                 to={`/orderwords-${this.props.match.params.lessonid}`}
                 className="genric-btn success-border circle"

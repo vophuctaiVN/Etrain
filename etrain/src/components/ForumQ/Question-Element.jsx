@@ -5,7 +5,22 @@ import { Link } from "react-router-dom";
 export class QuestionElement extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ranking: [],
+    };
   }
+
+  componentDidMount() {
+    window
+      .Rank_Query({ top: 5 })
+      .then(async (ranking) =>
+        this.setState({
+          ranking: ranking.json.result.items,
+        })
+      )
+      .catch((error) => console.log(error));
+  }
+
   render() {
     const question = this.props.question;
     const profile = this.props.profile;
@@ -18,6 +33,11 @@ export class QuestionElement extends React.Component {
 
     const newdate = year + "/" + month + "/" + day;
     const time = hour + ":" + minutes;
+
+    let isStar = false;
+    this.state.ranking.forEach((info) => {
+      if (info.iD_account == profile.iD_account) isStar = true;
+    });
     return (
       <div className="element">
         <div className="discussion-summary">
@@ -32,15 +52,13 @@ export class QuestionElement extends React.Component {
             </h3>
             <div className="excerpt">{question.detail}</div>
             <div className="topic">
-              <a className="tag" href="/view/discussions/tagged/faucibus">
-                {question.topic}
-              </a>{" "}
+              <a className="tag">{question.topic}</a>{" "}
             </div>
             <div className="user-info">
               <div className="when">
                 {newdate} at {time}
               </div>
-              <a className="gravatar" href="/view/users/6/HH">
+              <a className="gravatar">
                 <img
                   alt="..."
                   src={`${USER_IMAGE_DOMAIN}/${profile.image}`}
@@ -49,8 +67,20 @@ export class QuestionElement extends React.Component {
                 />
               </a>
               <div className="details">
-                <a href="javascript:void(0)">{profile.name}</a>
-                <span className="user-location">{profile.score}</span>
+                <a href="javascript:void(0)">
+                  {profile.name}
+                  {isStar ? (
+                    <a>
+                      <img
+                        src="img/icon/color_star.svg"
+                        style={{ marginLeft: "5px" }}
+                      />
+                    </a>
+                  ) : null}
+                </a>
+                <span className="user-location">
+                  {profile.level} - {profile.score}
+                </span>
               </div>
             </div>
           </div>

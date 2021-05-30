@@ -12,6 +12,7 @@ class GramA extends Component {
     this.state = {
       answerList: [],
       totalitems: 0,
+      ranking: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -26,12 +27,18 @@ class GramA extends Component {
     };
     window
       .ForumAnswerList_Query(queryObj)
-      .then((result) =>
-        this.setState({
-          answerList: result.json.result.items,
-          totalitems: result.json.result.totalRows,
-        })
-      )
+      .then((result) => {
+        window
+          .Rank_Query({ top: 5 })
+          .then(async (ranking) =>
+            this.setState({
+              answerList: result.json.result.items,
+              totalitems: result.json.result.totalRows,
+              ranking: ranking.json.result.items,
+            })
+          )
+          .catch((error) => console.log(error));
+      })
       .catch((error) => console.log(error));
   };
 
@@ -76,28 +83,44 @@ class GramA extends Component {
 
     let lisquestions;
     if (this.state.answerList)
-      lisquestions = this.state.answerList.map((element, index) => (
-        <div key={index} className="comment-list">
-          <div className="single-comment single-reviews justify-content-between d-flex">
-            <div className="user justify-content-between display-webkit-box">
-              <div>
-                <img
-                  className="gram-answer-image"
-                  src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
-                  alt=""
-                />
-              </div>
-              <div className="desc">
-                <h5>
-                  <a href="# ">{element.profile.name}</a>
-                </h5>
-                <div className="rating">{element.answer.detail}</div>
-                <p className="comment">{date(element.answer.time)}</p>
+      lisquestions = this.state.answerList.map((element, index) => {
+        let isStar = false;
+        this.state.ranking.forEach((profile) => {
+          if (profile.iD_account == element.profile.iD_account) isStar = true;
+        });
+        return (
+          <div key={index} className="comment-list">
+            <div className="single-comment single-reviews justify-content-between d-flex">
+              <div className="user justify-content-between display-webkit-box">
+                <div>
+                  <img
+                    className="gram-answer-image"
+                    src={`${USER_IMAGE_DOMAIN}/${element.profile.image}`}
+                    alt=""
+                  />
+                </div>
+                <div className="desc">
+                  <h5>
+                    <a href="# ">
+                      {element.profile.name} - {element.profile.level}
+                      {isStar ? (
+                        <a>
+                          <img
+                            src="img/icon/color_star.svg"
+                            style={{ marginLeft: "5px" }}
+                          />
+                        </a>
+                      ) : null}
+                    </a>
+                  </h5>
+                  <div className="rating">{element.answer.detail}</div>
+                  <p className="comment">{date(element.answer.time)}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ));
+        );
+      });
     return (
       <>
         <div

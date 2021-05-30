@@ -40,17 +40,9 @@ class Carousel_Card extends React.Component {
 
   render() {
     let items = this.state.items;
-    let listvocab;
-    if (items) {
-      listvocab = items.map((item, index) => (
-        <FlashCard item={item} key={index}></FlashCard>
-      ));
-    } else {
-      listvocab = this.state.items.map((item) => (
-        <FlashCard item={item}></FlashCard>
-      ));
-    }
-
+    let listvocab = items.map((item, index) => (
+      <FlashCard item={item} key={index}></FlashCard>
+    ));
     return (
       <section className="blog_area section_padding">
         <div className="container">

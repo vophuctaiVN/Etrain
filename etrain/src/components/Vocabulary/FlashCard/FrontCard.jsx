@@ -1,6 +1,5 @@
 import React from "react";
 import Speech from "react-speech";
-import { Link } from "react-router-dom";
 
 class FrontCard extends React.Component {
   render() {
@@ -9,20 +8,7 @@ class FrontCard extends React.Component {
       height: "400px",
       width: "400px",
     };
-    var synonyms = require("synonyms");
-    const related = synonyms(item.en, "n");
-    let lisRelated;
-    if (related !== undefined) {
-      lisRelated = related.map((word, index) => (
-        <Link
-          to={`/dictionary-${word}`}
-          style={{ marginRight: "30px" }}
-          key={index}
-        >
-          {word}
-        </Link>
-      ));
-    }
+
     return (
       <article className="blog_item flashcard">
         <div className="blog_item_img">
@@ -71,12 +57,6 @@ class FrontCard extends React.Component {
               voice="Google UK English Male"
             />
           </p>
-          {related !== undefined ? (
-            <>
-              <h3>Related Word</h3>
-              {lisRelated}
-            </>
-          ) : null}
         </div>
       </article>
     );

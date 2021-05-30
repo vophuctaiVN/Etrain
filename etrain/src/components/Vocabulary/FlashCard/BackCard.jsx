@@ -1,6 +1,7 @@
 import React from "react";
 import Speech from "react-speech";
 import getWord from "../../../utils/helpers";
+import { Link } from "react-router-dom";
 
 class BackCard extends React.Component {
   state = { Sentences: [], wordtitle: false, youtubeinfo: null };
@@ -56,6 +57,31 @@ class BackCard extends React.Component {
     };
     const array = this.state.Sentences;
 
+    var synonyms = require("synonyms");
+    const array1 = synonyms(item.en, "n") || [];
+    const array2 = synonyms(item.en, "v") || [];
+    let related = [...array1, ...array2];
+    related = related.filter(function (word, pos) {
+      return (
+        word !== item.en.toLowerCase() &&
+        word !== "v" &&
+        word !== "n" &&
+        related.indexOf(word) === pos
+      );
+    });
+    let lisRelated;
+    if (related !== undefined) {
+      lisRelated = related.map((word, index) => (
+        <Link
+          to={`/dictionary-${word}`}
+          style={{ marginRight: "30px", display: "inline" }}
+          key={index}
+        >
+          {word}
+        </Link>
+      ));
+    }
+
     return (
       <article className="blog_item flashcard">
         <div className="blog_item_img">
@@ -70,9 +96,13 @@ class BackCard extends React.Component {
           </a>
         </div>
         <div className="blog_details fullWidth">
-          <h2>/{item.ipa}/ </h2>
-          <h3>{item.type}</h3>
           {array}
+          {related.length > 0 ? (
+            <>
+              <h3>Related Word</h3>
+              <div className="relatedWord">{lisRelated}</div>
+            </>
+          ) : null}
         </div>
       </article>
     );

@@ -101,7 +101,6 @@ class GramQ extends Component {
       .catch((error) => console.log(error));
   }
   render() {
-    console.log(this.state);
     const date = (Time) => {
       const dateObj = new Date(Time);
       const month = dateObj.getMonth() + 1;
@@ -119,7 +118,7 @@ class GramQ extends Component {
     let lisquestions = this.state.questionList.map((element, index) => {
       let isStar = false;
       this.state.ranking.forEach((profile) => {
-        if (profile.id_account == element.profile.id_account) isStar = true;
+        if (profile.iD_account == element.profile.iD_account) isStar = true;
       });
       return (
         <div
@@ -137,7 +136,7 @@ class GramQ extends Component {
               </div>
               <div className="desc">
                 <h5>
-                  {element.profile.name}
+                  {element.profile.name} - {element.profile.level}
                   {isStar ? (
                     <a>
                       <img

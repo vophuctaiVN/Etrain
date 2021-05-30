@@ -11,6 +11,7 @@ class AnswerPage extends Component {
     this.state = {
       answerList: [],
       totalitems: 0,
+      ranking: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -33,13 +34,19 @@ class AnswerPage extends Component {
       .then((question) => {
         window
           .ForumAnswerList_Query(queryObj)
-          .then((result) =>
-            this.setState({
-              question: question.json.result.items[0],
-              answerList: result.json.result.items,
-              totalitems: result.json.result.totalRows,
-            })
-          )
+          .then((result) => {
+            window
+              .Rank_Query({ top: 5 })
+              .then((ranking) => {
+                this.setState({
+                  question: question.json.result.items[0],
+                  answerList: result.json.result.items,
+                  totalitems: result.json.result.totalRows,
+                  ranking: ranking.json.result.items,
+                });
+              })
+              .catch((error) => console.log(error));
+          })
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
@@ -104,6 +111,11 @@ class AnswerPage extends Component {
       />
     ));
 
+    let isStar = false;
+    this.state.ranking.forEach((info) => {
+      if (info.iD_account == profile.iD_account) isStar = true;
+    });
+
     return (
       <section className="special_cource padding_top">
         <div className="column-text open">
@@ -132,8 +144,20 @@ class AnswerPage extends Component {
                     />
                   </a>
                   <div className="details">
-                    <a href="javascript:void(0)">{profile.name}</a>
-                    <span className="user-location">{profile.score}</span>
+                    <a href="javascript:void(0)">
+                      {profile.name}
+                      {isStar ? (
+                        <a>
+                          <img
+                            src="img/icon/color_star.svg"
+                            style={{ marginLeft: "5px" }}
+                          />
+                        </a>
+                      ) : null}
+                    </a>
+                    <span className="user-location">
+                      {profile.level} - {profile.score}
+                    </span>
                   </div>
                 </div>
               </div>
