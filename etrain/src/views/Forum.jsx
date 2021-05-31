@@ -115,22 +115,7 @@ class Forum extends Component {
               </div>
               <div className="minigrid subtitle">
                 <div className="count">{this.state.totalitems} questions</div>
-                <div className="sort">
-                  {/*   <a
-                    aria-current="page"
-                    className="active"
-                    href="/view/discussions?sort=newest"
-                  >
-                    Newest
-                  </a>
-                  <a
-                    aria-current="page"
-                    className="selected active"
-                    href="/view/discussions?sort=active"
-                  >
-                    Active
-                  </a> */}
-                </div>
+                <div className="sort"></div>
               </div>
               <div className="blog_right_sidebar" style={{ marginTop: 20 }}>
                 <aside className="single_sidebar_widget search_widget">

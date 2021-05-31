@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import getWord from "../utils/helpers.js";
 import Video from "../components/Dictionary/Video";
+import {
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink,
+  Card,
+  Button,
+  CardTitle,
+  CardText,
+  Row,
+  Col,
+} from "reactstrap";
 
 class Dictionary extends Component {
   state = { Sentences: [], wordtitle: false, youtubeinfo: null };
@@ -117,7 +130,6 @@ class Dictionary extends Component {
                         second={this.state.youtubeinfo.start}
                         videoid={this.state.youtubeinfo.youtube_id}
                       />
-
                       <br />
                       <br />
                       <br />
@@ -135,6 +147,7 @@ class Dictionary extends Component {
                         Sorry that we don't have any result about this word. You
                         can check your spelling again!
                       </p>
+                      <img src="img/icon/not_find.png" />
                     </div>
                   </div>
                 </div>

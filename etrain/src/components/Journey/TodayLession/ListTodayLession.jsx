@@ -243,6 +243,7 @@ export class ListTodayLession extends Component {
                       Take a test
                     </Link>
                   </p>
+                  <img src="img/icon/not_find.png" />
                 </div>
               </div>
             </div>
