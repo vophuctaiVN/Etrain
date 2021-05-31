@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
+using RestSharp.Authenticators;
 using aspnetcore.Controllers.Resources;
 using aspnetcore.Helpers;
 using aspnetcore.Repositories.DTOs;
@@ -98,6 +100,18 @@ namespace aspnetcore.Controllers
             GeneralResponse response =
                 new GeneralResponse { Result = queryResult, Error = error };
             return StatusCode(statusCode, response);
+        }
+
+        [HttpGet]
+        public string RelatedWordsQuery()
+        {
+            RestClient client =
+                new RestClient("https://relatedwords.org/api/related?term=book");
+
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            return response.Content;
         }
     }
 }

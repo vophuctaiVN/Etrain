@@ -1088,3 +1088,29 @@ async function RememberForgetWordAPI(formData) {
     throw error;
   }
 }
+
+async function RelatedWordsQuery(queryObject) {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const queryString = serializeQueryString(queryObject);
+  const apiEndpoint = `${DOMAIN}/Vocabulary/RelatedWordsQuery`;
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}

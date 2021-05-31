@@ -29,6 +29,8 @@ import Cart from "./views/Store/CartView";
 import Checkout from "./views/Store/CheckoutView";
 import Product from "./views/Store/ProductView";
 
+import DictionaryPage from "./views/DictionaryPage";
+
 const routes = [
   {
     path: "/homepage",
@@ -88,7 +90,7 @@ const routes = [
   {
     path: "/dictionary",
     layout: "",
-    component: Dictionary,
+    component: DictionaryPage,
   },
   {
     path: "/dictionary-:word",

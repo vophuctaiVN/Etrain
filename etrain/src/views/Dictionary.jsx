@@ -1,19 +1,6 @@
 import React, { Component } from "react";
 import getWord from "../utils/helpers.js";
 import Video from "../components/Dictionary/Video";
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Button,
-  CardTitle,
-  CardText,
-  Row,
-  Col,
-} from "reactstrap";
 
 class Dictionary extends Component {
   state = { Sentences: [], wordtitle: false, youtubeinfo: null };

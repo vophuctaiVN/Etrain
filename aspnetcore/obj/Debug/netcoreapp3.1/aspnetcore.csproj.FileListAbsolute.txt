@@ -243,3 +243,4 @@ D:\KLTN\Etrain\aspnetcore\obj\Debug\netcoreapp3.1\staticwebassets\aspnetcore.Sta
 D:\KLTN\Etrain\aspnetcore\obj\Debug\netcoreapp3.1\aspnetcore.dll
 D:\KLTN\Etrain\aspnetcore\obj\Debug\netcoreapp3.1\aspnetcore.pdb
 D:\KLTN\Etrain\aspnetcore\obj\Debug\netcoreapp3.1\aspnetcore.genruntimeconfig.cache
+D:\KLTN\Etrain\aspnetcore\bin\Debug\netcoreapp3.1\RestSharp.dll

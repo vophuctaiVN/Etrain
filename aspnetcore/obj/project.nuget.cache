@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H2yfirnauAE3aC51T3ERKAEl32LwLxT3Lyn6YtUTdv+1s9Ayk/8icsUFlYBwcdc91eb9Kxxo409BpyipYXe01A==",
+  "dgSpecHash": "cNwMUn1V8THSOPYiKJPjaR2w+iUUvd19p010hMELB0kPXVGrtHcG7hjZlQJx3v6v2PvmL47wQbdFVmjTweO95g==",
   "success": true,
   "projectFilePath": "D:\\KLTN\\Etrain\\aspnetcore\\aspnetcore.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "C:\\Users\\DELL\\.nuget\\packages\\mysql.data\\8.0.20\\mysql.data.8.0.20.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
