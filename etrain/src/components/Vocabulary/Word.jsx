@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getCookiesValue, isLogin } from "../../utils/helpers";
-import SpeakerSound from "./Sound";
+import SpeakerSound from "../Dictionary/Sound";
 import { BiStar } from "react-icons/bi";
 import Speech from "react-speech";
 import { ImCross } from "react-icons/im";

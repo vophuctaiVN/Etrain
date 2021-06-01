@@ -5,7 +5,7 @@ class RelatedWords extends Component {
   state = { items: [] };
   componentDidMount() {
     window
-      .RelatedWordsQuery()
+      .RelatedWordsQuery({ word: this.props.word })
       .then((result) => {
         let arrayWord = result.json;
         let newArray = [];

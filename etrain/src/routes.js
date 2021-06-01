@@ -1,7 +1,6 @@
 import Homepage from "./views/HomepageView";
 import Grammar from "./views/Grammar";
 import Vocabulary from "./views/Vocabulary";
-import Dictionary from "./views/Dictionary";
 import GramPost from "./components/Grammar/GramPost";
 import WordList from "./components/Vocabulary/WordList.jsx";
 import Carousel_Card from "./components/Vocabulary/FlashCard/Carousel_Card.jsx";
@@ -95,7 +94,7 @@ const routes = [
   {
     path: "/dictionary-:word",
     layout: "",
-    component: Dictionary,
+    component: DictionaryPage,
   },
   {
     path: "/login",

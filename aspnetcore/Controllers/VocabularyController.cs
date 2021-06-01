@@ -103,10 +103,22 @@ namespace aspnetcore.Controllers
         }
 
         [HttpGet]
-        public string RelatedWordsQuery()
+        public string RelatedWordsQuery(string word)
         {
             RestClient client =
-                new RestClient("https://relatedwords.org/api/related?term=book");
+                new RestClient("https://relatedwords.org/api/related?term="+ word);
+
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            return response.Content;
+        }
+
+        [HttpGet]
+        public string GoogleWordsQuery(string word)
+        {
+            RestClient client =
+                new RestClient("https://api.dictionaryapi.dev/api/v2/entries/en/"+ word);
 
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
