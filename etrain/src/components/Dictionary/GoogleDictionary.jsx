@@ -11,6 +11,7 @@ class GoogleDictionary extends Component {
         this.setState({
           item: result.json[0],
           isLoad: true,
+          image: `https://source.unsplash.com/featured/?${this.props.word}`,
         });
       })
       .catch((error) => console.log(error));
@@ -71,6 +72,7 @@ class GoogleDictionary extends Component {
             </div>
           ) : null}
         </div>
+        <img src={this.state.image}></img>
       </>
     );
   }
