@@ -35,6 +35,11 @@ const DictionaryPage = (props) => {
     }
   }
 
+  React.useEffect(() => {
+    setinputWord(props.match.params.word);
+    setActiveTab("1");
+  }, [props.match.params.word]);
+
   return (
     <section className="blog_area section_padding">
       <div className="container">
@@ -48,11 +53,12 @@ const DictionaryPage = (props) => {
                       <div className="form-group">
                         <div className="input-group mb-3">
                           <input
+                            key={inputWord}
                             id="SearchInput"
                             type="text"
                             className="form-control"
                             placeholder="Search Keyword"
-                            defaultValue={props.match.params.word}
+                            defaultValue={inputWord}
                             onChange={handleChange}
                           />
                           <div className="input-group-append">

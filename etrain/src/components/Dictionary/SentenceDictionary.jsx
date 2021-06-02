@@ -17,20 +17,18 @@ class SentenceDictionary extends Component {
     let sentences = data.sentences;
     if (data.sentences) {
       const listword = sentences.map((sentence, index) => (
-        <div className="col-sm-6 col-xl-3">
+        <div className="col-sm-6 col-xl-3" key={index}>
           <div className="single_feature">
             <div className="single_feature_part">
-              <div key={index}>
-                <p
-                  style={{ color: "#0033cc", fontSize: "18px" }}
-                  dangerouslySetInnerHTML={{ __html: sentence.fields.en }}
-                />
-                <p
-                  style={{ color: "#99b3ff" }}
-                  dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
-                />
-                <hr />
-              </div>
+              <p
+                style={{ color: "#0033cc", fontSize: "18px" }}
+                dangerouslySetInnerHTML={{ __html: sentence.fields.en }}
+              />
+              <p
+                style={{ color: "#99b3ff" }}
+                dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
+              />
+              <hr />
             </div>
           </div>
         </div>
