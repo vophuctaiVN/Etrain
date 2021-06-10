@@ -82,61 +82,65 @@ const DictionaryPage = (props) => {
               </div>
             </div>
           </div>
-          <Nav tabs>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "1" })}
-                onClick={() => {
-                  toggle("1");
-                }}
-              >
-                Words
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "2" })}
-                onClick={() => {
-                  toggle("2");
-                }}
-              >
-                Sentences
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                className={classnames({ active: activeTab === "3" })}
-                onClick={() => {
-                  toggle("3");
-                }}
-              >
-                Related Words
-              </NavLink>
-            </NavItem>
-          </Nav>
-          <TabContent activeTab={activeTab}>
-            <TabPane tabId="1">
-              <Row>
-                <Col sm="12">
-                  <GoogleDictionary key={inputWord} word={inputWord} />
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tabId="2">
-              <Row>
-                <Col sm="12">
-                  <SentenceDictionary key={inputWord} word={inputWord} />
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane tabId="3">
-              <Row>
-                <Col sm="12">
-                  <RelatedWords key={inputWord} word={inputWord} />
-                </Col>
-              </Row>
-            </TabPane>
-          </TabContent>
+          {inputWord ? (
+            <>
+              <Nav tabs>
+                <NavItem>
+                  <NavLink
+                    className={classnames({ active: activeTab === "1" })}
+                    onClick={() => {
+                      toggle("1");
+                    }}
+                  >
+                    Words
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({ active: activeTab === "2" })}
+                    onClick={() => {
+                      toggle("2");
+                    }}
+                  >
+                    Sentences
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink
+                    className={classnames({ active: activeTab === "3" })}
+                    onClick={() => {
+                      toggle("3");
+                    }}
+                  >
+                    Related Words
+                  </NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={activeTab}>
+                <TabPane tabId="1">
+                  <Row>
+                    <Col sm="12">
+                      <GoogleDictionary key={inputWord} word={inputWord} />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="2">
+                  <Row>
+                    <Col sm="12">
+                      <SentenceDictionary key={inputWord} word={inputWord} />
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="3">
+                  <Row>
+                    <Col sm="12">
+                      <RelatedWords key={inputWord} word={inputWord} />
+                    </Col>
+                  </Row>
+                </TabPane>
+              </TabContent>
+            </>
+          ) : null}
         </div>
       </div>
     </section>
