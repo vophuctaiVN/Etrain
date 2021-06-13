@@ -19,15 +19,17 @@ class RelatedWords extends Component {
   render() {
     let items = this.state.items;
     let listvocab = items.map((item, index) => (
-      <Link
-        to={`/dictionary-${item}`}
-        key={index}
-        style={{ marginRight: "30px", display: "inline" }}
-      >
-        {item}
-      </Link>
+      <div className="col-sm-6 col-xl-3 listExample" key={index}>
+        <Link to={`/dictionary-${item}`} key={index}>
+          {item}
+        </Link>
+      </div>
     ));
-    return <>{listvocab}</>;
+    return (
+      <div className="row listExample-boder" style={{ marginTop: "30px" }}>
+        {listvocab}
+      </div>
+    );
   }
 }
 

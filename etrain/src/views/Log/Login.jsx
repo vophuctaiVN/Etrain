@@ -61,7 +61,7 @@ class Login extends React.Component {
               </Link>
             </div>
             <div className="signin-form">
-              <h2 className="form-title">Sign up</h2>
+              <h2 className="form-title">Sign in</h2>
               <form method="POST" className="register-form" id="login-form">
                 <div className="form-group">
                   <label htmlFor="your_name" className="label-login">
@@ -93,20 +93,7 @@ class Login extends React.Component {
                     }
                   />
                 </div>
-                <div className="form-group">
-                  <input
-                    type="checkbox"
-                    name="remember-me"
-                    id="remember-me"
-                    className="agree-term"
-                  />
-                  <label htmlFor="remember-me" className="label-agree-term">
-                    <span>
-                      <span />
-                    </span>
-                    Remember me
-                  </label>
-                </div>
+
                 <div className="form-group form-button">
                   <input
                     type="submit"

@@ -75,23 +75,7 @@ class Register extends React.Component {
                   </label>
                   <input type="email" id="email" placeholder="Your Mail" />
                 </div>
-                <div className="form-group">
-                  <input
-                    type="checkbox"
-                    name="agree-term"
-                    id="agree-term"
-                    className="agree-term"
-                  />
-                  <label htmlFor="agree-term" className="label-agree-term">
-                    <span>
-                      <span />
-                    </span>
-                    I agree all statements in{" "}
-                    <a href="#" className="term-service">
-                      Terms of service
-                    </a>
-                  </label>
-                </div>
+
                 <div className="form-group form-button">
                   <input
                     type="submit"

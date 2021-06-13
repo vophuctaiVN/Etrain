@@ -110,23 +110,31 @@ class GoogleDictionary extends Component {
                 saveWordInfo.Example.push(defi.example);
               return (
                 <div key={defiI}>
-                  <p>definition: {defi.definition}</p>
+                  <hr />
+                  <p className="gg-definition">Definition: {defi.definition}</p>
                   {defi.example !== undefined ? (
-                    <p>example: {defi.example}</p>
+                    <p style={{ padding: "20px" }}>
+                      <span className="badge badge-pill badge-warning">
+                        Example
+                      </span>{" "}
+                      {defi.example}
+                    </p>
                   ) : null}
                   {defi.synonyms !== undefined ? (
-                    <p>
-                      synonyms:{" "}
-                      {defi.synonyms.map((syno, synoI) => (
-                        <Link
-                          to={`/dictionary-${syno}`}
-                          key={synoI}
-                          style={{ marginRight: "30px", display: "inline" }}
-                        >
-                          {syno}
-                        </Link>
-                      ))}
-                    </p>
+                    <div className="gg-synonym-border">
+                      <h6>synonyms</h6>
+                      <p className="relatedWord">
+                        {defi.synonyms.map((syno, synoI) => (
+                          <Link
+                            to={`/dictionary-${syno}`}
+                            key={synoI}
+                            style={{ marginRight: "30px", display: "inline" }}
+                          >
+                            {syno}
+                          </Link>
+                        ))}
+                      </p>
+                    </div>
                   ) : null}
                 </div>
               );
@@ -138,7 +146,7 @@ class GoogleDictionary extends Component {
 
     return (
       <>
-        <div className="container">
+        <div className="container" style={{ marginTop: "30px" }}>
           {item !== undefined ? (
             <>
               <h1>
@@ -158,6 +166,9 @@ class GoogleDictionary extends Component {
               </h1>
               {item.phonetics[0].text} <Sound url={item.phonetics[0].audio} />
               {meanings}
+              <div>
+                <img src={this.state.image} className="gg-image"></img>
+              </div>
             </>
           ) : this.props.word !== "" && this.state.isLoad ? (
             <div className="row justify-content-center my-5">
@@ -171,9 +182,17 @@ class GoogleDictionary extends Component {
                 <img src="img/icon/not_find.png" />
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="row justify-content-center my-5">
+              <div className="col-md-7 heading-section text-center">
+                <span className="subheading">Sorry</span>
+                <h2 className="mb-4">Our Bad</h2>
+                <p>We are still searching data!</p>
+                <img src="img/icon/searchingData.jpg" />
+              </div>
+            </div>
+          )}
         </div>
-        <img src={this.state.image}></img>
       </>
     );
   }
