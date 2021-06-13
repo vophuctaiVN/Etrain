@@ -152,3 +152,31 @@ ranking_get:BEGIN
 END$$
 DELIMITER ;
 
+
+-- remember dictionary word
+DROP procedure IF EXISTS `addMyDicWords`;
+DELIMITER $$
+CREATE PROCEDURE `addMyDicWords` (
+	_IDaccount INT,
+    _en VARCHAR(32),
+    _ipa VARCHAR(32),
+    _type VARCHAR(16),
+    _vn VARCHAR(32),
+    _ex1 VARCHAR(256),
+    _ex2 VARCHAR(256),
+    _imageURL VARCHAR(1024)
+)
+addMyDicWords:BEGIN
+	INSERT INTO `vocab_by_topic` (`ID_topic`, `En`, `IPA`, `SoundURL`, `Type`, `Vn`, `Example1`, `Example2`, `ImageURL`) VALUES ("0", _en, _ipa, "0", _type, _vn, _ex1, _ex2, _imageURL);
+    INSERT INTO `memorizedwords` (`ID_account`, `ID_word`) VALUES (_IDaccount, LAST_INSERT_ID());
+END$$
+DELIMITER ;
+
+-- get all vocab
+DROP procedure IF EXISTS `vocab_getAll`;
+DELIMITER $$
+CREATE PROCEDURE `vocab_getAll` ()
+vocab_getAll:BEGIN
+     SELECT ID, En from vocab_by_topic;
+END$$
+DELIMITER ;

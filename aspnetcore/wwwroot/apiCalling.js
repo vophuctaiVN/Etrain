@@ -223,7 +223,6 @@ async function OrderAPIsService_Create(requestBody) {
   myHeaders.append("Content-Type", "application/json");
 
   var raw = JSON.stringify(requestBody);
-
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -1131,6 +1130,49 @@ async function GoogleWordsQuery(queryObject) {
     );
     switch (response.status) {
       case 200:
+        const json = await response.json();
+        return { statusCode: response.status, json };
+      default:
+        throw response;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function AddDicWordAPI(queryObject, formData) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  var raw = JSON.stringify({
+    en: formData.En,
+    ipa: formData.IPA,
+    type: formData.Type,
+    vn: formData.Vn,
+    example1: formData.Example1,
+    example2: formData.Example2,
+    imageURL: formData.ImageURL,
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  const apiEndpoint = `${DOMAIN}/Vocabulary/AddDicWord`;
+  const queryString = serializeQueryString(queryObject);
+
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+      case 400:
+      case 404:
+      case 500:
         const json = await response.json();
         return { statusCode: response.status, json };
       default:

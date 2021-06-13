@@ -21,6 +21,11 @@ namespace aspnetcore.Services
         );
 
         (ResultCode, QueryModel) RememberForgetWord(int accountID, int wordID);
+
+        (ResultCode, int?)
+        AddDicWord(
+            int accountID, CreateVocabularyModel form
+        );
     }
 
     public class VocabularyService : BaseService, IVocabularyService
@@ -43,9 +48,17 @@ namespace aspnetcore.Services
             QueryModel queryResult = new QueryModel();
             fatherIDModel.Instance.fatherID = ID_topic;
             List<VocabularyByTopicQueryDTO> VocabularyDTOs =
-                _procedureHelper
-                    .GetData<VocabularyByTopicQueryDTO>("vocab_by_topic",
-                    fatherIDModel.Instance);
+                new List<VocabularyByTopicQueryDTO>();
+            if (ID_topic == 0)
+                VocabularyDTOs =
+                    _procedureHelper
+                        .GetData<VocabularyByTopicQueryDTO>("vocab_getAll",
+                        new { });
+            else
+                VocabularyDTOs =
+                    _procedureHelper
+                        .GetData<VocabularyByTopicQueryDTO>("vocab_by_topic",
+                        fatherIDModel.Instance);
             if (0 != VocabularyDTOs.Count)
                 queryResult.TotalRows = VocabularyDTOs[0].TotalRows;
             queryResult.Items = VocabularyDTOs;
@@ -100,6 +113,27 @@ namespace aspnetcore.Services
                         new { IDaccount = accountID, IDword = wordID });
             }
             return (ResultCode.SUCCESS, queryResult);
+        }
+
+        public (ResultCode, int?)
+        AddDicWord(int accountID, CreateVocabularyModel form)
+        {
+            ResultDTO result =
+                _procedureHelper
+                    .GetData<ResultDTO>("addMyDicWords",
+                    new {
+                        IDaccount = accountID,
+                        en = form.En,
+                        ipa = form.IPA,
+                        type = form.Type,
+                        vn = form.Vn,
+                        ex1 = form.Example1,
+                        ex2 = form.Example2,
+                        imageURL = form.ImageURL
+                    })
+                    .FirstOrDefault();
+
+            return (ResultCode.SUCCESS, 0);
         }
     }
 }

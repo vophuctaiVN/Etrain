@@ -68,8 +68,7 @@ CREATE TABLE `vocab_by_topic` (
     `Example2` VARCHAR(256) NOT NULL,
     `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',    
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
-    PRIMARY KEY (`ID`),
-    FOREIGN KEY (ID_topic) REFERENCES vocab_topics(ID) ON DELETE CASCADE
+    PRIMARY KEY (`ID`)
 );
 
 -- quiz table

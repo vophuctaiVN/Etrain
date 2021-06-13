@@ -106,7 +106,8 @@ namespace aspnetcore.Controllers
         public string RelatedWordsQuery(string word)
         {
             RestClient client =
-                new RestClient("https://relatedwords.org/api/related?term="+ word);
+                new RestClient("https://relatedwords.org/api/related?term=" +
+                    word);
 
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -118,12 +119,32 @@ namespace aspnetcore.Controllers
         public string GoogleWordsQuery(string word)
         {
             RestClient client =
-                new RestClient("https://api.dictionaryapi.dev/api/v2/entries/en/"+ word);
+                new RestClient("https://api.dictionaryapi.dev/api/v2/entries/en/" +
+                    word);
 
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
             return response.Content;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof (List<int>), 200)]
+        [ProducesResponseType(500)]
+        public IActionResult
+        AddDicWord(int accountID, [FromBody] CreateVocabularyModel form)
+        {
+            ResultCode resultCode;
+            int? queryResult;
+            (resultCode, queryResult) = _service.AddDicWord(accountID, form);
+
+            Result error;
+            int statusCode = 0;
+            (statusCode, error) =
+                ResultHandler.GetStatusCodeAndResult(resultCode);
+
+            GeneralResponse response = new GeneralResponse { Error = error };
+            return StatusCode(statusCode, response);
         }
     }
 }

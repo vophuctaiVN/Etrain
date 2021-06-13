@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `memorizedwords`;
 CREATE TABLE `memorizedwords` (
     `ID` INT NOT NULL AUTO_INCREMENT,              
     `ID_account` INT NOT NULL,    
-    `ID_word` INT NOT NULL,            
+    `ID_word` INT NOT NULL,  
     PRIMARY KEY (`ID`),
 	FOREIGN KEY (ID_account) REFERENCES account(ID) ON DELETE CASCADE
 );
