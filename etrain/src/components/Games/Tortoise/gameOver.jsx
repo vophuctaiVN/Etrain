@@ -20,23 +20,27 @@ const GameOver = ({ race_end_point, isOpen, onHide }) => {
   const close = () => onHide();
   return (
     <Modal isOpen={isOpen}>
-      <ModalBody style={{ display: "grid" }}>
-        <p
-          className={`text-center ${
-            currentPlayerPosition >= race_end_point
-              ? "font-curve-win"
-              : "font-curve-lost"
-          }`}
-        >
-          {opponentPlayerPosition >= race_end_point ? "You lost!" : "You won!"}
-        </p>
-        <button
-          onClick={() => resetFullGameHandler()}
-          className="btn btn-outline-success"
-        >
-          Play Again?
-        </button>
-      </ModalBody>
+      <div className="card">
+        <div className="card-body text-center">
+          <img
+            src="img/icon/trophy.png"
+            style={{
+              opacity: opponentPlayerPosition >= race_end_point ? 0.3 : 1,
+            }}
+          />
+          {opponentPlayerPosition >= race_end_point ? (
+            <h4>YOU LOST!</h4>
+          ) : (
+            <h4>YOU WON!</h4>
+          )}
+          <button
+            onClick={() => resetFullGameHandler()}
+            className="btn btn-outline-success"
+          >
+            Play Again?
+          </button>
+        </div>
+      </div>
     </Modal>
   );
 };

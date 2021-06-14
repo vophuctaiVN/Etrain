@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { GiSecretBook, GiCardPick } from "react-icons/gi";
 import { getCookiesValue } from "../../../utils/helpers";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal } from "reactstrap";
+import { ImCross } from "react-icons/im";
 
 export class ListTodayLession extends Component {
   constructor(props) {
@@ -75,6 +76,7 @@ export class ListTodayLession extends Component {
             this.getTodayContent({
               iDaccount: getCookiesValue("userID"),
             });
+            this.props.trickReloadPage();
             break;
           default:
             break;
@@ -157,9 +159,9 @@ export class ListTodayLession extends Component {
                                 </span>
                               </h3>
                               <div className="bt_bb_headline_subheadline">
-                                In this level, you should spend at least 80
-                                hours to be able to understand all basic
-                                lessons.
+                                You can review today lesson after learning. The
+                                second time is 7 days later and you should
+                                review it again after 30 days.
                               </div>
                             </header>
                             <div className="bt_bb_separator bt_bb_bottom_spacing_50 bt_bb_border_style_none" />
@@ -283,14 +285,31 @@ const UperLevel = (props) => {
       })
       .catch((error) => console.log(error));
   });
+
   return (
     <Modal isOpen={Isopen}>
-      <ModalHeader toggle={close}></ModalHeader>
-      <ModalBody style={{ display: "grid" }}>
-        <h2 className="mb-4">
-          Good Job {props.userProfile.name}! You are up to level {props.level}
-        </h2>
-      </ModalBody>
+      <div className="card">
+        <div className="text-right cross">
+          {" "}
+          <ImCross
+            style={{
+              float: "right",
+              margin: "10px",
+              cursor: "pointer",
+            }}
+            onClick={close}
+            color={"darkred"}
+          />
+        </div>
+        <div className="card-body text-center">
+          <img src="img/icon/trophy.png" />
+          <h4>CONGRATULATIONS!</h4>
+          <p style={{ marginBottom: "30px" }}>
+            {" "}
+            Good Job {props.userProfile.name}! You are up to level {props.level}
+          </p>
+        </div>
+      </div>
     </Modal>
   );
 };

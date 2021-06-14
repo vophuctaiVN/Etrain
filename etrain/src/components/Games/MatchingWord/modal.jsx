@@ -1,6 +1,7 @@
 import React from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, Button } from "reactstrap";
 import { getCookiesValue, showAlert } from "../../../utils/helpers";
+import { ImCross } from "react-icons/im";
 
 const ResultModal = (props) => {
   const close = () => props.onHide();
@@ -30,23 +31,41 @@ const ResultModal = (props) => {
 
     close();
   };
+
   return (
-    <div>
+    <>
       <Modal isOpen={props.isOpen}>
-        <ModalHeader toggle={close}></ModalHeader>
-        <ModalBody>
-          <h2>Your score is {props.score}</h2>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={saveScore}>
-            Save
-          </Button>{" "}
-          <Button color="secondary" onClick={close}>
-            Cancel
-          </Button>
-        </ModalFooter>
+        <div className="card">
+          <div className="text-right cross">
+            {" "}
+            <ImCross
+              style={{
+                float: "right",
+                margin: "10px",
+                cursor: "pointer",
+              }}
+              onClick={close}
+              color={"darkred"}
+            />
+          </div>
+          <div className="card-body text-center">
+            <img src="img/icon/trophy.png" />
+            <h4>CONGRATULATIONS!</h4>
+            <p style={{ marginBottom: "30px" }}>Your score is {props.score}</p>
+            <Button
+              color="secondary"
+              onClick={close}
+              style={{ marginRight: "20px" }}
+            >
+              Cancel
+            </Button>
+            <Button color="primary" onClick={saveScore}>
+              Save
+            </Button>
+          </div>
+        </div>
       </Modal>
-    </div>
+    </>
   );
 };
 export default ResultModal;

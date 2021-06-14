@@ -108,6 +108,7 @@
 /*gram list*/
 .special_img {
   height: 200px !important;
+  width: 100%;
 }
 
 /*homepage */

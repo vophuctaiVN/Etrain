@@ -29,8 +29,13 @@ export class ListReview extends Component {
       .catch((error) => console.log(error));
   };
 
+  truncate = (str) => {
+    return str.length > 100 ? str.substring(0, 100) + "..." : str;
+  };
+
   render() {
     const lesson = this.state.todayLesson;
+
     let listInformation = lesson.map((info) => (
       <div className="row">
         <ReviewCard
@@ -48,7 +53,7 @@ export class ListReview extends Component {
         {info.arrayLesson.map((less) => (
           <div className="col-sm-6 col-lg-4" style={{ marginBottom: "30px" }}>
             <div className="single_special_cource">
-              <img src={less.content.imageURL} className="special_img" alt="" />
+              <img src={less.content.imageURL} className="special_img" />
               <div className="special_cource_text">
                 <a href="course-details.html" className="btn_4">
                   {less.content.level}
@@ -62,8 +67,7 @@ export class ListReview extends Component {
                     <h3>{less.content.title}</h3>
                   </Link>
                 )}
-
-                <p>{less.content.description}</p>
+                <p>{this.truncate(less.content.description)}</p>
               </div>
             </div>
           </div>
@@ -82,7 +86,7 @@ export class ListReview extends Component {
                 </div>
               </div>
             </div>
-            <div className="bt_bb_row_wrapper">
+            <div className="special_cource bt_bb_row_wrapper">
               <div
                 className="bt_bb_row bt_bb_column_gap_30 bt_bb_shape_inherit"
                 data-structure="4-4-4"

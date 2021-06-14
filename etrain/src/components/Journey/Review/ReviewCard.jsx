@@ -27,7 +27,9 @@ class ReviewCard extends Component {
   render() {
     var dateNow = new Date();
     var date = Date.parse(this.props.firstDate.toString());
-    const daysAgo = Math.ceil(Math.abs(dateNow - date) / (1000 * 60 * 60 * 24)); //Math floor khi đủ 24 giờ mới tính, nhưng theo mysql qua qua ngày là tính 1 (qua 12h)
+    const daysAgo = Math.floor(
+      Math.abs(dateNow - date) / (1000 * 60 * 60 * 24)
+    ); //Math floor khi đủ 24 giờ mới tính, nhưng theo mysql qua qua ngày là tính 1 (qua 12h)
 
     const dateObj = new Date(this.props.firstDate);
     const month = dateObj.getMonth() + 1;
@@ -59,7 +61,11 @@ class ReviewCard extends Component {
                   LEVEL {this.props.level}
                 </div>
                 <div className="bt_bb_schedule_title">
-                  The {daysAgo} Days Ago Lesson
+                  {daysAgo == 0 ? (
+                    <>Today Lesson</>
+                  ) : (
+                    <>The {daysAgo} Days Ago Lesson</>
+                  )}
                 </div>
               </div>
               <div className="bt_bb_schedule_content">
