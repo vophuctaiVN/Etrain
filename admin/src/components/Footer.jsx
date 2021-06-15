@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // material-ui
-import { withStyles } from '@material-ui/core/styles';
-import styles from '../theme/styles/Footer';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../theme/styles/Footer";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 
 class Footer extends Component {
   render() {
@@ -11,9 +11,10 @@ class Footer extends Component {
     return (
       <div className={classes.root}>
         <Typography variant="body1">
-          &copy;{' '}
-          <Link component="a" href="https://devias.io/" target="_blank">Devias IO</Link>
-          . 2019
+          &copy;{" "}
+          <Link component="a" target="_blank">
+            ADMIN
+          </Link>
         </Typography>
         <Typography variant="caption">
           Created with love for the environment. By designers and developers who

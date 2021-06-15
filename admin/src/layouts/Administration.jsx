@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 // material-ui
-import { withStyles } from '@material-ui/core/styles';
-import styles from '../theme/styles/Administration';
+import { withStyles } from "@material-ui/core/styles";
+import styles from "../theme/styles/Administration";
 //
-import routes from '../routes';
-import { getCookiesValue } from '../utils/helpers';
+import routes from "../routes";
+import { getCookiesValue } from "../utils/helpers";
 // core components
-import Footer from '../components/Footer';
-import NavBar from '../components/NavBar';
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 
 class Administration extends Component {
   constructor(props) {
     super(props);
-    window.AccountAPIsService_CheckAuth(getCookiesValue('authToken'))
-      .catch(() => this.props.history.push('/admin/auth'));
+    window
+      .AccountAPIsService_CheckAuth(getCookiesValue("authToken"))
+      .catch(() => this.props.history.push("/admin/auth"));
   }
 
   render() {
@@ -26,7 +27,7 @@ class Administration extends Component {
         <main className={classes.content}>
           <Switch>
             {getRoutes(routes)}
-            <Redirect from="*" to="/admin/dashboard" />
+            <Redirect from="*" to="/admin/products" />
           </Switch>
           <Footer />
         </main>
@@ -35,17 +36,20 @@ class Administration extends Component {
   }
 }
 
-Administration.propTypes = {
-
-};
+Administration.propTypes = {};
 
 export default withStyles(styles, { withTheme: true })(Administration);
 
 function getRoutes(routes) {
   return routes.map((value, key) => {
-    if ('/admin' === value.layout)
-      return (<Route key={key} path={value.layout + value.path} component={value.component} />);
-    else
-      return null;
+    if ("/admin" === value.layout)
+      return (
+        <Route
+          key={key}
+          path={value.layout + value.path}
+          component={value.component}
+        />
+      );
+    else return null;
   });
 }
