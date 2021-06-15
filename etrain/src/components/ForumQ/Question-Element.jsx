@@ -50,7 +50,12 @@ export class QuestionElement extends React.Component {
             <h3>
               <Link to={`/forum-${question.id}`}>{question.question}</Link>
             </h3>
-            <div className="excerpt">{question.detail}</div>
+            <div className="excerpt">
+              <p
+                dangerouslySetInnerHTML={{ __html: question.detail }}
+                className="QandA"
+              />
+            </div>
             <div className="topic">
               <a className="tag">{question.topic}</a>{" "}
             </div>

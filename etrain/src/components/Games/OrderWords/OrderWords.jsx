@@ -354,7 +354,7 @@ class WordsArray extends Component {
             </li>
           ))}
         </ul>{" "}
-        <div className="suggestWord">
+        <div className="suggestWord" style={{ marginTop: "10px" }}>
           <BsFillQuestionOctagonFill
             onClick={this.suggestWord}
             size={50}

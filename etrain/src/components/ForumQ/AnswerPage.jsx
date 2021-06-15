@@ -5,6 +5,8 @@ import {
   showAlert,
 } from "../../utils/helpers";
 import { AnswerElement } from "./AnswerElement";
+import { MyStatefulEditor } from "./TextEditor";
+
 class AnswerPage extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,7 @@ class AnswerPage extends Component {
       answerList: [],
       totalitems: 0,
       ranking: [],
+      inputAnswer: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -55,7 +58,7 @@ class AnswerPage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      Detail: document.getElementById("answerDetail").value,
+      Detail: this.state.inputAnswer,
       IDaccount: getCookiesValue("userID"),
       IDquestion: this.props.match.params.lessonid,
     };
@@ -72,6 +75,12 @@ class AnswerPage extends Component {
         default:
           break;
       }
+    });
+  }
+
+  setAnswerValue(value) {
+    this.setState({
+      inputAnswer: value,
     });
   }
 
@@ -127,15 +136,13 @@ class AnswerPage extends Component {
               <div className="message">
                 <div>{question.detail}</div>
                 <div className="topic">
-                  <a className="tag" href="/view/discussions/tagged/porta">
-                    {question.topic}
-                  </a>{" "}
+                  <a className="tag">{question.topic}</a>{" "}
                 </div>
                 <div className="user-info">
                   <div className="when">
                     {newdate} at {time}
                   </div>
-                  <a className="gravatar" href="/view/users/6/HH">
+                  <a className="gravatar">
                     <img
                       alt="..."
                       src={`${USER_IMAGE_DOMAIN}/${profile.image}`}
@@ -168,15 +175,11 @@ class AnswerPage extends Component {
             {listanswers}
 
             <div className="element">
-              <h4 className="title">Your Answer</h4>
               <div className="content">
                 <div className="feedeback">
-                  <textarea
-                    id="answerDetail"
-                    className="form-control"
-                    cols={10}
-                    rows={10}
-                    defaultValue={""}
+                  <h4 className="title">Your Answer</h4>
+                  <MyStatefulEditor
+                    exportValue={this.setAnswerValue.bind(this)}
                   />
                   <div className="mt-10 text-right">
                     <a

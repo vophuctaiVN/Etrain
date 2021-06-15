@@ -40,7 +40,10 @@ export class AnswerElement extends React.Component {
     return (
       <div className="element">
         <div className="message">
-          <div>{answer.detail}</div>
+          <p
+            dangerouslySetInnerHTML={{ __html: answer.detail }}
+            className="QandA"
+          />
           <div className="user-info">
             <div className="when">
               {newdate} at {time}

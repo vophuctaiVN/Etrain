@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   Modal,
   ModalHeader,
@@ -10,15 +11,20 @@ import {
   Col,
 } from "reactstrap";
 import { getCookiesValue, showAlert } from "../../utils/helpers";
+import { MyStatefulEditor } from "./TextEditor";
 
 export const AskQuestion = (props) => {
+  const [inputAnswer, setinputAnswer] = useState("");
+  let setAnswerValue = (value) => setinputAnswer(value);
+
   const close = () => props.onHide();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = {
       Question: document.getElementById("question").value,
       Topic: document.getElementById("topic").value,
-      Detail: document.getElementById("detail").value,
+      Detail: inputAnswer || "No detail",
       IDaccount: getCookiesValue("userID"),
     };
 
@@ -58,7 +64,6 @@ export const AskQuestion = (props) => {
                 <Input
                   className="form-control-alternative"
                   id="question"
-                  //placeholder="What is....?"
                   type="text"
                 />
               </FormGroup>
@@ -86,20 +91,13 @@ export const AskQuestion = (props) => {
           </Row>
         </div>
         <hr className="my-4" />
-        {/* Description */}
         <h6 className="heading-small text-muted mb-4">
           Provide further information
         </h6>
         <div className="pl-lg-4">
           <FormGroup>
             <label className="form-control-label">Detail</label>
-            <Input
-              className="form-control-alternative"
-              id="detail"
-              placeholder="A few words about your problem ..."
-              rows="4"
-              type="textarea"
-            />
+            <MyStatefulEditor exportValue={setAnswerValue.bind(this)} />
           </FormGroup>
         </div>
       </ModalBody>

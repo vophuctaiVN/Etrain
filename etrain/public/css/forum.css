@@ -341,3 +341,12 @@ a {
   border-radius: 50%;
   margin-right: 30px;
 }
+
+.QandA img {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.Dropdown__root___3ALmx {
+  display: none !important;
+}
