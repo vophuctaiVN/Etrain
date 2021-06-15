@@ -31,7 +31,7 @@ class HSection3 extends Component {
                   </li>
                   <li>
                     <span className="ti-ruler-pencil" />
-                    We suggest lesson for you better if you have an account.
+                    We suggest lessons for you better if you have an account.
                   </li>
                 </ul>
                 <Link to={`/register`} className="btn_1">

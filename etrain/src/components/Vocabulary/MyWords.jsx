@@ -31,7 +31,6 @@ class MyWords extends Component {
   };
 
   render() {
-    console.log(this.state);
     let allItems = [...this.state.items];
     let listvocab;
     if (allItems)

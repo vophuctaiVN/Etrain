@@ -28,7 +28,6 @@ class OrderWords extends Component {
         object.example.split(/(?<=\?)/) ||
         object.example.split(/(?<=\!)/);
 
-      console.log(setence);
       items.push(setence[0].split(" "));
     });
     return items;

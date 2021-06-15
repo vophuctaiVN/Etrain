@@ -12,7 +12,6 @@ export class MyStatefulEditor extends Component {
   };
 
   render() {
-    console.log(this.state.value.toString("html"));
     return <RichTextEditor value={this.state.value} onChange={this.onChange} />;
   }
 }

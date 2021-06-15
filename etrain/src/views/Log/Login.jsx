@@ -26,7 +26,6 @@ class Login extends React.Component {
     window
       .AccountAPIsService_Authenticate(requestBody)
       .then((result) => {
-        console.log(result);
         switch (result.statusCode) {
           case 401:
           case 404:

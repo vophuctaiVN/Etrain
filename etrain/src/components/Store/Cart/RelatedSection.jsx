@@ -7,7 +7,7 @@ import Product from "../Product";
 
 const contents = {
   description:
-    "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.",
+    "We cannot show great content because of intellectual property rights infringement. Instead, you can refer to them through these books. This is the best way to contribute to our team and the author.",
 };
 
 export default function RelatedSection(props) {

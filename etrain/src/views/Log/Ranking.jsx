@@ -16,7 +16,6 @@ class Ranking extends Component {
       .catch((error) => console.log(error));
   }
   render() {
-    console.log(this.state.userInfo);
     const top5 = this.state.userInfo.map((info, key) => (
       <div className="bt_bb_schedule_inner_row" key={key}>
         <div className="bt_bb_schedule_day">

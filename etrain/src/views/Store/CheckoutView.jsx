@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { showAlert, getCookiesValue } from "../../utils/helpers";
-import Loader from "../../components/Store/Loader";
-
 import { FaAngleDown } from "react-icons/fa";
 
 class CheckoutView extends Component {
@@ -65,7 +63,6 @@ class CheckoutView extends Component {
       showAlert("Invalid Info", "Your input information is too long");
       return;
     }
-    //Loader.showLoader();
     const requestBody = convertOrderCreateData(formData, this.props.cart);
     window
       .OrderAPIsService_Create(requestBody)
@@ -73,9 +70,12 @@ class CheckoutView extends Component {
         showAlert(result.json.error.message, result.json.error.detail);
         if (200 === result.statusCode)
           document.getElementById("order-id").value = result.json.result;
-        // Loader.closeLoader();
       })
       .catch((error) => console.log(error));
+  }
+
+  componentWillUnmount() {
+    window.location.reload(false);
   }
 
   render() {

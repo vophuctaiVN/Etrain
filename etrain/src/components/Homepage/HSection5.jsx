@@ -22,7 +22,8 @@ class HSection5 extends Component {
                       <span className="ti-pencil-alt" />
                       <h4>Learn Anywhere</h4>
                       <p>
-                        You can study in any devices have internet connection.
+                        You can study with any devices having internet
+                        connection.
                       </p>
                     </div>
                   </div>

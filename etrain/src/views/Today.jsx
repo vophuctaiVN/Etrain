@@ -15,7 +15,6 @@ class Today extends Component {
   }
 
   render() {
-    console.log(this.state.reload);
     return (
       <>
         <ListTodayLession trickReloadPage={this.trickReloadPage.bind(this)} />

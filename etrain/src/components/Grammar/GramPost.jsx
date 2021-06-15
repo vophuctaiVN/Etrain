@@ -4,6 +4,8 @@ import MoreLesson from "./MoreLesson";
 import GramQ from "./GramQ";
 import { Link } from "react-router-dom";
 import getWord from "../../utils/helpers";
+import { isLogin } from "../../utils/helpers";
+
 import Video from "../Dictionary/Video";
 
 class GramPost extends Component {
@@ -13,6 +15,7 @@ class GramPost extends Component {
       items: [],
       totalitems: 0,
       youtubeinfo: {},
+      loginStt: false,
     };
   }
 
@@ -38,6 +41,7 @@ class GramPost extends Component {
       .GrammarAPIsService_Query(queryObjTopic)
       .then(async (topic) => {
         var data = await getWord(topic.json.result.items[0].title);
+        const x = await isLogin();
         window
           .LessonAPIsService_Query(queryObjContent)
           .then((result) =>
@@ -46,6 +50,7 @@ class GramPost extends Component {
               items: result.json.result.items,
               totalitems: result.json.result.totalRows,
               youtubeinfo: data.youtubeinfo,
+              loginStt: x,
             })
           )
           .catch((error) => console.log(error));
@@ -95,14 +100,15 @@ class GramPost extends Component {
                   />
                 </div>
               </div>
-
-              <Link
-                to={`/orderwords-${this.props.match.params.lessonid}`}
-                className="genric-btn success-border circle"
-                style={{ float: "right", marginTop: "20px" }}
-              >
-                Order Sentense
-              </Link>
+              {this.state.loginStt ? (
+                <Link
+                  to={`/orderwords-${this.props.match.params.lessonid}`}
+                  className="genric-btn success-border circle"
+                  style={{ float: "right", marginTop: "20px" }}
+                >
+                  Order Sentense
+                </Link>
+              ) : null}
             </div>
 
             <div className="col-lg-4 right-contents">

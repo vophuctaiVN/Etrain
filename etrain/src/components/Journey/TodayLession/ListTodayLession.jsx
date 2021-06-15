@@ -262,7 +262,6 @@ const UperLevel = (props) => {
 
   //  const close = () => props.onHide();
   useEffect(() => {
-    console.log("change level");
     const userProfile = props.userProfile;
     const formData = {
       IDaccount: getCookiesValue("userID"),

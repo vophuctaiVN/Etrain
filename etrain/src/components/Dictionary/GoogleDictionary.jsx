@@ -85,7 +85,6 @@ class GoogleDictionary extends Component {
   }
 
   render() {
-    console.log(this.state);
     let item = this.state.item;
     let meanings;
 

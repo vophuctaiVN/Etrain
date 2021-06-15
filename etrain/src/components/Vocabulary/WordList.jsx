@@ -82,63 +82,69 @@ class WordList extends Component {
                   <aside className="single_sidebar_widget popular_post_widget">
                     <h3 className="widget_title">
                       List Vocabulary
-                      <li
-                        className="nav-item dropdown"
-                        style={{ float: "right" }}
-                      >
-                        <a>Review</a>
-                        <div
-                          className="dropdown-menu"
-                          aria-labelledby="navbarDropdown"
+                      {this.state.islogin ? (
+                        <li
+                          className="nav-item dropdown"
+                          style={{ float: "right" }}
                         >
-                          <Link
-                            to={`/flashcard-${this.props.match.params.lessonid}`}
-                            className="dropdown-item"
+                          <a>Review</a>
+                          <div
+                            className="dropdown-menu"
+                            aria-labelledby="navbarDropdown"
                           >
-                            {" "}
-                            FlashCard{" "}
-                          </Link>
-                          <Link
-                            to={`/matchingword-${this.props.match.params.lessonid}`}
-                            className="dropdown-item"
-                          >
-                            {" "}
-                            Matching Game{" "}
-                          </Link>
-                          <Link
-                            to={`/tortoise-${this.props.match.params.lessonid}`}
-                            className="dropdown-item"
-                          >
-                            {" "}
-                            Tortoise Game{" "}
-                          </Link>
-                        </div>
-                      </li>
+                            <Link
+                              to={`/flashcard-${this.props.match.params.lessonid}`}
+                              className="dropdown-item"
+                            >
+                              {" "}
+                              FlashCard{" "}
+                            </Link>
+                            <Link
+                              to={`/matchingword-${this.props.match.params.lessonid}`}
+                              className="dropdown-item"
+                            >
+                              {" "}
+                              Matching Game{" "}
+                            </Link>
+                            <Link
+                              to={`/tortoise-${this.props.match.params.lessonid}`}
+                              className="dropdown-item"
+                            >
+                              {" "}
+                              Tortoise Game{" "}
+                            </Link>
+                          </div>
+                        </li>
+                      ) : null}
                     </h3>
                     {listvocab}
                   </aside>
-                  <Link
-                    to={`/flashcard-${this.props.match.params.lessonid}`}
-                    className="genric-btn success-border circle"
-                    style={{ float: "right", marginLeft: "10px" }}
-                  >
-                    FlashCard
-                  </Link>
-                  <Link
-                    to={`/matchingword-${this.props.match.params.lessonid}`}
-                    className="genric-btn success-border circle"
-                    style={{ float: "right", marginLeft: "10px" }}
-                  >
-                    Matching Game
-                  </Link>
+                  {this.state.islogin ? (
+                    <>
+                      <Link
+                        to={`/flashcard-${this.props.match.params.lessonid}`}
+                        className="genric-btn success-border circle"
+                        style={{ float: "right", marginLeft: "10px" }}
+                      >
+                        FlashCard
+                      </Link>
+                      <Link
+                        to={`/matchingword-${this.props.match.params.lessonid}`}
+                        className="genric-btn success-border circle"
+                        style={{ float: "right", marginLeft: "10px" }}
+                      >
+                        Matching Game
+                      </Link>
 
-                  <Link
-                    to={`/tortoise-${this.props.match.params.lessonid}`}
-                    className="genric-btn success-border circle"
-                    style={{ float: "right", marginLeft: "10px" }}
-                  >
-                    Tortoise Game
-                  </Link>
+                      <Link
+                        to={`/tortoise-${this.props.match.params.lessonid}`}
+                        className="genric-btn success-border circle"
+                        style={{ float: "right", marginLeft: "10px" }}
+                      >
+                        Tortoise Game
+                      </Link>
+                    </>
+                  ) : null}
                 </div>
               </div>
             </div>

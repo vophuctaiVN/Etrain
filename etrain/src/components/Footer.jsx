@@ -13,18 +13,19 @@ class Footer extends Component {
                   <img src="img/logo.png" alt="" />{" "}
                 </a>
                 <p>
-                  But when shot real her. Chamber her one visite removal six
-                  sending himself boys scot exquisite existend an{" "}
+                  We are currently working collaboratively and will continue in
+                  this direction with multiple units on campus to provide the
+                  best student support possible.
                 </p>
-                <p>But when shot real her hamber her </p>
+                <p>This is a non-commercial project</p>
               </div>
             </div>
             <div className="col-sm-6 col-md-4 col-xl-4">
               <div className="single-footer-widget footer_2">
                 <h4>Newsletter</h4>
                 <p>
-                  Stay updated with our latest trends Seed heaven so said place
-                  winged over given forth fruit.
+                  Our mission is to help people have an impact within the
+                  community they are part of.
                 </p>
                 <form action="#">
                   <div className="form-group">
@@ -67,14 +68,14 @@ class Footer extends Component {
                 <h4>Contact us</h4>
                 <div className="contact_info">
                   <p>
-                    <span> Address :</span> Hath of it fly signs bear be one
-                    blessed after{" "}
+                    <span> Address :</span> Song Hành, khu phố 6, Thủ Đức, Thành
+                    phố Hồ Chí Minh
                   </p>
                   <p>
                     <span> Phone :</span> +84 773651157
                   </p>
                   <p>
-                    <span> Email : </span>vophuctai2411@gmail.com{" "}
+                    <span> Email : </span>vophuctai2411@gmail.com
                   </p>
                 </div>
               </div>
@@ -88,9 +89,8 @@ class Footer extends Component {
                 <div className="row">
                   <div className="col-lg-12">
                     <p className="footer-text m-0">
-                      Copyright ©2020 All rights reserved | This website is made
-                      {/* with <i className="ti-heart" aria-hidden="true" /> */}{" "}
-                      by{" "}
+                      Copyright ©2021 All rights reserved | This website is made
+                      with <i className="ti-heart" aria-hidden="true" /> by{" "}
                       <a href="" target="_blank" rel="noopener noreferrer">
                         Vo Phuc Tai
                       </a>
