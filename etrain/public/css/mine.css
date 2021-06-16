@@ -4,9 +4,7 @@
 }
 
 .vocab-img {
-  height: auto;
-  width: auto;
-  max-width: 300px;
+  width: 300px;
   max-height: 300px;
 }
 

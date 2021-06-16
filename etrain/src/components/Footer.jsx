@@ -90,7 +90,7 @@ class Footer extends Component {
                   <div className="col-lg-12">
                     <p className="footer-text m-0">
                       Copyright ©2021 All rights reserved | This website is made
-                      with <i className="ti-heart" aria-hidden="true" /> by{" "}
+                      by{" "}
                       <a href="" target="_blank" rel="noopener noreferrer">
                         Vo Phuc Tai
                       </a>

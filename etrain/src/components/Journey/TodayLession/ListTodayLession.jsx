@@ -159,9 +159,9 @@ export class ListTodayLession extends Component {
                                 </span>
                               </h3>
                               <div className="bt_bb_headline_subheadline">
-                                You can review today lesson after learning. The
-                                second time is 7 days later and you should
-                                review it again after 30 days.
+                                You can review the lesson right after the
+                                lesson, 7 and 30 days later. If you
+                                intentionally skip the review, it will pile up.
                               </div>
                             </header>
                             <div className="bt_bb_separator bt_bb_bottom_spacing_50 bt_bb_border_style_none" />
