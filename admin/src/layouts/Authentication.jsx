@@ -66,7 +66,7 @@ class Authentication extends Component {
             <a
               className="navbar-brand"
               rel="noopener noreferrer"
-              href="http://localhost:3000"
+              href="http://etrain.ddns.net:3000"
               target="_blank"
             >
               English<small>Etrain</small>

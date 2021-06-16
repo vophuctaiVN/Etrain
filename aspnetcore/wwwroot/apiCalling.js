@@ -1,4 +1,4 @@
-const DOMAIN = "http://localhost:5000";
+const DOMAIN = "http://etrain.ddns.net:5000";
 
 function serializeQueryString(obj) {
   var str = [];

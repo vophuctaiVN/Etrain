@@ -2,8 +2,8 @@ import crypto from "crypto";
 import React from "react";
 import ReactDOM from "react-dom";
 
-export const DOMAIN = "http://localhost:5000";
-export const USER_IMAGE_DOMAIN = "http://localhost:5000/userImage";
+export const DOMAIN = "http://etrain.ddns.net:5000";
+export const USER_IMAGE_DOMAIN = "http://etrain.ddns.net:5000/userImage";
 const apikey = "WBBcwnwQpV89";
 const lang = "en";
 
