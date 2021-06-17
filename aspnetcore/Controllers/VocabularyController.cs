@@ -128,6 +128,41 @@ namespace aspnetcore.Controllers
             return response.Content;
         }
 
+        [HttpGet]
+        public string TraCauWordQuery(string keyword)
+        {
+            var lang = "en";
+            var apikey = "WBBcwnwQpV89";
+            RestClient client =
+                new RestClient("https://api.tracau.vn/" +
+                    apikey +
+                    "/s/" +
+                    keyword +
+                    "/" +
+                    lang);
+
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            return response.Content;
+        }
+
+        [HttpGet]
+        public string TraCauYoutubeQuery(string keyword)
+        {
+            var apikey = "WBBcwnwQpV89";
+            RestClient client =
+                new RestClient("https://api.tracau.vn/" +
+                    apikey +
+                    "/trans/" +
+                    keyword);
+
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            return response.Content;
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof (List<int>), 200)]
         [ProducesResponseType(500)]

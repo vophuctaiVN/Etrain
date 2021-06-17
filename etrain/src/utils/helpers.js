@@ -4,32 +4,15 @@ import ReactDOM from "react-dom";
 
 export const DOMAIN = "http://localhost:5000";
 export const USER_IMAGE_DOMAIN = "http://localhost:5000/userImage";
-const apikey = "WBBcwnwQpV89";
-const lang = "en";
 
 export default async function getWord(keyword) {
   let dataget = { sentences: null, youtubeinfo: null };
-  let url = "https://api.tracau.vn/" + apikey + "/s/" + keyword + "/" + lang;
-  await fetch(url)
-    .then((response) => response.json())
-    .then((responseData) => {
-      //console.warn(responseData);
-      dataget.sentences = responseData.sentences;
+  await window
+    .TraCauQuery({
+      keyword,
     })
-    .catch((error) => {
-      console.log("Error fetching the feed: ", error);
-    });
-
-  let url_video = "https://api.tracau.vn/" + apikey + "/trans/" + keyword;
-  await fetch(url_video)
-    .then((response) => response.json())
-    .then((responseData) => {
-      //console.warn(responseData);
-      dataget.youtubeinfo = responseData.transcripts[0].fields;
-    })
-    .catch((error) => {
-      console.log("Error fetching the feed: ", error);
-    });
+    .then((response) => (dataget = response.json()))
+    .catch((error) => console.log(error));
 
   return dataget;
 }
