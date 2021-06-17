@@ -1267,9 +1267,9 @@ SELECT *, COUNT(*) AS TotalRows
 FROM (SELECT ID, ID_account, Score, PostLeft, Level, FIND_IN_SET( Score, (
     SELECT GROUP_CONCAT( Score
 	ORDER BY Score DESC ) 
-	FROM user_scoreinfo )
+	FROM user_scoreInfo )
 	) AS Score_Rank
-	FROM user_scoreinfo
+	FROM user_scoreInfo
 	WHERE ID_account =  _ID   ) AS newscoretable
 INNER JOIN userInfo ON userInfo.ID_account= newscoretable.ID_account
 INNER JOIN account ON account.ID = newscoretable.ID_account
