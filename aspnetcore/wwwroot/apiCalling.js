@@ -1182,3 +1182,45 @@ async function AddDicWordAPI(queryObject, formData) {
     throw error;
   }
 }
+
+async function TraCauQuery(queryObject) {
+  let dataget = { sentences: null, youtubeinfo: null };
+
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  const queryString = serializeQueryString(queryObject);
+
+  const apiEndpoint = `${DOMAIN}/Vocabulary/TraCauWordQuery`;
+  try {
+    const response = await fetch(
+      `${apiEndpoint}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const responseData = await response.json();
+        dataget.sentences = responseData.sentences;
+    }
+  } catch (error) {
+    throw error;
+  }
+
+  const apiEndpoint2 = `${DOMAIN}/Vocabulary/TraCauYoutubeQuery`;
+  try {
+    const response = await fetch(
+      `${apiEndpoint2}?${queryString}`,
+      requestOptions
+    );
+    switch (response.status) {
+      case 200:
+        const responseData = await response.json();
+        dataget.youtubeinfo = responseData.transcripts[0].fields;
+    }
+  } catch (error) {
+    throw error;
+  }
+
+  return dataget;
+}
