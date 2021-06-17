@@ -1190,10 +1190,9 @@ async function TraCauQuery(queryObject) {
     method: "GET",
     redirect: "follow",
   };
-
   const queryString = serializeQueryString(queryObject);
-  const apiEndpoint = `${DOMAIN}/Vocabulary/TraCauWordQuery`;
 
+  const apiEndpoint = `${DOMAIN}/Vocabulary/TraCauWordQuery`;
   try {
     const response = await fetch(
       `${apiEndpoint}?${queryString}`,
@@ -1208,12 +1207,10 @@ async function TraCauQuery(queryObject) {
     throw error;
   }
 
-  const queryString = serializeQueryString(queryObject);
-  const apiEndpoint = `${DOMAIN}/Vocabulary//Vocabulary/TraCauYoutubeQuery`;
-
+  const apiEndpoint2 = `${DOMAIN}/Vocabulary/TraCauYoutubeQuery`;
   try {
     const response = await fetch(
-      `${apiEndpoint}?${queryString}`,
+      `${apiEndpoint2}?${queryString}`,
       requestOptions
     );
     switch (response.status) {

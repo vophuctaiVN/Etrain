@@ -11,9 +11,12 @@ export default async function getWord(keyword) {
     .TraCauQuery({
       keyword,
     })
-    .then((response) => (dataget = response.json()))
+    .then((response) => {
+      dataget = response;
+    })
     .catch((error) => console.log(error));
 
+  console.log(dataget);
   return dataget;
 }
 
