@@ -1216,7 +1216,7 @@ async function TraCauQuery(queryObject) {
     switch (response.status) {
       case 200:
         const responseData = await response.json();
-        dataget.youtubeinfo = responseData.transcripts[0].fields;
+        dataget.youtubeinfo = responseData.transcripts[0][`fields`];
     }
   } catch (error) {
     throw error;

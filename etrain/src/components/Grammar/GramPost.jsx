@@ -14,7 +14,7 @@ class GramPost extends Component {
     this.state = {
       items: [],
       totalitems: 0,
-      youtubeinfo: {},
+      youtubeinfo: null,
       loginStt: false,
     };
   }
@@ -91,15 +91,17 @@ class GramPost extends Component {
               </div>
               {listLessons}
 
-              <div className="single-post-area">
-                <div className="blog-author">
-                  <Video
-                    key={this.state.youtubeinfo.youtube_id}
-                    second={this.state.youtubeinfo.start}
-                    videoid={this.state.youtubeinfo.youtube_id}
-                  />
+              {this.state.youtubeinfo !== null ? (
+                <div className="single-post-area">
+                  <div className="blog-author">
+                    <Video
+                      key={this.state.youtubeinfo.youtube_id}
+                      second={this.state.youtubeinfo.start}
+                      videoid={this.state.youtubeinfo.youtube_id}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : null}
               {this.state.loginStt ? (
                 <Link
                   to={`/orderwords-${this.props.match.params.lessonid}`}

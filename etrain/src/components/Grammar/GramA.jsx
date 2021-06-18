@@ -45,7 +45,7 @@ class GramA extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      Detail: document.getElementById("answerDetail").value,
+      Detail: document.getElementById(this.props.questionID).value,
       IDaccount: getCookiesValue("userID"),
       IDquestion: this.props.questionID,
     };
@@ -57,7 +57,7 @@ class GramA extends Component {
           break;
         case 200:
           showAlert(result.json.error.message, "You added new answer!");
-          document.getElementById("answerDetail").value = "";
+          document.getElementById(this.props.questionID).value = "";
           this.getListAnswer(this.props.questionID);
           break;
         default:
@@ -101,7 +101,7 @@ class GramA extends Component {
                 </div>
                 <div className="desc">
                   <h5>
-                    <a href="# ">
+                    <a>
                       {element.profile.name} - {element.profile.level}
                       {isStar ? (
                         <a>
@@ -123,37 +123,39 @@ class GramA extends Component {
       });
     return (
       <>
-        <div
-          className="content"
-          style={{ marginLeft: "30px", marginRight: "70px" }}
-        >
-          <div className="comments-area mb-30">{lisquestions}</div>
-          {this.props.isLogin ? (
-            <div className="feedeback" style={{ marginRight: "-70px" }}>
-              <textarea
-                name="feedback"
-                className="form-control"
-                cols={10}
-                rows={10}
-                defaultValue={""}
-                id="answerDetail"
-              />
-              <div className="mt-10 text-right">
-                <a
-                  href="# "
-                  className="btn_1"
-                  onClick={this.handleSubmit.bind(this)}
-                >
-                  Send
-                </a>
+        <p onClick={this.props.NumberOfUserClick} style={{ float: "right" }}>
+          {this.state.answerList.length} answers
+        </p>
+        {this.props.isShow ? (
+          <div
+            className="content"
+            style={{ marginLeft: "30px", marginRight: "70px" }}
+          >
+            <div className="comments-area mb-30">{lisquestions}</div>
+            {this.props.isLogin ? (
+              <div className="feedeback" style={{ marginRight: "-70px" }}>
+                <textarea
+                  className="form-control"
+                  cols={10}
+                  rows={10}
+                  id={this.props.questionID}
+                />
+                <div className="mt-10 text-right">
+                  <button
+                    className="btn_1"
+                    onClick={this.handleSubmit.bind(this)}
+                  >
+                    Send
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <p>
-              <Link to={`/login`}> Login </Link> to show your answer
-            </p>
-          )}
-        </div>
+            ) : (
+              <p>
+                <Link to={`/login`}> Login </Link> to show your answer
+              </p>
+            )}
+          </div>
+        ) : null}
       </>
     );
   }

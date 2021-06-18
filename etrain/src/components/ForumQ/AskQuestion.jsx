@@ -14,8 +14,8 @@ import { getCookiesValue, showAlert } from "../../utils/helpers";
 import { MyStatefulEditor } from "./TextEditor";
 
 export const AskQuestion = (props) => {
-  const [inputAnswer, setinputAnswer] = useState("");
-  let setAnswerValue = (value) => setinputAnswer(value);
+  let inputValue = "";
+  let setAnswerValue = (value) => (inputValue = value);
 
   const close = () => props.onHide();
 
@@ -24,7 +24,7 @@ export const AskQuestion = (props) => {
     const formData = {
       Question: document.getElementById("question").value,
       Topic: document.getElementById("topic").value,
-      Detail: inputAnswer || "No detail",
+      Detail: inputValue || "No detail",
       IDaccount: getCookiesValue("userID"),
     };
 
@@ -35,8 +35,10 @@ export const AskQuestion = (props) => {
           case 400:
           case 404:
           case 500:
+            showAlert(result.json.error.message, "Miss information!");
             break;
           case 200:
+            inputValue = "";
             showAlert(result.json.error.message, "You added new question!");
             window.location.reload();
             break;

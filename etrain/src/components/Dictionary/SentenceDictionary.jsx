@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import getWord from "../../utils/helpers";
 import Video from "./Video";
+import Speech from "react-speech";
 
 class SentenceDictionary extends Component {
   state = { Sentences: [], wordtitle: false, youtubeinfo: null };
@@ -16,22 +17,40 @@ class SentenceDictionary extends Component {
     var data = await getWord(keyword);
     let sentences = data.sentences;
     if (data.sentences) {
-      const listword = sentences.map((sentence, index) => (
-        <div className="col-sm-6 col-xl-3 listExample" key={index}>
-          <div className="single_feature">
-            <div className="single_feature_part">
-              <p
-                style={{ color: "#0033cc", fontSize: "18px" }}
-                dangerouslySetInnerHTML={{ __html: sentence.fields.en }}
-              />
-              <p
-                style={{ color: "#99b3ff" }}
-                dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
-              />
+      const listword = sentences.map((sentence, index) => {
+        const english = sentence.fields.en
+          .replaceAll("<em>", "")
+          .replaceAll("</em>", "");
+
+        return (
+          <div className="col-sm-6 col-xl-3 listExample" key={index}>
+            <div className="single_feature">
+              <div className="single_feature_part">
+                <p style={{ color: "#0033cc", fontSize: "18px" }}>
+                  {english}
+                  <Speech
+                    text={english}
+                    pitch="1"
+                    rate="1"
+                    volume="1"
+                    lang="en-GB"
+                    voice="Google UK English Male"
+                  />
+                </p>
+                <p
+                  style={{ color: "#99b3ff" }}
+                  dangerouslySetInnerHTML={{ __html: sentence.fields.vi }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ));
+        );
+      });
+      console.log("set State", {
+        Sentences: listword,
+        wordtitle: keyword,
+        youtubeinfo: data.youtubeinfo,
+      });
       this.setState({
         Sentences: listword,
         wordtitle: keyword,
@@ -61,7 +80,7 @@ class SentenceDictionary extends Component {
               </div>
               <div className="row listExample-boder">{array}</div>
             </>
-          ) : this.state.wordtitle ? (
+          ) : this.state.youtubeinfo === null ? (
             <div className="container">
               <div className="row justify-content-center my-5">
                 <div className="col-md-7 heading-section text-center">
