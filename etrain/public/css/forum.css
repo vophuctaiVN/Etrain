@@ -350,3 +350,11 @@ a {
 .Dropdown__root___3ALmx {
   display: none !important;
 }
+
+.ImageSpan__root___RoAqL {
+  background-size: 300px 300px !important;
+  line-height: 300px !important;
+  width: auto !important;
+  height: auto !important;
+  letter-spacing: 0px !important;
+}

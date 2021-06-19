@@ -15,8 +15,6 @@ export default async function getWord(keyword) {
       dataget = response;
     })
     .catch((error) => console.log(error));
-
-  console.log(dataget);
   return dataget;
 }
 

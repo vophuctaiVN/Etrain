@@ -18,7 +18,6 @@ class GramQ extends Component {
       pageNo: 1,
       pageSize: 5,
       ranking: [],
-
       showMoreToggle: [],
     };
 
@@ -100,6 +99,7 @@ class GramQ extends Component {
       })
       .catch((error) => console.log(error));
   }
+
   render() {
     const date = (Time) => {
       const dateObj = new Date(Time);
@@ -151,18 +151,16 @@ class GramQ extends Component {
               </div>
             </div>
           </div>
-          <p
-            style={{ float: "right" }}
-            onClick={() => this.ToggleClick(index, element.question.id)}
-          >
-            {element.question.numberOfAnswer} answers
-          </p>
-          {this.state.showMoreToggle[index] && (
-            <GramA
-              questionID={this.state.showMoreToggle[index]}
-              isLogin={this.state.loginStt}
-            />
-          )}
+          <GramA
+            key={element.question.id}
+            questionID={element.question.id}
+            isLogin={this.state.loginStt}
+            isShow={this.state.showMoreToggle[index]}
+            NumberOfUserClick={() =>
+              this.ToggleClick(index, element.question.id)
+            }
+            numberofUsers={element.question.numberOfAnswer}
+          />
         </div>
       );
     });
@@ -181,13 +179,12 @@ class GramQ extends Component {
                 id="question"
               />
               <div className="mt-10 text-right">
-                <a
-                  href="# "
+                <button
                   className="btn_1"
                   onClick={this.handleSubmitQuestion.bind(this)}
                 >
                   Send your question
-                </a>
+                </button>
               </div>
             </div>
           ) : (

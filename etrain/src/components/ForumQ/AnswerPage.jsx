@@ -14,8 +14,8 @@ class AnswerPage extends Component {
       answerList: [],
       totalitems: 0,
       ranking: [],
-      inputAnswer: "",
     };
+    this.inputValue = "";
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -41,6 +41,7 @@ class AnswerPage extends Component {
             window
               .Rank_Query({ top: 5 })
               .then((ranking) => {
+                this.inputValue = "";
                 this.setState({
                   question: question.json.result.items[0],
                   answerList: result.json.result.items,
@@ -58,7 +59,7 @@ class AnswerPage extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const formData = {
-      Detail: this.state.inputAnswer,
+      Detail: this.inputValue,
       IDaccount: getCookiesValue("userID"),
       IDquestion: this.props.match.params.lessonid,
     };
@@ -67,6 +68,7 @@ class AnswerPage extends Component {
         case 400:
         case 404:
         case 500:
+          showAlert(result.json.error.message, "You must input answer!");
           break;
         case 200:
           showAlert(result.json.error.message, "You added new answer!");
@@ -79,9 +81,7 @@ class AnswerPage extends Component {
   }
 
   setAnswerValue(value) {
-    this.setState({
-      inputAnswer: value,
-    });
+    this.inputValue = value;
   }
 
   render() {
@@ -134,7 +134,11 @@ class AnswerPage extends Component {
           <div className="content">
             <div className="element first">
               <div className="message">
-                <div>{question.detail}</div>
+                <p
+                  dangerouslySetInnerHTML={{ __html: question.detail }}
+                  className="QandA"
+                />
+
                 <div className="topic">
                   <a className="tag">{question.topic}</a>{" "}
                 </div>
@@ -179,6 +183,7 @@ class AnswerPage extends Component {
                 <div className="feedeback">
                   <h4 className="title">Your Answer</h4>
                   <MyStatefulEditor
+                    key={this.state.answerList}
                     exportValue={this.setAnswerValue.bind(this)}
                   />
                   <div className="mt-10 text-right">
