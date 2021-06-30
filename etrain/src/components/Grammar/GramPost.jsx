@@ -103,13 +103,26 @@ class GramPost extends Component {
                 </div>
               ) : null}
               {this.state.loginStt ? (
-                <Link
-                  to={`/orderwords-${this.props.match.params.lessonid}`}
-                  className="genric-btn success-border circle"
-                  style={{ float: "right", marginTop: "20px" }}
-                >
-                  Order Sentense
-                </Link>
+                <>
+                  <Link
+                    to={`/dictation-${this.props.match.params.lessonid}`}
+                    className="genric-btn success-border circle"
+                    style={{
+                      float: "right",
+                      marginTop: "20px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Dictation
+                  </Link>
+                  <Link
+                    to={`/orderwords-${this.props.match.params.lessonid}`}
+                    className="genric-btn success-border circle"
+                    style={{ float: "right", marginTop: "20px" }}
+                  >
+                    Order Sentense
+                  </Link>
+                </>
               ) : null}
             </div>
 

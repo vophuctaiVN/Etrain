@@ -264,6 +264,13 @@
   border: none !important;
 }
 
+.dictation .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  width: 300px;
+  height: 300px;
+}
+
 /* hide all html path*/
 .rs-play path {
   display: none;
