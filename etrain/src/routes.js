@@ -18,6 +18,7 @@ import AnswerPage from "./components/ForumQ/AnswerPage.jsx";
 import MatchingWord from "./components/Games/MatchingWord/maincomponent";
 import OrderWords from "./components/Games/OrderWords/OrderWords.jsx";
 import Dictation from "./components/Games/Dictation/Dictation.jsx";
+import Speaking from "./components/Games/Dictation/Speaking.jsx";
 import Home from "./components/Games/Tortoise/game.jsx";
 
 import Profile from "./views/Log/UserProfile.jsx";
@@ -131,6 +132,11 @@ const routes = [
     path: "/dictation-:lessonid",
     layout: "",
     component: Dictation,
+  },
+  {
+    path: "/speaking-:lessonid",
+    layout: "",
+    component: Speaking,
   },
   {
     path: "/tortoise-:vocabID",

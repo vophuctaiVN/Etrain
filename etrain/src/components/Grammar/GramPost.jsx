@@ -105,6 +105,17 @@ class GramPost extends Component {
               {this.state.loginStt ? (
                 <>
                   <Link
+                    to={`/speaking-${this.props.match.params.lessonid}`}
+                    className="genric-btn success-border circle"
+                    style={{
+                      float: "right",
+                      marginTop: "20px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Speaking
+                  </Link>
+                  <Link
                     to={`/dictation-${this.props.match.params.lessonid}`}
                     className="genric-btn success-border circle"
                     style={{

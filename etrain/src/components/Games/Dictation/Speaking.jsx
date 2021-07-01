@@ -4,8 +4,47 @@ import Footer from "../MatchingWord/footer";
 import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
 import Speech from "react-speech";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
-class Dictation extends Component {
+const Dictaphone = () => {
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+
+  return (
+    <section className="blog_area section_padding">
+      <div className="container">
+        <div className="row justify-content-center words-container gamebackground">
+          <div>
+            <p>Microphone: {listening ? "on" : "off"}</p>
+            <button onClick={SpeechRecognition.startListening}>Start</button>
+            <button onClick={SpeechRecognition.stopListening}>Stop</button>
+            <button onClick={resetTranscript}>Reset</button>
+            {/*  <p>{transcript}</p> */}
+            <section className="container-fluid main-area">
+              <div className="rowKA">
+                <div className="col-md-12">
+                  <div className="question">{transcript}</div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+class Speaking extends Component {
   constructor(props) {
     super(props);
     this._showMessage = this._showMessage.bind(this);
@@ -89,7 +128,6 @@ class Dictation extends Component {
   }
 
   _changeWord() {
-    document.getElementById("dictationInput").value = "";
     if (window.interval !== undefined) {
       clearInterval(window.interval);
     }
@@ -150,12 +188,7 @@ class Dictation extends Component {
                   stopTimer={this.state.stopTimer}
                 />
 
-                <WordsArray
-                  sentence={nowSentence}
-                  image={
-                    this.examples[this.state.currentQuestionIndex - 1].imageURL
-                  }
-                />
+                <WordsArray sentence={nowSentence} />
                 <Footer
                   hideReplay={this.state.hideReplay}
                   onRefresh={this._playAgain}
@@ -185,47 +218,42 @@ class WordsArray extends Component {
     }
   }
 
-  _handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      let inputValue = document.getElementById("dictationInput").value;
-      this.wordChecking(inputValue);
-    }
-  };
-
   render() {
     return (
       <>
-        <div style={{ display: "flex" }}>
-          <div className="container-fluid">
-            <img
-              src={this.props.image}
-              style={{ height: "300px", width: "500px" }}
-              className="center"
-            />
-          </div>
-          <div
-            class="dictation"
-            style={{ marginTop: "10px", display: "block" }}
-          >
-            <Speech
-              text={this.props.sentence}
-              pitch="1"
-              rate="1"
-              volume="1"
-              lang="en-GB"
-              voice="Google UK English Male"
-            />
-          </div>
+        {" "}
+        <div className="container-fluid">
+          <section className="container-fluid main-area">
+            <div className="rowKA">
+              <div className="col-md-12">
+                <div
+                  className="question"
+                  style={{ display: "flex", width: "50%" }}
+                >
+                  <div
+                    class="speaking"
+                    style={{ marginTop: "10px", display: "block" }}
+                  >
+                    <Speech
+                      text={this.props.sentence}
+                      pitch="1"
+                      rate="1"
+                      volume="1"
+                      lang="en-GB"
+                      voice="Google UK English Male"
+                    />
+                  </div>
+                  <h1>{this.props.sentence}</h1>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
         <section className="container-fluid main-area">
           <div className="rowKA">
             <div className="col-md-12">
               <div className="question">
-                <input
-                  onKeyDown={this._handleKeyDown}
-                  id="dictationInput"
-                  placeholder="Required to add . for affirmative sentences and ? for the question"
-                />
+                <Dictaphone />
               </div>
             </div>
           </div>
@@ -235,4 +263,4 @@ class WordsArray extends Component {
   }
 }
 
-export default Dictation;
+export default Speaking;

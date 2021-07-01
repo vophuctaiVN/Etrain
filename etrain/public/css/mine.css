@@ -271,6 +271,13 @@
   height: 300px;
 }
 
+.speaking .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+}
+
 /* hide all html path*/
 .rs-play path {
   display: none;
