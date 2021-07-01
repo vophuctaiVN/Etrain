@@ -150,17 +150,13 @@ class Dictation extends Component {
                   ontimeup={this.durationEnd}
                   stopTimer={this.state.stopTimer}
                 />
-                <div className="container-fluid">
-                  <img
-                    src={
-                      this.examples[this.state.currentQuestionIndex - 1]
-                        .imageURL
-                    }
-                    style={{ height: "300px", width: "500px" }}
-                    className="center"
-                  />
-                </div>
-                <WordsArray sentence={nowSentence} />
+
+                <WordsArray
+                  sentence={nowSentence}
+                  image={
+                    this.examples[this.state.currentQuestionIndex - 1].imageURL
+                  }
+                />
                 <Footer
                   hideReplay={this.state.hideReplay}
                   onRefresh={this._playAgain}
@@ -200,17 +196,28 @@ class WordsArray extends Component {
   render() {
     return (
       <>
-        <div class="dictation" style={{ marginTop: "10px", display: "block" }}>
-          <Speech
-            text={this.props.sentence}
-            pitch="1"
-            rate="1"
-            volume="1"
-            lang="en-GB"
-            voice="Google UK English Male"
-          />
+        <div style={{ display: "flex" }}>
+          <div className="container-fluid">
+            <img
+              src={this.props.image}
+              style={{ height: "300px", width: "500px" }}
+              className="center"
+            />
+          </div>
+          <div
+            class="dictation"
+            style={{ marginTop: "10px", display: "block" }}
+          >
+            <Speech
+              text={this.props.sentence}
+              pitch="1"
+              rate="1"
+              volume="1"
+              lang="en-GB"
+              voice="Google UK English Male"
+            />
+          </div>
         </div>
-
         <section className="container-fluid main-area">
           <div className="rowKA">
             <div className="col-md-12">
