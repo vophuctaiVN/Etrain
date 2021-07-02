@@ -71,8 +71,8 @@ class Dictation extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 30,
-      message: "Good Job",
+      questionTimeDuration: 60,
+      message: "Ooops 😩",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
@@ -100,7 +100,6 @@ class Dictation extends Component {
       });
     } else {
       $("#score-card").html(this.state.score);
-
       clearInterval(window.interval);
       this.setState({ hideReplay: false, stopTimer: true, isOpen: true });
     }
@@ -116,8 +115,8 @@ class Dictation extends Component {
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 30,
-      message: "Good Job",
+      questionTimeDuration: 60,
+      message: "Ooops 😩",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
@@ -155,6 +154,7 @@ class Dictation extends Component {
                   image={
                     this.examples[this.state.currentQuestionIndex - 1].imageURL
                   }
+                  showMessage={this._showMessage}
                 />
                 <Footer
                   hideReplay={this.state.hideReplay}
@@ -182,6 +182,11 @@ class WordsArray extends Component {
         clearInterval(window.interval);
       }
       window.dispatchEvent(new Event("wordmatched"));
+    } else {
+      this.props.showMessage("wrong");
+      setTimeout(function () {
+        $("#message").hide(100);
+      }, 2000);
     }
   }
 

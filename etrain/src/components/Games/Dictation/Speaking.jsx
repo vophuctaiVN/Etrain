@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ScoreMain from "../MatchingWord/score";
 import Footer from "../MatchingWord/footer";
 import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
@@ -21,26 +20,31 @@ const Dictaphone = () => {
   }
 
   return (
-    <section className="blog_area section_padding">
-      <div className="container">
-        <div className="row justify-content-center words-container gamebackground">
-          <div>
-            <p>Microphone: {listening ? "on" : "off"}</p>
-            <button onClick={SpeechRecognition.startListening}>Start</button>
-            <button onClick={SpeechRecognition.stopListening}>Stop</button>
-            <button onClick={resetTranscript}>Reset</button>
-            {/*  <p>{transcript}</p> */}
-            <section className="container-fluid main-area">
-              <div className="rowKA">
-                <div className="col-md-12">
-                  <div className="question">{transcript}</div>
-                </div>
-              </div>
-            </section>
-          </div>
+    <div>
+      <div className="recordItem">
+        <h4>Microphone: {listening ? "on" : "off"}</h4>
+        <div className="wrapButtonListCenter">
+          <button
+            className="microIcon"
+            onClick={SpeechRecognition.startListening}
+          ></button>
+          <button className="resetIcon" onClick={resetTranscript}>
+            Reset
+          </button>
         </div>
       </div>
-    </section>
+      {transcript ? (
+        <section className="container-fluid main-area">
+          <div className="rowKA">
+            <div className="col-md-12">
+              <div className="question">
+                <h1>{transcript}</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </div>
   );
 };
 
@@ -92,9 +96,6 @@ class Speaking extends Component {
 
     var self = this;
     window.addEventListener("wordmatched", function (event) {
-      self.setState({
-        score: self.state.score + 10,
-      });
       if (window.interval !== undefined) {
         clearInterval(window.interval);
       }
@@ -107,13 +108,10 @@ class Speaking extends Component {
     });
 
     this.setState({
-      score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 30,
       message: "Good Job",
       hideReplay: true,
-      stopTimer: false,
       isOpen: false,
     });
   }
@@ -134,11 +132,8 @@ class Speaking extends Component {
     if (this.state.currentQuestionIndex < this.state.questionLimit) {
       this.setState({
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
-        questionTimeDuration: this.state.questionTimeDuration,
       });
     } else {
-      $("#score-card").html(this.state.score);
-
       clearInterval(window.interval);
       this.setState({ hideReplay: false, stopTimer: true, isOpen: true });
     }
@@ -151,54 +146,35 @@ class Speaking extends Component {
   _playAgain() {
     clearInterval(window.interval);
     this.setState({
-      score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 30,
       message: "Good Job",
       hideReplay: true,
-      stopTimer: false,
       isOpen: false,
     });
   }
 
   render() {
-    let DetailClose = () =>
-      this.setState({ hideReplay: false, stopTimer: true, isOpen: false });
+    let DetailClose = () => this.setState({ hideReplay: false, isOpen: false });
 
     const nowSentence = this.items[this.state.currentQuestionIndex - 1];
 
     return (
       <>
-        {this.state.score !== undefined ? (
-          <section className="blog_area section_padding">
-            <div className="container">
-              <div className="row justify-content-center words-container gamebackground">
-                <ResultModal
-                  isOpen={this.state.isOpen}
-                  score={this.state.score}
-                  onHide={DetailClose}
-                />
-                <ScoreMain
-                  score={this.state.score}
-                  current={this.state.currentQuestionIndex}
-                  questionlimit={this.state.questionLimit}
-                  duration={this.state.questionTimeDuration}
-                  ontimeup={this.durationEnd}
-                  stopTimer={this.state.stopTimer}
-                />
-
-                <WordsArray sentence={nowSentence} />
-                <Footer
-                  hideReplay={this.state.hideReplay}
-                  onRefresh={this._playAgain}
-                  message={this.state.message}
-                  skipquestion={this._changeWord}
-                />
-              </div>
+        <section className="blog_area section_padding">
+          <div className="container">
+            <div className="row justify-content-center words-container gamebackground">
+              <ResultModal isOpen={this.state.isOpen} onHide={DetailClose} />
+              <WordsArray sentence={nowSentence} />
+              <Footer
+                hideReplay={this.state.hideReplay}
+                onRefresh={this._playAgain}
+                message={this.state.message}
+                skipquestion={this._changeWord}
+              />
             </div>
-          </section>
-        ) : null}
+          </div>
+        </section>
       </>
     );
   }
@@ -221,19 +197,12 @@ class WordsArray extends Component {
   render() {
     return (
       <>
-        {" "}
         <div className="container-fluid">
           <section className="container-fluid main-area">
             <div className="rowKA">
               <div className="col-md-12">
-                <div
-                  className="question"
-                  style={{ display: "flex", width: "50%" }}
-                >
-                  <div
-                    class="speaking"
-                    style={{ marginTop: "10px", display: "block" }}
-                  >
+                <div style={{ display: "flex" }}>
+                  <div class="speaking">
                     <Speech
                       text={this.props.sentence}
                       pitch="1"
@@ -243,21 +212,13 @@ class WordsArray extends Component {
                       voice="Google UK English Male"
                     />
                   </div>
-                  <h1>{this.props.sentence}</h1>
+                  <h1 style={{ marginTop: "revert" }}>{this.props.sentence}</h1>
                 </div>
               </div>
             </div>
           </section>
         </div>
-        <section className="container-fluid main-area">
-          <div className="rowKA">
-            <div className="col-md-12">
-              <div className="question">
-                <Dictaphone />
-              </div>
-            </div>
-          </div>
-        </section>
+        <Dictaphone />
       </>
     );
   }

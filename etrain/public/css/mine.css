@@ -271,11 +271,39 @@
   height: 300px;
 }
 
+.recordItem {
+  text-align: center;
+}
+
 .speaking .rs-play {
   background: url(../img/icon/headphone.png) no-repeat center;
   background-size: 70% 70%;
   min-width: 100px;
   min-height: 100px;
+}
+
+.wrapButtonListCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.microIcon {
+  background: url(../img/icon/micro.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.resetIcon {
+  background: url(../img/icon/reset.jpg) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
 }
 
 /* hide all html path*/
