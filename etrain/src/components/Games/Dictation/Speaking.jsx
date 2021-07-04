@@ -6,6 +6,13 @@ import Speech from "react-speech";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import {
+  toArpabet,
+  toIPA,
+  toAmericanPhoneticAlphabet,
+} from "arpabet-and-ipa-convertor-ts";
+import { ThreeSixtyTwoTone } from "@material-ui/icons";
+import zIndex from "@material-ui/core/styles/zIndex";
 
 const Dictaphone = () => {
   const {
@@ -156,7 +163,6 @@ class Speaking extends Component {
 
   render() {
     let DetailClose = () => this.setState({ hideReplay: false, isOpen: false });
-
     const nowSentence = this.items[this.state.currentQuestionIndex - 1];
 
     return (
@@ -194,7 +200,44 @@ class WordsArray extends Component {
     }
   }
 
+  wordToIPA(word) {
+    word = word.replace(/[^a-zA-Z ]/g, "");
+    word = word.toLowerCase();
+    var cmu = require("cmu-pronouncing-dictionary");
+    const arpabet = cmu[word];
+    return toIPA(arpabet);
+  }
+
+  stringToAPI(sentence) {
+    if (sentence !== undefined) {
+      var arr = sentence.split(" ");
+      var ipaString = new String();
+      arr.forEach((item) => {
+        const x = this.wordToIPA(item);
+        if (x !== null) ipaString = ipaString.concat(" ", x);
+      });
+      ipaString = ipaString.replace(" ", "");
+      return ipaString;
+    }
+  }
+
+  compareIPA(ipa1, ipa2) {
+    let arr1 = ipa1.split(" ");
+    let arr2 = ipa2.split(" ");
+    let wrongArr = [];
+    arr1.forEach((item, index) => {
+      if (item !== arr2[index]) {
+        wrongArr.push(item);
+      }
+    });
+
+    const percentage = ((arr1.length - wrongArr.length) * 100) / arr1.length;
+    console.log({ percentage, wrongArr });
+  }
+
   render() {
+    const ipa = this.stringToAPI(this.props.sentence);
+    if (ipa !== undefined) this.compareIPA(ipa, this.stringToAPI("i a teach"));
     return (
       <>
         <div className="container-fluid">
@@ -212,7 +255,9 @@ class WordsArray extends Component {
                       voice="Google UK English Male"
                     />
                   </div>
-                  <h1 style={{ marginTop: "revert" }}>{this.props.sentence}</h1>
+                  <h1 style={{ marginTop: "revert" }}>
+                    {this.props.sentence} {ipa}
+                  </h1>
                 </div>
               </div>
             </div>
