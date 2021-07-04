@@ -6,54 +6,8 @@ import Speech from "react-speech";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import {
-  toArpabet,
-  toIPA,
-  toAmericanPhoneticAlphabet,
-} from "arpabet-and-ipa-convertor-ts";
-import { ThreeSixtyTwoTone } from "@material-ui/icons";
-import zIndex from "@material-ui/core/styles/zIndex";
-
-const Dictaphone = () => {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
-
-  return (
-    <div>
-      <div className="recordItem">
-        <h4>Microphone: {listening ? "on" : "off"}</h4>
-        <div className="wrapButtonListCenter">
-          <button
-            className="microIcon"
-            onClick={SpeechRecognition.startListening}
-          ></button>
-          <button className="resetIcon" onClick={resetTranscript}>
-            Reset
-          </button>
-        </div>
-      </div>
-      {transcript ? (
-        <section className="container-fluid main-area">
-          <div className="rowKA">
-            <div className="col-md-12">
-              <div className="question">
-                <h1>{transcript}</h1>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
-    </div>
-  );
-};
+import { toIPA } from "arpabet-and-ipa-convertor-ts";
+import Chart from "react-apexcharts";
 
 class Speaking extends Component {
   constructor(props) {
@@ -119,7 +73,6 @@ class Speaking extends Component {
       questionLimit: this.items.length,
       message: "Good Job",
       hideReplay: true,
-      isOpen: false,
     });
   }
 
@@ -142,7 +95,7 @@ class Speaking extends Component {
       });
     } else {
       clearInterval(window.interval);
-      this.setState({ hideReplay: false, stopTimer: true, isOpen: true });
+      this.setState({ hideReplay: false });
     }
   }
 
@@ -157,12 +110,10 @@ class Speaking extends Component {
       questionLimit: this.items.length,
       message: "Good Job",
       hideReplay: true,
-      isOpen: false,
     });
   }
 
   render() {
-    let DetailClose = () => this.setState({ hideReplay: false, isOpen: false });
     const nowSentence = this.items[this.state.currentQuestionIndex - 1];
 
     return (
@@ -170,8 +121,7 @@ class Speaking extends Component {
         <section className="blog_area section_padding">
           <div className="container">
             <div className="row justify-content-center words-container gamebackground">
-              <ResultModal isOpen={this.state.isOpen} onHide={DetailClose} />
-              <WordsArray sentence={nowSentence} />
+              <WordsArray sentence={nowSentence} key={nowSentence} />
               <Footer
                 hideReplay={this.state.hideReplay}
                 onRefresh={this._playAgain}
@@ -209,36 +159,45 @@ class WordsArray extends Component {
   }
 
   stringToAPI(sentence) {
-    if (sentence !== undefined) {
-      var arr = sentence.split(" ");
-      var ipaString = new String();
-      arr.forEach((item) => {
-        const x = this.wordToIPA(item);
-        if (x !== null) ipaString = ipaString.concat(" ", x);
-      });
-      ipaString = ipaString.replace(" ", "");
-      return ipaString;
-    }
+    var arr = sentence.split(" ");
+    var ipaString = new String();
+    arr.forEach((item) => {
+      const x = this.wordToIPA(item);
+      if (x !== null) ipaString = ipaString.concat(" ", x);
+    });
+    ipaString = ipaString.replace(" ", "");
+    return ipaString;
+  }
+
+  getWordfromIPA(ipa) {
+    let word;
+    let str = this.props.sentence.replace(/[^a-zA-Z ]/g, "");
+    let arr = str.split(" ");
+    arr.forEach((item) => {
+      if (this.wordToIPA(item) === ipa) word = item;
+    });
+    return word;
   }
 
   compareIPA(ipa1, ipa2) {
     let arr1 = ipa1.split(" ");
     let arr2 = ipa2.split(" ");
     let wrongArr = [];
-    arr1.forEach((item, index) => {
-      if (item !== arr2[index]) {
-        wrongArr.push(item);
+    arr1.forEach((ipa, index) => {
+      if (!ipa2.includes(ipa)) {
+        wrongArr.push({ ipa: ipa, word: this.getWordfromIPA(ipa) });
       }
     });
 
-    const percentage = ((arr1.length - wrongArr.length) * 100) / arr1.length;
-    console.log({ percentage, wrongArr });
+    const percentage = (
+      ((arr1.length - wrongArr.length) * 100) /
+      arr1.length
+    ).toFixed(2);
+    return { percentage, wrongArr };
   }
 
   render() {
-    const ipa = this.stringToAPI(this.props.sentence);
-    if (ipa !== undefined) this.compareIPA(ipa, this.stringToAPI("i a teach"));
-    return (
+    return this.props.sentence !== undefined ? (
       <>
         <div className="container-fluid">
           <section className="container-fluid main-area">
@@ -256,17 +215,115 @@ class WordsArray extends Component {
                     />
                   </div>
                   <h1 style={{ marginTop: "revert" }}>
-                    {this.props.sentence} {ipa}
+                    {this.props.sentence}{" "}
+                    <h6>/{this.stringToAPI(this.props.sentence)}/</h6>
                   </h1>
                 </div>
               </div>
             </div>
           </section>
         </div>
-        <Dictaphone />
+        <Dictaphone
+          sentence={this.props.sentence}
+          compareIPA={this.compareIPA.bind(this)}
+          stringToAPI={this.stringToAPI.bind(this)}
+        />
       </>
-    );
+    ) : null;
   }
 }
+
+const Dictaphone = (props) => {
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  let evaluation;
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+  if (!listening && transcript) {
+    const ipa = props.stringToAPI(props.sentence);
+    evaluation = props.compareIPA(ipa, props.stringToAPI(transcript));
+  }
+
+  return (
+    <div>
+      <div className="recordItem">
+        <h4>Microphone: {listening ? "on" : "off"}</h4>
+        <div className="wrapButtonListCenter">
+          <button
+            className="microIcon"
+            onClick={SpeechRecognition.startListening}
+          ></button>
+          <button className="resetIcon" onClick={resetTranscript}></button>
+        </div>
+      </div>
+      {transcript ? (
+        <section className="container-fluid main-area">
+          <div className="rowKA">
+            <div className="col-md-12">
+              <div className="question">
+                <h1>{transcript}</h1>
+              </div>
+            </div>
+          </div>
+
+          {evaluation !== undefined ? (
+            <div
+              className="row align-items-sm-center align-items-lg-stretch"
+              style={{ display: "flex" }}
+            >
+              <Chart
+                options={{
+                  chart: {
+                    height: 500,
+                    type: "radialBar",
+                  },
+                  plotOptions: {
+                    radialBar: {
+                      hollow: {
+                        size: "70%", //meanless
+                      },
+                    },
+                  },
+                  labels: ["Percentage"],
+                }}
+                series={[evaluation.percentage]}
+                type="radialBar"
+                width="200"
+              />
+              {evaluation.wrongArr.length > 0 ? (
+                <div className="blog_details">
+                  <h2>You should practice again</h2>
+                  {evaluation.wrongArr.map((item, index) => (
+                    <div key={index} style={{ display: "flex" }}>
+                      <div class="speaking">
+                        <Speech
+                          text={item.word}
+                          pitch="1"
+                          rate="1"
+                          volume="1"
+                          lang="en-GB"
+                          voice="Google UK English Male"
+                        />
+                      </div>
+                      <h1 style={{ marginTop: "revert" }}>
+                        {item.word} <h6>/{item.ipa}/</h6>
+                      </h1>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+    </div>
+  );
+};
 
 export default Speaking;
