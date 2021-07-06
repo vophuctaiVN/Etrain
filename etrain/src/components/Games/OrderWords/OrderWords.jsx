@@ -73,7 +73,7 @@ class OrderWords extends Component {
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
       questionTimeDuration: 30,
-      message: "Good Job",
+      message: "Good Job 🥰",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
@@ -117,7 +117,7 @@ class OrderWords extends Component {
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
       questionTimeDuration: 30,
-      message: "Good Job",
+      message: "Good Job 🥰",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
@@ -155,7 +155,11 @@ class OrderWords extends Component {
                       this.examples[this.state.currentQuestionIndex - 1]
                         .imageURL
                     }
-                    style={{ height: "300px", width: "500px" }}
+                    style={{
+                      maxHeight: "400px",
+                      maxWidth: "400px",
+                      marginTop: "10px",
+                    }}
                     className="center"
                   />
                 </div>

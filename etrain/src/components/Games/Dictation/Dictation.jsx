@@ -80,16 +80,18 @@ class Dictation extends Component {
   }
 
   _showMessage(type) {
+    clearInterval(window.interval);
     if (type == "success") {
-      this.state.message = "Good Job 🥰";
+      this.setState({ message: "Good Job 🥰" });
     } else {
-      this.state.message = "Ooops 😩";
+      this.setState({ message: "Ooops 😩" });
     }
     $("#message").show(200);
   }
 
   _changeWord() {
-    document.getElementById("dictationInput").value = "";
+    if (document.getElementById("dictationInput"))
+      document.getElementById("dictationInput").value = "";
     if (window.interval !== undefined) {
       clearInterval(window.interval);
     }
@@ -110,13 +112,15 @@ class Dictation extends Component {
   }
 
   _playAgain() {
+    if (document.getElementById("dictationInput"))
+      document.getElementById("dictationInput").value = "";
     clearInterval(window.interval);
     this.setState({
       score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
       questionTimeDuration: 60,
-      message: "Ooops 😩",
+      message: "Good Job 🥰",
       hideReplay: true,
       stopTimer: false,
       isOpen: false,
@@ -204,12 +208,15 @@ class WordsArray extends Component {
           <div className="container-fluid">
             <img
               src={this.props.image}
-              style={{ height: "300px", width: "500px" }}
-              className="center"
+              style={{
+                maxHeight: "400px",
+                maxWidth: "400px",
+                marginTop: "10px",
+              }}
             />
           </div>
           <div
-            class="dictation"
+            className="dictation"
             style={{ marginTop: "10px", display: "block" }}
           >
             <Speech

@@ -274,7 +274,7 @@ const Dictaphone = (props) => {
 
           {evaluation !== undefined ? (
             <div
-              className="row align-items-sm-center align-items-lg-stretch"
+              className="row align-items-sm-center align-items-lg-stretch wrapButtonListCenter"
               style={{ display: "flex" }}
             >
               <Chart
@@ -294,7 +294,7 @@ const Dictaphone = (props) => {
                 }}
                 series={[evaluation.percentage]}
                 type="radialBar"
-                width="200"
+                width="400"
               />
               {evaluation.wrongArr.length > 0 ? (
                 <div className="blog_details">
