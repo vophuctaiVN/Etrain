@@ -1,14 +1,14 @@
 import React from "react";
 class Timer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.getInitialState = this.getInitialState.bind(this);
-        this.tick = this.tick.bind(this);
-        
-        this.state = this.getInitialState();
-      }
-      
-  getInitialState() {   
+  constructor(props) {
+    super(props);
+    this.getInitialState = this.getInitialState.bind(this);
+    this.tick = this.tick.bind(this);
+
+    this.state = this.getInitialState();
+  }
+
+  getInitialState() {
     return {
       currentSecond: this.props.seconds,
     };
@@ -39,11 +39,8 @@ class Timer extends React.Component {
     } else {
       clearInterval(window.interval);
       this.props.counterend();
-      //console.log("change word and score");
     }
   }
-
-  
 
   render() {
     return (

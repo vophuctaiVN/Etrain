@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ScoreMain from "../MatchingWord/score";
 import Footer from "../MatchingWord/footer";
 import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
@@ -53,9 +52,6 @@ class Dictation extends Component {
 
     var self = this;
     window.addEventListener("wordmatched", function (event) {
-      self.setState({
-        score: self.state.score + 10,
-      });
       if (window.interval !== undefined) {
         clearInterval(window.interval);
       }
@@ -68,14 +64,10 @@ class Dictation extends Component {
     });
 
     this.setState({
-      score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 60,
       message: "Ooops 😩",
       hideReplay: true,
-      stopTimer: false,
-      isOpen: false,
     });
   }
 
@@ -98,12 +90,10 @@ class Dictation extends Component {
     if (this.state.currentQuestionIndex < this.state.questionLimit) {
       this.setState({
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
-        questionTimeDuration: this.state.questionTimeDuration,
       });
     } else {
-      $("#score-card").html(this.state.score);
       clearInterval(window.interval);
-      this.setState({ hideReplay: false, stopTimer: true, isOpen: true });
+      this.setState({ hideReplay: false });
     }
   }
 
@@ -116,43 +106,22 @@ class Dictation extends Component {
       document.getElementById("dictationInput").value = "";
     clearInterval(window.interval);
     this.setState({
-      score: 0,
       currentQuestionIndex: 1,
       questionLimit: this.items.length,
-      questionTimeDuration: 60,
       message: "Good Job 🥰",
       hideReplay: true,
-      stopTimer: false,
-      isOpen: false,
     });
   }
 
   render() {
-    let DetailClose = () =>
-      this.setState({ hideReplay: false, stopTimer: true, isOpen: false });
-
     const nowSentence = this.items[this.state.currentQuestionIndex - 1];
 
     return (
       <>
-        {this.state.score !== undefined ? (
+        {nowSentence !== undefined ? (
           <section className="blog_area section_padding">
             <div className="container">
               <div className="row justify-content-center words-container gamebackground">
-                <ResultModal
-                  isOpen={this.state.isOpen}
-                  score={this.state.score}
-                  onHide={DetailClose}
-                />
-                <ScoreMain
-                  score={this.state.score}
-                  current={this.state.currentQuestionIndex}
-                  questionlimit={this.state.questionLimit}
-                  duration={this.state.questionTimeDuration}
-                  ontimeup={this.durationEnd}
-                  stopTimer={this.state.stopTimer}
-                />
-
                 <WordsArray
                   sentence={nowSentence}
                   image={

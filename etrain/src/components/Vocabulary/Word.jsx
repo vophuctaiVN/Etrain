@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { getCookiesValue, isLogin } from "../../utils/helpers";
-import SpeakerSound from "../Dictionary/Sound";
 import { BiStar } from "react-icons/bi";
 import Speech from "react-speech";
 import { ImCross } from "react-icons/im";
@@ -8,21 +7,24 @@ import { ImCross } from "react-icons/im";
 class Word extends Component {
   speechRef = React.createRef();
   state = { starColor: this.props.lightStar };
-  MemberForgetWord(isHidden = false) {
+
+  MemberForgetWord(isHidden = false, forgetID = null) {
     window.AccountAPIsService_CheckAuth(getCookiesValue("authToken")).then(
       window
         .RememberForgetWordAPI({
           accountID: getCookiesValue("userID"),
           wordID: this.props.vocab.id,
         })
-        .then(
+        .then(() => {
+          if (forgetID !== null) this.props.updateNumberOfWords(forgetID);
           this.setState({
             starColor: !this.state.starColor,
             hidden: isHidden,
-          })
-        )
+          });
+        })
     );
   }
+
   render() {
     let vocab = this.props.vocab;
     return (
@@ -43,12 +45,12 @@ class Word extends Component {
               {this.props.crossIcon ? (
                 <ImCross
                   style={{ float: "right", margin: "10px", cursor: "pointer" }}
-                  onClick={() => this.MemberForgetWord(true)}
+                  onClick={() => this.MemberForgetWord(true, vocab.id)}
                   color={"darkred"}
                 />
               ) : null}
               <div>
-                /{vocab.ipa}/ {/* <SpeakerSound url={vocab.soundURL} />{" "} */}
+                /{vocab.ipa}/
                 <Speech
                   text={vocab.en}
                   pitch="1"
@@ -58,9 +60,8 @@ class Word extends Component {
                   voice="Google UK English Male"
                 />
               </div>
-              <span>
-                {vocab.type} {vocab.vn}
-              </span>
+              <span>{vocab.type} - </span>
+              {vocab.vn}
               <p>
                 {vocab.example1}{" "}
                 <Speech

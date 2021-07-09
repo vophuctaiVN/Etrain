@@ -1685,7 +1685,7 @@ INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","g-7,v-7
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","g-8,v-8","8");
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","v-9,v-10","9");
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","v-11,v-12","10");
-INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","v-13,v-14,v15","11");
+INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A1","v-13,v-14,v-15","11");
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A2","g-9,v-16","12");
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A2","g-10,v-17","13");
 INSERT INTO `lessons` (`Level`, `LessonsID`, `ExerciseID`) VALUES ("A2","g-12,v-18","14");

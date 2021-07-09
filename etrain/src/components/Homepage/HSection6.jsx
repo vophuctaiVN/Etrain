@@ -40,8 +40,8 @@ class HSection6 extends Component {
     this.state.suggest.forEach((topicInfo) => {
       topicInfo.description = this.truncate(topicInfo.description);
     });
-    let suggest = this.state.suggest.map((vocab) => (
-      <div className="col-sm-6 col-lg-4 col-xl-4">
+    let suggest = this.state.suggest.map((vocab, index) => (
+      <div className="col-sm-6 col-lg-4 col-xl-4" key={index}>
         <div className="single-home-blog">
           <div className="card">
             <img src={vocab.imageURL} className="card-img-top" alt="blog" />
@@ -55,17 +55,6 @@ class HSection6 extends Component {
                 <h5 className="card-title">{vocab.title}</h5>{" "}
               </Link>
               <p>{vocab.description}</p>
-              {/*    <ul>
-                <li>
-                  {" "}
-                  <span className="ti-comments" />2 Comments
-                </li>
-                <li>
-                  {" "}
-                  <span className="ti-heart" />
-                  2k Like
-                </li>
-              </ul> */}
             </div>
           </div>
         </div>

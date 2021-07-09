@@ -87,7 +87,7 @@ class TopBar extends Component {
                   </Link>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem onClick={(e) => e.preventDefault()}>
                   <span className="nav-link" onClick={handleSignOutClick}>
                     Logout
                   </span>
@@ -124,16 +124,7 @@ class TopBar extends Component {
       window.location.pathname.includes("/product-")
     )
       iconStore = (
-        <Link
-          to="/cart"
-          className="nav-link"
-          /* onClick={() =>
-            window.scrollTo({
-              top: window.innerHeight - 60,
-              behavior: "smooth",
-            })
-          } */
-        >
+        <Link to="/cart" className="nav-link">
           <IoMdCart
             size={20}
             style={{ float: "right", margin: "10px" }}
@@ -199,7 +190,6 @@ class TopBar extends Component {
                     <li className="nav-item dropdown">
                       <a
                         className="nav-link dropdown-toggle"
-                        href="blog.html"
                         id="navbarDropdown"
                         role="button"
                         data-toggle="dropdown"

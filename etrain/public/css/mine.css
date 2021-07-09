@@ -343,12 +343,15 @@
 }
 
 .gg-synonym-border {
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 1px solid darkolivegreen;
   border-radius: 15px;
   padding: 20px 0px 20px 20px;
 }
 
 .gg-image {
+  max-height: 500px;
   margin-top: 30px;
   display: block;
   margin-left: auto;

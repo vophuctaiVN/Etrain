@@ -168,7 +168,7 @@ class Vocabulary extends Component {
                     </ul>
                   </aside>
                   <aside className="single_sidebar_widget popular_post_widget">
-                    <h3 className="widget_title">Best Post</h3>
+                    <h3 className="widget_title">Posts List</h3>
                     {suggest}
                   </aside>
                 </div>
