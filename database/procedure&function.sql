@@ -1534,12 +1534,12 @@ DROP procedure IF EXISTS `addMyDicWords`;
 DELIMITER $$
 CREATE PROCEDURE `addMyDicWords` (
 	_IDaccount INT,
-    _en VARCHAR(32),
-    _ipa VARCHAR(32),
-    _type VARCHAR(16),
-    _vn VARCHAR(32),
-    _ex1 VARCHAR(256),
-    _ex2 VARCHAR(256),
+    _en VARCHAR(256),
+    _ipa VARCHAR(256),
+    _type VARCHAR(256),
+    _vn VARCHAR(256),
+    _ex1 VARCHAR(1024),
+    _ex2 VARCHAR(1024),
     _imageURL VARCHAR(1024)
 )
 addMyDicWords:BEGIN

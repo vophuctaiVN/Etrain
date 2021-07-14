@@ -539,13 +539,13 @@ DROP TABLE IF EXISTS `vocab_by_topic`;
 CREATE TABLE `vocab_by_topic` (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `ID_topic` INT NOT NULL,
-    `En` VARCHAR(32) NOT NULL, 
-    `IPA` VARCHAR(32) NOT NULL, 
+    `En` VARCHAR(256) NOT NULL, 
+    `IPA` VARCHAR(256) NOT NULL, 
     `SoundURL` VARCHAR(256) NOT NULL,
-    `Type` VARCHAR(16) NOT NULL,
-    `Vn` VARCHAR(32) NOT NULL,
-    `Example1` VARCHAR(256) NOT NULL,
-    `Example2` VARCHAR(256) NOT NULL,
+    `Type` VARCHAR(256) NOT NULL,
+    `Vn` VARCHAR(256) NOT NULL,
+    `Example1` VARCHAR(1024) NOT NULL,
+    `Example2` VARCHAR(1024) NOT NULL,
     `ImageURL` VARCHAR(1024) NOT NULL DEFAULT 'default.png',    
     `RecordStatus` TINYINT NOT NULL DEFAULT 1,
     PRIMARY KEY (`ID`)
@@ -1356,8 +1356,8 @@ INSERT INTO `quiz` (`Title`, `Level`,`Description`) VALUES ("Quick Placement & D
 
 -- quiz_question table
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "How old.............you?", NULL, "text", "single", "am, is, are, be", "3", "question: ... be + S?, S = you => ...are you?");
-INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "My name............Mai", NULL, "text", "single", "be, is, are, am", "2", "S = name => be = is");
-INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "How .........she?", NULL, "text", "single", "be, is, am, to be", "2", "S = she => is");
+INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "My name............Mai", "https://png.pngtree.com/element_our/20190529/ourmid/pngtree-cartoon-meet-friendly-handshake-image_1193032.jpg", "text", "single", "be, is, are, am", "2", "S = name => be = is");
+INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "How .........she?", NULL, "text", "multiple", "be, is, am, old is", "2, 4", "S = she => is, old is");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "Minh...........all right", NULL, "text", "single", "is, am, are, be", "1", "S = Minh (name) => is");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`, `explanation`) VALUES ("1", "Lan and I........10 years old", NULL, "text", "single", "are, not are, not be, is", "1", "Lan & I = 2 people => are");
 
@@ -1640,7 +1640,7 @@ INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "They _____ in the park when it started to rain heavily", NULL, "text", "single", "walked, were walking, were walk, are walking", "2");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "_____ seen fireworks before", NULL, "text", "single", "Did you ever, Are you ever, Have you ever, Do you ever", "3");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "We've been friends _____ many years", NULL, "text", "single", "since, from, during, for", "4");
-INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "You _____ pay for the tickets. They're free", NULL, "text", "single", "have to, don't have to, don't need to ,doesn't have to", "3");
+INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "You _____ pay for the tickets. They're free", NULL, "text", "single", "have to, don't have to, don't need to, doesn't have to", "3");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "Jeff was ill last week and he _____ go out", NULL, "text", "single", "needn't, can't, mustn't, couldn't", "4");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "These are photos _____ I took on holiday", NULL, "text", "single", "which, who, what, where", "1");
 INSERT INTO `quiz_question` (`ID_quiz`, `question`, `questionPic`, `questionType`, `answerSelectionType`, `answers`, `correctAnswer`) VALUES ("45", "We'll stay at home if it _____ this afternoon", NULL, "text", "single", "raining, rains, will rain, rain", "2");

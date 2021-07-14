@@ -188,7 +188,9 @@ class FirstTest extends Component {
         <div className="col-md-3 col-lg-3">
           <div className="blog_details">
             <h2>Your Level</h2>
-            <h5>Intermidiate</h5>
+            <h5>
+              {userLevelInfo.level} {userLevelInfo.levelName}
+            </h5>
             <Chart
               options={this.state.options}
               series={percentage}

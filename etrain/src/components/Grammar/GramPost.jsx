@@ -139,7 +139,7 @@ class GramPost extends Component {
 
             <div className="col-lg-4 right-contents">
               <MoreLesson />
-              <GramQ />
+              <GramQ key={this.props.match.params.lessonid} />
             </div>
           </div>
         </div>

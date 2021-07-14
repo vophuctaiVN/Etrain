@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Navigation extends Component {
-  render() { 
+  render() {
     let pageicons = [];
     let pageNo = this.props.pageinfo.pageNo;
     let lastpage = this.props.pageinfo.lastpage;
@@ -43,7 +43,6 @@ class Navigation extends Component {
         key={Math.random()}
       >
         <a
-          href="# "
           className="page-link"
           onClick={() => this.props.handlePageChange("number", number)}
         >
@@ -57,7 +56,6 @@ class Navigation extends Component {
         <ul className="pagination">
           <li className={`page-item ${pageNo <= 1 ? "li_disabled" : null}`}>
             <a
-              href="# "
               className="page-link"
               aria-label="Previous"
               onClick={() => this.props.handlePageChange("pre", pageNo)}
@@ -72,7 +70,6 @@ class Navigation extends Component {
             className={`page-item ${pageNo >= lastpage ? "li_disabled" : null}`}
           >
             <a
-              href="# "
               className="page-link"
               aria-label="Next"
               onClick={() => this.props.handlePageChange("next", pageNo)}

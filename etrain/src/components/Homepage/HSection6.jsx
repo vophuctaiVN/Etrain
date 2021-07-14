@@ -67,7 +67,7 @@ class HSection6 extends Component {
             <div className="col-xl-5">
               <div className="section_tittle text-center">
                 <p>Our Posts</p>
-                <h2>Vocab Topics</h2>
+                <h2>Vocabulary Topics</h2>
               </div>
             </div>
           </div>

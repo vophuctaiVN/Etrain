@@ -175,11 +175,6 @@ class TopBar extends Component {
                   id="navbarSupportedContent"
                 >
                   <ul className="navbar-nav align-items-center">
-                    <li className="nav-item active">
-                      <Link to={`/homepage`} className="nav-link">
-                        Home
-                      </Link>
-                    </li>
                     {this.state.isLogin ? (
                       <li className="nav-item active">
                         <Link to={`/journey`} className="nav-link">

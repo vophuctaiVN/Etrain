@@ -353,11 +353,6 @@ a {
 
 .ImageSpan__root___RoAqL {
   background-size: 300px 300px !important;
-  /* line-height: 300px !important;
-  width: auto !important;
-  height: auto !important;
-  letter-spacing: 0px !important;
- */
   max-height: 300px;
   max-width: 300px;
 }
@@ -374,4 +369,13 @@ a {
 
   max-height: calc(100vh - 210px);
   overflow-y: auto;
+}
+
+.InputPopover__inner___32V5P {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.ButtonGroup__root___3lEAn {
+  margin: 0px !important;
 }

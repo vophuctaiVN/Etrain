@@ -36,7 +36,7 @@ class MoreLesson extends Component {
   render() {
     let suggested = this.state.suggest.map((suggest, index) => (
       <li>
-        <a className="justify-content-between d-flex" ey={index}>
+        <a className="justify-content-between d-flex" key={index}>
           <p>{suggest.title}</p>
           <span>
             <Link
