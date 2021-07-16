@@ -264,6 +264,48 @@
   border: none !important;
 }
 
+.dictation .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  width: 300px;
+  height: 300px;
+}
+
+.recordItem {
+  text-align: center;
+}
+
+.speaking .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.wrapButtonListCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.microIcon {
+  background: url(../img/icon/micro.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.resetIcon {
+  background: url(../img/icon/reset.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
 /* hide all html path*/
 .rs-play path {
   display: none;
@@ -301,12 +343,15 @@
 }
 
 .gg-synonym-border {
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 1px solid darkolivegreen;
   border-radius: 15px;
   padding: 20px 0px 20px 20px;
 }
 
 .gg-image {
+  max-height: 500px;
   margin-top: 30px;
   display: block;
   margin-left: auto;

@@ -188,7 +188,9 @@ class FirstTest extends Component {
         <div className="col-md-3 col-lg-3">
           <div className="blog_details">
             <h2>Your Level</h2>
-            <h5>Intermidiate</h5>
+            <h5>
+              {userLevelInfo.level} {userLevelInfo.levelName}
+            </h5>
             <Chart
               options={this.state.options}
               series={percentage}
@@ -213,18 +215,13 @@ class FirstTest extends Component {
             <br />
             <p>{userLevelInfo.levelExplain}</p>
             <div className="row align-items-sm-center align-items-lg-stretch">
-              {/* <div className="col-md-3 col-lg-3 containerCenter">
-                <Chart
-                  options={this.state.options}
-                  series={percentage}
-                  type="radialBar"
-                  width="200"
-                />
-              </div> */}
-              <div /* className="col-md-9 col-lg-9" */ className="col">
+              <div className="col">
                 <div className="blog_details">
                   <h2>
-                    <span className="ti-pencil-alt" />
+                    <span
+                      className="ti-pencil-alt"
+                      style={{ marginRight: "10px" }}
+                    />
                     Grammar Level Explained
                   </h2>
                   <p>{userLevelInfo.grammarExplain}</p>
@@ -233,18 +230,13 @@ class FirstTest extends Component {
             </div>
             <hr />
             <div className="row align-items-sm-center align-items-lg-stretch">
-              {/* <div className="col-md-3 col-lg-3 containerCenter">
-                <Chart
-                  options={this.state.options}
-                  series={percentage}
-                  type="radialBar"
-                  width="200"
-                />
-              </div> */}
-              <div /* className="col-md-9 col-lg-9" */ className="col">
+              <div className="col">
                 <div className="blog_details">
                   <h2>
-                    <span className="ti-ruler-pencil" />
+                    <span
+                      className="ti-ruler-pencil"
+                      style={{ marginRight: "10px" }}
+                    />
                     Vocabulary Level Explained
                   </h2>
                   <p>{userLevelInfo.vocabExplain}</p>

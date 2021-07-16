@@ -46,11 +46,7 @@ class SentenceDictionary extends Component {
           </div>
         );
       });
-      console.log("set State", {
-        Sentences: listword,
-        wordtitle: keyword,
-        youtubeinfo: data.youtubeinfo,
-      });
+
       this.setState({
         Sentences: listword,
         wordtitle: keyword,

@@ -4,35 +4,8 @@ class ScoreMain extends React.Component {
   constructor(props) {
     super(props);
     this._endCounter = this._endCounter.bind(this);
-    /* this.getInitialState = this.getInitialState.bind(this);
-    this.state = this.getInitialState(); */
   }
 
-  /*  getInitialState() {
-    var self = this;
-    // nhớ cancel listener event bên keyborad result
-    window.addEventListener("wordmatched", function (event) {  console.log(self.state);
-      self.setState({
-      score: self.state.score + 10,
-    });
-    if (window.interval !== undefined) {
-      clearInterval(window.interval);
-    }
-    });
-
-    window.addEventListener("wordNOTmatched", function (event) {
-      self.setState({
-        score: self.state.score,
-      });
-      if (window.interval !== undefined) {
-        clearInterval(window.interval);
-      } 
-    });
-
-    return {
-      score: 0,
-    };
-  } */
   _endCounter() {
     this.props.ontimeup();
   }
@@ -67,9 +40,7 @@ class ScoreMain extends React.Component {
 
 class PointScore extends React.Component {
   render() {
-    return (
-        <h2>Score: {this.props.points}</h2>
-    );
+    return <h2>Score: {this.props.points}</h2>;
   }
 }
 

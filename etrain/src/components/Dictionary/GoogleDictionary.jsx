@@ -103,7 +103,7 @@ class GoogleDictionary extends Component {
         saveWordInfo.Type.push(mean.partOfSpeech);
         return (
           <div key={meanI}>
-            <h4>{mean.partOfSpeech}</h4>
+            <h4 style={{ marginTop: "20px" }}>{mean.partOfSpeech}</h4>
             {mean.definitions.map((defi, defiI) => {
               if (defi.example !== undefined)
                 saveWordInfo.Example.push(defi.example);
