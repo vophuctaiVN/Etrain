@@ -1,29 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { ListTodayLession } from "../components/Journey/TodayLession/ListTodayLession";
 import { ListReview } from "../components/Journey/Review/ListReview";
-class Today extends Component {
-  state = { reload: false };
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+function Today() {
+  const [reload, setreload] = useState(false);
 
-  trickReloadPage() {
-    this.setState({
-      reload: !this.state.reload,
-    });
-  }
+  useEffect(() => window.scrollTo(0, 0), []);
 
-  render() {
-    return (
-      <>
-        <ListTodayLession trickReloadPage={this.trickReloadPage.bind(this)} />
-        <div className="container">
-          <ListReview key={this.state.reload} />
-        </div>
-      </>
-    );
-  }
+  const trickReloadPage = () => {
+    setreload(!reload);
+  };
+
+  return (
+    <>
+      <ListTodayLession
+        trickReloadPage={/*this.trickReloadPage.bind(this)*/ trickReloadPage}
+      />
+      <div className="container">
+        <ListReview key={reload} />
+      </div>
+    </>
+  );
 }
 
 export default Today;
