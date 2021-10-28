@@ -1,0 +1,41 @@
+import {
+  CURRENT_PLAYER_POINT_INCREASE,
+  GENERATE_NEW_WORD_ON_SUCCESS,
+  RESET_CURRENT_PLAYER_INFO,
+  SET_WORDS_ARRAY,
+} from "../constants.js";  
+
+export const currentPlayerInfoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CURRENT_PLAYER_POINT_INCREASE:
+      return {
+        ...state,
+        currentPlayerPosition: action.payload.currentPlayerPosition,
+      };
+
+    case GENERATE_NEW_WORD_ON_SUCCESS:
+      return {
+        ...state,
+        wordIndex: action.payload.wordIndex,
+        randomlyGeneratedWord: action.payload.randomlyGeneratedWord,
+      };
+
+    case RESET_CURRENT_PLAYER_INFO:
+      return {
+        ...state,
+        currentPlayerName: "",
+        currentPlayerCharacter: "tortoise",
+        currentPlayerPosition: 0,
+        wordIndex: 0,
+        randomlyGeneratedWord: "start"
+      };
+
+    case SET_WORDS_ARRAY:
+      return {
+        ...state,
+        wordArray: action.wordArray,
+      };
+    default:
+      return state;
+  }
+};

@@ -1,0 +1,370 @@
+.li_disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.vocab-img {
+  width: 300px;
+  max-height: 300px;
+}
+
+.suggested_vocab_topic {
+  height: auto;
+  width: 100px;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.arrowcenter {
+  text-align: center;
+  border: 3px solid green;
+}
+
+.containerCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*quiz page*/
+.react-quiz-container {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.react-quiz-container .questionWrapper img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: scale-down !important;
+}
+
+.react-quiz-container .answerBtn {
+  width: 45% !important;
+  display: table-row !important;
+  margin-right: 2%;
+}
+
+.react-quiz-container .answerBtn img {
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: scale-down !important;
+}
+
+.react-quiz-container .questionWrapper .card-body {
+  display: grid;
+  grid-gap: 50px 50px;
+  grid-template-columns: auto auto;
+}
+
+.react-quiz-container .result-answer {
+  display: grid;
+  grid-gap: 10px 10px;
+  grid-template-columns: auto auto;
+}
+
+.react-quiz-container .result-answer .answerBtn {
+  width: 100% !important;
+}
+
+.react-quiz-container br {
+  display: none;
+}
+.react-quiz-container .quiz-result-filter {
+  border: none;
+  border-radius: 0px;
+  height: 42px;
+  width: 200px;
+  background: #f9f9ff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.react-quiz-container .quiz-result-filter select {
+  padding: 0 !important;
+  height: 40px !important;
+  border: 0px;
+  outline: 0px;
+}
+
+.react-quiz-container .questionWrapper .card-body {
+  display: block !important;
+}
+
+.react-quiz-container .quiz-result-filter {
+  display: 100%;
+}
+
+.first-test .incorrect,
+.first-test .correct {
+  background: steelblue !important;
+}
+/*vocab topic*/
+
+.blog_item {
+  max-width: 700px;
+}
+/*gram list*/
+.special_img {
+  height: 200px !important;
+  width: 100%;
+}
+
+/*homepage */
+.card-img-top {
+  height: 200px !important;
+}
+
+/*order words game*/
+
+.word-box {
+  width: 112px;
+  height: 62px;
+  background: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.word-frame {
+  width: 120px;
+  height: 70px;
+  border: solid slategray 4px;
+  margin: 15px;
+  -webkit-box-shadow: 0 3px 9px;
+}
+
+.suggest-word-frame {
+  width: 120px;
+  height: 70px;
+  border: solid green 4px;
+  margin: 15px;
+  -webkit-box-shadow: 0 3px 9px;
+}
+
+.words-container {
+  /* color: slategray; */
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+/*tortoise and hare game*/
+
+.character {
+  width: 8rem;
+}
+
+.container-game {
+  position: relative;
+}
+
+.overlapItem1 {
+  position: absolute;
+  margin-left: 90%;
+  height: 35%;
+  bottom: 10%;
+  transform: scaleX(-1);
+}
+
+.overlapItem2 {
+  position: absolute;
+  bottom: 10%;
+  left: 16px;
+}
+
+.modal-dialog {
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.opponent_name {
+  text-align: center;
+  color: brown;
+}
+
+.font-curve {
+  font-family: "Papyrus";
+  font-size: xxx-large;
+  color: green;
+}
+
+.font-curve-win {
+  font-family: "Brush Script MT", cursive;
+  font-size: xxx-large;
+  color: blue;
+}
+
+.font-curve-lost {
+  font-family: "Brush Script MT", cursive;
+  font-size: xxx-large;
+  color: red;
+}
+
+.current-word {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px !important;
+}
+.current-word-center {
+  cursor: pointer;
+  text-align: center;
+}
+.error-current-word {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px !important;
+  color: red;
+  font-weight: bold;
+}
+
+.vocabtopic-image {
+  max-height: 500px;
+}
+
+.vocab-background-image {
+  height: 500px;
+  object-fit: cover;
+}
+
+@media only screen and (min-width: 768px) {
+  .flashcard {
+    display: flex;
+  }
+  .fullWidth {
+    width: 400px;
+  }
+}
+
+.rs-play {
+  background: url(../img/icon/speaker_icon.png) no-repeat;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 70% 70%;
+  min-width: 30px;
+  min-height: 30px;
+  margin-left: 20px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.dictation .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  width: 300px;
+  height: 300px;
+}
+
+.recordItem {
+  text-align: center;
+}
+
+.speaking .rs-play {
+  background: url(../img/icon/headphone.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.wrapButtonListCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.microIcon {
+  background: url(../img/icon/micro.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.resetIcon {
+  background: url(../img/icon/reset.png) no-repeat center;
+  background-size: 70% 70%;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* hide all html path*/
+.rs-play path {
+  display: none;
+}
+
+.scrollTop {
+  position: fixed;
+  width: 100%;
+  bottom: 20px;
+  align-items: center;
+  height: 20px;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.4s;
+  opacity: 0.5;
+}
+
+.scrollTop:hover {
+  opacity: 1;
+}
+
+.relatedWord {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+/* dictionary css----------------*/
+.gg-definition {
+  background-color: aliceblue;
+  padding: 20px;
+  border-left: 10px solid #77b9c3;
+}
+
+.gg-synonym-border {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid darkolivegreen;
+  border-radius: 15px;
+  padding: 20px 0px 20px 20px;
+}
+
+.gg-image {
+  max-height: 500px;
+  margin-top: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.listExample {
+  background-color: aliceblue;
+  padding: 20px;
+  border: 1px solid #77b9c3;
+}
+
+.listExample-boder {
+  background-color: aliceblue;
+  border: 1px solid #77b9c3;
+}
