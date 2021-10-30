@@ -1,19 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import getWord from "../../utils/helpers";
 import Video from "./Video";
 import Speech from "react-speech";
 
-class SentenceDictionary extends Component {
-  state = { Sentences: [], wordtitle: false, youtubeinfo: null };
-  constructor(props) {
-    super(props);
-  }
+function SentenceDictionary(props) {
+  const [Sentences, setSentences] = useState({
+    Sentences: [],
+    wordtitle: false,
+    youtubeinfo: null,
+  });
 
-  componentDidMount() {
-    if (this.props.word) this.DicSearchClick(this.props.word);
-  }
+  useEffect(() => {
+    if (props.word) DicSearchClick(props.word);
+  }, []);
 
-  async DicSearchClick(keyword) {
+  const DicSearchClick = async (keyword) => {
     var data = await getWord(keyword);
     let sentences = data.sentences;
     if (data.sentences) {
@@ -47,63 +48,61 @@ class SentenceDictionary extends Component {
         );
       });
 
-      this.setState({
+      setSentences({
         Sentences: listword,
         wordtitle: keyword,
         youtubeinfo: data.youtubeinfo,
       });
     }
-  }
+  };
 
-  render() {
-    const array = this.state.Sentences;
-    return (
-      <section className="blog_area " style={{ marginTop: "30px" }}>
-        <div className="container">
-          {this.state.youtubeinfo ? (
-            <>
-              <div className="row justify-content-center">
-                <div className="col-xl-7">
-                  <Video
-                    key={this.state.youtubeinfo.youtube_id}
-                    second={this.state.youtubeinfo.start}
-                    videoid={this.state.youtubeinfo.youtube_id}
-                  />
-                  <br />
-                  <br />
-                  <br />
-                </div>
-              </div>
-              <div className="row listExample-boder">{array}</div>
-            </>
-          ) : this.state.youtubeinfo === null ? (
-            <div className="container">
-              <div className="row justify-content-center my-5">
-                <div className="col-md-7 heading-section text-center">
-                  <span className="subheading">Sorry</span>
-                  <h2 className="mb-4">Our Bad</h2>
-                  <p>
-                    Sorry that we don't have any result about this word. You can
-                    check your spelling again!
-                  </p>
-                  <img src="img/icon/not_find.png" />
-                </div>
+  const array = Sentences.Sentences;
+  return (
+    <section className="blog_area " style={{ marginTop: "30px" }}>
+      <div className="container">
+        {Sentences.youtubeinfo ? (
+          <>
+            <div className="row justify-content-center">
+              <div className="col-xl-7">
+                <Video
+                  key={Sentences.youtubeinfo.youtube_id}
+                  second={Sentences.youtubeinfo.start}
+                  videoid={Sentences.youtubeinfo.youtube_id}
+                />
+                <br />
+                <br />
+                <br />
               </div>
             </div>
-          ) : (
+            <div className="row listExample-boder">{array}</div>
+          </>
+        ) : Sentences.youtubeinfo === null ? (
+          <div className="container">
             <div className="row justify-content-center my-5">
               <div className="col-md-7 heading-section text-center">
                 <span className="subheading">Sorry</span>
                 <h2 className="mb-4">Our Bad</h2>
-                <p>We are still searching data!</p>
-                <img src="img/icon/searchingData.jpg" />
+                <p>
+                  Sorry that we don't have any result about this word. You can
+                  check your spelling again!
+                </p>
+                <img src="img/icon/not_find.png" />
               </div>
             </div>
-          )}
-        </div>
-      </section>
-    );
-  }
+          </div>
+        ) : (
+          <div className="row justify-content-center my-5">
+            <div className="col-md-7 heading-section text-center">
+              <span className="subheading">Sorry</span>
+              <h2 className="mb-4">Our Bad</h2>
+              <p>We are still searching data!</p>
+              <img src="img/icon/searchingData.jpg" />
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
 
 export default SentenceDictionary;

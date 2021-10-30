@@ -1,50 +1,46 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Quiz from "react-quiz-component";
 import Chart from "react-apexcharts";
 import { getUserInfo, getCookiesValue } from "../../utils/helpers";
 
-class FirstTest extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      totalitems: 0,
+function FirstTest() {
+  const [firstTest, setFirstTest] = useState({
+    items: [],
+    totalitems: 0,
 
-      isSaveLevel: false,
-      //chart
-      series: [20],
-      options: {
-        chart: {
-          height: 200,
-          type: "radialBar",
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: "70%", //meanless
-            },
+    isSaveLevel: false,
+    //chart
+    series: [20],
+    options: {
+      chart: {
+        height: 200,
+        type: "radialBar",
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: "70%", //meanless
           },
         },
-        labels: ["Percentage"],
       },
-    };
-    this.saveLevel = this.saveLevel.bind(this);
-    this.renderCustomResultPage = this.renderCustomResultPage.bind(this);
-  }
+      labels: ["Percentage"],
+    },
+  });
 
-  async componentDidMount() {
+  useEffect(() => {
     window.scrollTo(0, 0);
-    this.getLesson(45);
-  }
+    getLesson(45);
+  }, []);
 
-  getLesson = (fatherID) => {
+  const getLesson = (fatherID) => {
     const queryObj = {
       fatherID,
     };
     window
       .Quiz_byID_Query(queryObj)
       .then((result) =>
-        this.setState({
+        setFirstTest({
+          ...firstTest,
           items: result.json.result.items,
           totalitems: result.json.result.totalRows,
         })
@@ -52,7 +48,7 @@ class FirstTest extends Component {
       .catch((error) => console.log(error));
   };
 
-  async saveLevel(level) {
+  const saveLevel = async (level) => {
     const userProfile = await getUserInfo();
     const formData = {
       IDaccount: getCookiesValue("userID"),
@@ -74,9 +70,9 @@ class FirstTest extends Component {
         }
       })
       .catch((error) => console.log(error));
-  }
+  };
 
-  renderCustomResultPage(obj) {
+  const renderCustomResultPage = (obj) => {
     const percentage = [
       (obj.numberOfCorrectAnswers * 100) / obj.numberOfQuestions,
     ];
@@ -163,7 +159,7 @@ class FirstTest extends Component {
     )[0];
 
     //trick because this function is re-render times
-    if (obj.numberOfCorrectAnswers !== 0) this.saveLevel(userLevelInfo.level);
+    if (obj.numberOfCorrectAnswers !== 0) saveLevel(userLevelInfo.level);
 
     const cardInfoList = listLevelInfo.map((levelInfo) => (
       <div className="col-md-4 col-lg-4">
@@ -192,7 +188,7 @@ class FirstTest extends Component {
               {userLevelInfo.level} {userLevelInfo.levelName}
             </h5>
             <Chart
-              options={this.state.options}
+              options={firstTest.options}
               series={percentage}
               type="radialBar"
               width="200"
@@ -253,68 +249,67 @@ class FirstTest extends Component {
         </div>
       </div>
     );
+  };
+
+  let item = firstTest.items[0];
+  let quiz2;
+  if (item != undefined) {
+    quiz2 = {
+      quizTitle: item.quizinfo.title,
+      quizSynopsis: item.quizinfo.description,
+      questions: [],
+    };
+    item.questions.forEach((q) => {
+      var array_answers = q.answers.split(", ");
+
+      var correctA = q.correctAnswer.split(", ");
+      if (correctA.length === 1) correctA = correctA[0];
+      else correctA = q.correctAnswer.split(", ").map(Number);
+
+      let tempQuestion = {
+        question: q.question,
+        questionType: q.questionType,
+        questionPic: q.questionPic,
+        answerSelectionType: q.answerSelectionType,
+        answers: array_answers,
+        correctAnswer: correctA,
+        messageForCorrectAnswer: "Correct answer. Good job.",
+        messageForIncorrectAnswer: "Incorrect answer. Please try again.",
+        explanation: "You did it well, I know you understand it.",
+        point: "10",
+      };
+
+      quiz2.questions.push(tempQuestion);
+    });
   }
 
-  render() {
-    let item = this.state.items[0];
-    let quiz2;
-    if (item != undefined) {
-      quiz2 = {
-        quizTitle: item.quizinfo.title,
-        quizSynopsis: item.quizinfo.description,
-        questions: [],
-      };
-      item.questions.forEach((q) => {
-        var array_answers = q.answers.split(", ");
+  let quiz;
+  let FullQuiz;
 
-        var correctA = q.correctAnswer.split(", ");
-        if (correctA.length === 1) correctA = correctA[0];
-        else correctA = q.correctAnswer.split(", ").map(Number);
-
-        let tempQuestion = {
-          question: q.question,
-          questionType: q.questionType,
-          questionPic: q.questionPic,
-          answerSelectionType: q.answerSelectionType,
-          answers: array_answers,
-          correctAnswer: correctA,
-          messageForCorrectAnswer: "Correct answer. Good job.",
-          messageForIncorrectAnswer: "Incorrect answer. Please try again.",
-          explanation: "You did it well, I know you understand it.",
-          point: "10",
-        };
-
-        quiz2.questions.push(tempQuestion);
-      });
-    }
-    let quiz;
-    let FullQuiz;
-
-    if (quiz2) {
-      quiz = quiz2;
-      FullQuiz = (
-        <Quiz
-          quiz={quiz}
-          shuffle={true}
-          showDefaultResult={false}
-          showInstantFeedback={false}
-          customResultPage={this.renderCustomResultPage}
-        />
-      );
-    }
-
-    return (
-      <section className="blog_area section_padding">
-        <div className="container">
-          <div className="container">
-            <div className="row justify-content-center first-test">
-              {FullQuiz}
-            </div>
-          </div>
-        </div>
-      </section>
+  if (quiz2) {
+    quiz = quiz2;
+    FullQuiz = (
+      <Quiz
+        quiz={quiz}
+        shuffle={true}
+        showDefaultResult={false}
+        showInstantFeedback={false}
+        customResultPage={renderCustomResultPage}
+      />
     );
   }
+
+  return (
+    <section className="blog_area section_padding">
+      <div className="container">
+        <div className="container">
+          <div className="row justify-content-center first-test">
+            {FullQuiz}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default FirstTest;

@@ -1,38 +1,28 @@
 import ReactCardFlip from "react-card-flip";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FrontCard from "./FrontCard";
 import BackCard from "./BackCard";
-export class FlashCard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isFlipped: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
 
-  handleClick(e) {
+export function FlashCard(props) {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const handleClick = (e) => {
     e.preventDefault();
-    this.setState((prevState) => ({ isFlipped: !prevState.isFlipped }));
-  }
+    setIsFlipped(!isFlipped);
+  };
 
-  render() {
-    return (
-      <>
-        <ReactCardFlip
-          isFlipped={this.state.isFlipped}
-          flipDirection="vertical"
-        >
-          <div onDoubleClick={this.handleClick}>
-            <FrontCard item={this.props.item}></FrontCard>
-          </div>
-          <div onDoubleClick={this.handleClick}>
-            <BackCard item={this.props.item}></BackCard>
-          </div>
-        </ReactCardFlip>
-      </>
-    );
-  }
+  return (
+    <>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+        <div onDoubleClick={handleClick}>
+          <FrontCard item={props.item}></FrontCard>
+        </div>
+        <div onDoubleClick={handleClick}>
+          <BackCard item={props.item}></BackCard>
+        </div>
+      </ReactCardFlip>
+    </>
+  );
 }
 
 export default FlashCard;

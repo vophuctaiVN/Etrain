@@ -1,31 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-class SpeakerSound extends React.Component {
-  state = {
-    play: false,
-  };
-  audio = new Audio(this.props.url);
 
-  componentDidMount() {
-    this.audio.addEventListener("ended", () => this.setState({ play: false }));
-  }
+function SpeakerSound(props) {
+  const [play, setPlay] = useState(false);
+  let audio = new Audio(props.url);
 
-  componentWillUnmount() {
-    this.audio.removeEventListener("ended", () =>
-      this.setState({ play: false })
-    );
-  }
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlay(false));
+    return () => audio.removeEventListener("ended", () => setPlay(false));
+  }, []);
 
-  togglePlay = () => {
-    this.setState({ play: !this.state.play }, () => {
-      this.state.play ? this.audio.play() : this.audio.pause();
+  const togglePlay = () => {
+    setPlay(!play, () => {
+      play ? audio.play() : audio.pause();
     });
   };
 
-  render() {
-    return <FontAwesomeIcon icon={faVolumeUp} onClick={this.togglePlay} />;
-  }
+  return <FontAwesomeIcon icon={faVolumeUp} onClick={togglePlay} />;
 }
 
 export default SpeakerSound;

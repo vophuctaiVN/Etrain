@@ -1,34 +1,30 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { AskQuestion } from "../components/ForumQ/AskQuestion";
 import { QuestionElement } from "../components/ForumQ/Question-Element";
 import Pagination from "../components/Pagination";
-class Forum extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
 
-      questionList: [],
-      totalitems: 0,
-      pageNo: 1,
-      pageSize: 6,
+function Forum() {
+  const [forum, setForum] = useState({
+    isOpen: false,
 
-      //pagination
-      lastpage: 1,
-    };
-    this.handlePageChange = this.handlePageChange.bind(this);
-    this.SearchQuestion = this.SearchQuestion.bind(this);
-  }
+    questionList: [],
+    totalitems: 0,
+    pageNo: 1,
+    pageSize: 6,
 
-  componentDidMount() {
+    //pagination
+    lastpage: 1,
+  });
+
+  useEffect(() => {
     window.scrollTo(0, 0);
-    this.getQuestionList({
-      PageNo: this.state.pageNo,
-      PageSize: this.state.pageSize,
+    getQuestionList({
+      PageNo: forum.pageNo,
+      PageSize: forum.pageSize,
     });
-  }
+  }, []);
 
-  getQuestionList = (object) => {
+  const getQuestionList = (object) => {
     const { PageNo, PageSize, Search } = object;
     const queryObj = {
       PageNo,
@@ -38,7 +34,7 @@ class Forum extends Component {
     window
       .ForumQuestionList_Query(queryObj)
       .then((result) =>
-        this.setState({
+        setForum({
           questionList: result.json.result.items,
           totalitems: result.json.result.totalRows,
           pageNo: PageNo,
@@ -50,35 +46,35 @@ class Forum extends Component {
       .catch((error) => console.log(error));
   };
 
-  SearchQuestion() {
-    this.getQuestionList({
+  const SearchQuestion = () => {
+    getQuestionList({
       Search: document.getElementById("searchField").value,
       PageNo: 1,
-      PageSize: this.state.pageSize,
+      PageSize: forum.pageSize,
     });
-  }
+  };
 
-  handlePageChange = (type, pageNo) => {
+  const handlePageChange = (type, pageNo) => {
     switch (type) {
       case "next":
-        this.getQuestionList({
+        getQuestionList({
           Search: document.getElementById("searchField").value,
           PageNo: pageNo + 1,
-          PageSize: this.state.pageSize,
+          PageSize: forum.pageSize,
         });
         break;
       case "pre":
-        this.getQuestionList({
+        getQuestionList({
           Search: document.getElementById("searchField").value,
           PageNo: pageNo - 1,
-          PageSize: this.state.pageSize,
+          PageSize: forum.pageSize,
         });
         break;
       case "number":
-        this.getQuestionList({
+        getQuestionList({
           Search: document.getElementById("searchField").value,
           PageNo: pageNo,
-          PageSize: this.state.pageSize,
+          PageSize: forum.pageSize,
         });
         break;
       default:
@@ -86,77 +82,72 @@ class Forum extends Component {
     }
   };
 
-  render() {
-    let addModalClose = () => this.setState({ isOpen: false });
-    let lisquestions = this.state.questionList.map((element) => (
-      <QuestionElement
-        profile={element.profile}
-        question={element.question}
-        key={Math.random()}
-      />
-    ));
+  let addModalClose = () => setForum({ ...forum, isOpen: false });
+  let lisquestions = forum.questionList.map((element) => (
+    <QuestionElement
+      profile={element.profile}
+      question={element.question}
+      key={Math.random()}
+    />
+  ));
 
-    return (
-      <section className="special_cource padding_top">
-        <div className="container">
-          <div className="column-text closed">
-            <div className="header">
-              <div className="minigrid">
-                <h1>All Questions</h1>
-                <div className="link">
-                  <a
-                    className="linkbutton"
-                    href="avascript:void(0)"
-                    onClick={() => this.setState({ isOpen: true })}
-                  >
-                    Ask Question
-                  </a>
-                </div>
-              </div>
-              <div className="minigrid subtitle">
-                <div className="count">{this.state.totalitems} questions</div>
-                <div className="sort"></div>
-              </div>
-              <div className="blog_right_sidebar" style={{ marginTop: 20 }}>
-                <aside className="single_sidebar_widget search_widget">
-                  <div className="input-group mb-3">
-                    <input
-                      id="searchField"
-                      type="text"
-                      className="form-control"
-                      placeholder="Search Keyword"
-                      onChange={this.SearchQuestion}
-                    />
-                    <div className="input-group-append">
-                      <button className="btn" type="submit">
-                        <i
-                          className="ti-search"
-                          onClick={this.SearchQuestion}
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </aside>{" "}
+  return (
+    <section className="special_cource padding_top">
+      <div className="container">
+        <div className="column-text closed">
+          <div className="header">
+            <div className="minigrid">
+              <h1>All Questions</h1>
+              <div className="link">
+                <a
+                  className="linkbutton"
+                  href="avascript:void(0)"
+                  onClick={() => setForum({ ...forum, isOpen: true })}
+                >
+                  Ask Question
+                </a>
               </div>
             </div>
-            <div className="content">
-              {lisquestions}
-
-              <div className="element">
-                <div className="minigrid footer">
-                  <Pagination
-                    handlePageChange={this.handlePageChange}
-                    pageinfo={this.state}
+            <div className="minigrid subtitle">
+              <div className="count">{forum.totalitems} questions</div>
+              <div className="sort"></div>
+            </div>
+            <div className="blog_right_sidebar" style={{ marginTop: 20 }}>
+              <aside className="single_sidebar_widget search_widget">
+                <div className="input-group mb-3">
+                  <input
+                    id="searchField"
+                    type="text"
+                    className="form-control"
+                    placeholder="Search Keyword"
+                    onChange={SearchQuestion}
                   />
+                  <div className="input-group-append">
+                    <button className="btn" type="submit">
+                      <i className="ti-search" onClick={SearchQuestion} />
+                    </button>
+                  </div>
                 </div>
+              </aside>{" "}
+            </div>
+          </div>
+          <div className="content">
+            {lisquestions}
+
+            <div className="element">
+              <div className="minigrid footer">
+                <Pagination
+                  handlePageChange={handlePageChange}
+                  pageinfo={forum}
+                />
               </div>
             </div>
           </div>
         </div>
-        <AskQuestion isOpen={this.state.isOpen} onHide={addModalClose} />
-      </section>
-    );
-  }
+      </div>
+      <AskQuestion isOpen={forum.isOpen} onHide={addModalClose} />
+    </section>
+  );
 }
 
 export default Forum;

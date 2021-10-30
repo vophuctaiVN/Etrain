@@ -1,25 +1,19 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../MatchingWord/footer";
-import ResultModal from "../MatchingWord/modal";
 import $ from "jquery";
 import Speech from "react-speech";
 
-class Dictation extends Component {
-  constructor(props) {
-    super(props);
-    this._showMessage = this._showMessage.bind(this);
-    this._changeWord = this._changeWord.bind(this);
-    this.durationEnd = this.durationEnd.bind(this);
-    this._playAgain = this._playAgain.bind(this);
+let examples = [];
+let items = [];
+function Dictation(props) {
+  const [dictaion, setDictation] = useState({});
 
-    this.examples = [];
-    this.items = [];
-    this.state = {};
-    this.getInitialState();
+  useEffect(() => {
+    getInitialState();
     window.scrollTo(0, 0);
-  }
+  }, []);
 
-  itemByCharacter(exampleProps) {
+  const itemByCharacter = (exampleProps) => {
     const items = [];
     exampleProps.forEach((object) => {
       let setence =
@@ -29,26 +23,26 @@ class Dictation extends Component {
       items.push(setence[0]);
     });
     return items;
-  }
+  };
 
-  getAllExample(lesson) {
+  const getAllExample = (lesson) => {
     let rawExample = [];
     lesson.forEach((section) => {
       rawExample = rawExample.concat(section.examples);
     });
     return rawExample;
-  }
+  };
 
-  async getInitialState() {
+  const getInitialState = async () => {
     let lesson;
     await window
       .LessonAPIsService_Query({
-        fatherID: this.props.match.params.lessonid,
+        fatherID: props.match.params.lessonid,
       })
       .then((result) => (lesson = result.json.result.items))
       .catch((error) => console.log(error));
-    this.examples = this.getAllExample(lesson);
-    this.items = this.itemByCharacter(this.examples);
+    examples = getAllExample(lesson);
+    items = itemByCharacter(examples);
 
     var self = this;
     window.addEventListener("wordmatched", function (event) {
@@ -63,157 +57,150 @@ class Dictation extends Component {
       }, 2000);
     });
 
-    this.setState({
+    setDictation({
+      ...dictaion,
       currentQuestionIndex: 1,
-      questionLimit: this.items.length,
+      questionLimit: items.length,
       message: "Ooops 😩",
       hideReplay: true,
     });
-  }
+  };
 
-  _showMessage(type) {
+  const _showMessage = (type) => {
     clearInterval(window.interval);
     if (type == "success") {
-      this.setState({ message: "Good Job 🥰" });
+      setDictation({ ...dictaion, message: "Good Job 🥰" });
     } else {
-      this.setState({ message: "Ooops 😩" });
+      setDictation({ ...dictaion, message: "Ooops 😩" });
     }
     $("#message").show(200);
-  }
+  };
 
-  _changeWord() {
+  const _changeWord = () => {
     if (document.getElementById("dictationInput"))
       document.getElementById("dictationInput").value = "";
     if (window.interval !== undefined) {
       clearInterval(window.interval);
     }
-    if (this.state.currentQuestionIndex < this.state.questionLimit) {
-      this.setState({
-        currentQuestionIndex: this.state.currentQuestionIndex + 1,
+    if (dictaion.currentQuestionIndex < dictaion.questionLimit) {
+      setDictation({
+        ...dictaion,
+        currentQuestionIndex: dictaion.currentQuestionIndex + 1,
       });
     } else {
       clearInterval(window.interval);
-      this.setState({ hideReplay: false });
+      setDictation({ ...dictaion, hideReplay: false });
     }
-  }
+  };
 
-  durationEnd() {
-    this._changeWord();
-  }
+  const durationEnd = () => {
+    _changeWord();
+  };
 
-  _playAgain() {
+  const _playAgain = () => {
     if (document.getElementById("dictationInput"))
       document.getElementById("dictationInput").value = "";
     clearInterval(window.interval);
-    this.setState({
+    setDictation({
+      ...dictaion,
       currentQuestionIndex: 1,
-      questionLimit: this.items.length,
+      questionLimit: items.length,
       message: "Good Job 🥰",
       hideReplay: true,
     });
-  }
+  };
 
-  render() {
-    const nowSentence = this.items[this.state.currentQuestionIndex - 1];
+  const nowSentence = items[dictaion.currentQuestionIndex - 1];
 
-    return (
-      <>
-        {nowSentence !== undefined ? (
-          <section className="blog_area section_padding">
-            <div className="container">
-              <div className="row justify-content-center words-container gamebackground">
-                <WordsArray
-                  sentence={nowSentence}
-                  image={
-                    this.examples[this.state.currentQuestionIndex - 1].imageURL
-                  }
-                  showMessage={this._showMessage}
-                />
-                <Footer
-                  hideReplay={this.state.hideReplay}
-                  onRefresh={this._playAgain}
-                  message={this.state.message}
-                  skipquestion={this._changeWord}
-                />
-              </div>
+  return (
+    <>
+      {nowSentence !== undefined ? (
+        <section className="blog_area section_padding">
+          <div className="container">
+            <div className="row justify-content-center words-container gamebackground">
+              <WordsArray
+                sentence={nowSentence}
+                image={examples[dictaion.currentQuestionIndex - 1].imageURL}
+                showMessage={_showMessage}
+              />
+              <Footer
+                hideReplay={dictaion.hideReplay}
+                onRefresh={_playAgain}
+                message={dictaion.message}
+                skipquestion={_changeWord}
+              />
             </div>
-          </section>
-        ) : null}
-      </>
-    );
-  }
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
 }
 
-class WordsArray extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  wordChecking(inputValue) {
-    if (inputValue === this.props.sentence) {
+function WordsArray(props) {
+  const wordChecking = (inputValue) => {
+    if (inputValue === props.sentence) {
       if (window.interval !== undefined) {
         clearInterval(window.interval);
       }
       window.dispatchEvent(new Event("wordmatched"));
     } else {
-      this.props.showMessage("wrong");
+      props.showMessage("wrong");
       setTimeout(function () {
         $("#message").hide(100);
       }, 2000);
     }
-  }
+  };
 
-  _handleKeyDown = (e) => {
+  const _handleKeyDown = (e) => {
     if (e.key === "Enter") {
       let inputValue = document.getElementById("dictationInput").value;
-      this.wordChecking(inputValue);
+      wordChecking(inputValue);
     }
   };
 
-  render() {
-    return (
-      <>
-        <div style={{ display: "flex" }}>
-          <div className="container-fluid">
-            <img
-              src={this.props.image}
-              style={{
-                maxHeight: "400px",
-                maxWidth: "400px",
-                marginTop: "10px",
-              }}
-            />
-          </div>
-          <div
-            className="dictation"
-            style={{ marginTop: "10px", display: "block" }}
-          >
-            <Speech
-              text={this.props.sentence}
-              pitch="1"
-              rate="1"
-              volume="1"
-              lang="en-GB"
-              voice="Google UK English Male"
-            />
-          </div>
+  return (
+    <>
+      <div style={{ display: "flex" }}>
+        <div className="container-fluid">
+          <img
+            src={props.image}
+            style={{
+              maxHeight: "400px",
+              maxWidth: "400px",
+              marginTop: "10px",
+            }}
+          />
         </div>
-        <section className="container-fluid main-area">
-          <div className="rowKA">
-            <div className="col-md-12">
-              <div className="question">
-                <input
-                  onKeyDown={this._handleKeyDown}
-                  id="dictationInput"
-                  placeholder="Required to add . for affirmative sentences and ? for the question"
-                />
-              </div>
+        <div
+          className="dictation"
+          style={{ marginTop: "10px", display: "block" }}
+        >
+          <Speech
+            text={props.sentence}
+            pitch="1"
+            rate="1"
+            volume="1"
+            lang="en-GB"
+            voice="Google UK English Male"
+          />
+        </div>
+      </div>
+      <section className="container-fluid main-area">
+        <div className="rowKA">
+          <div className="col-md-12">
+            <div className="question">
+              <input
+                onKeyDown={_handleKeyDown}
+                id="dictationInput"
+                placeholder="Required to add . for affirmative sentences and ? for the question"
+              />
             </div>
           </div>
-        </section>
-      </>
-    );
-  }
+        </div>
+      </section>
+    </>
+  );
 }
 
 export default Dictation;

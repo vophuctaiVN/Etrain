@@ -1,104 +1,96 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import ReviewCard from "./ReviewCard";
 import { getCookiesValue } from "../../../utils/helpers";
 import { Link } from "react-router-dom";
 
-export class ListReview extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todayLesson: [],
-    };
-  }
+export function ListReview() {
+  const [todayLesson, setTodayLesson] = useState([]);
+  useEffect(
+    () =>
+      getReviewList({
+        IDaccount: getCookiesValue("userID"),
+      }),
+    []
+  );
 
-  componentWillMount() {
-    this.getReviewList({
-      IDaccount: getCookiesValue("userID"),
-    });
-  }
-
-  getReviewList = (object) => {
+  const getReviewList = (object) => {
     window
       .ReviewLesson_Query(object)
       .then((result) => {
         const items = result.json.result.items;
-        this.setState({
-          todayLesson: items,
-        });
+        setTodayLesson(items);
       })
       .catch((error) => console.log(error));
   };
 
-  truncate = (str) => {
+  const truncate = (str) => {
     return str.length > 100 ? str.substring(0, 100) + "..." : str;
   };
 
-  render() {
-    const lesson = this.state.todayLesson;
+  const lesson = todayLesson;
 
-    let listInformation = lesson.map((info) => (
-      <div className="row">
-        <ReviewCard
-          id={info.id}
-          level={info.level}
-          firstDate={info.firstDate}
-          times={info.times}
-          realoadReview={() =>
-            this.getReviewList({
-              IDaccount: getCookiesValue("userID"),
-            })
-          }
-          key={Math.random()}
-        />
-        {info.arrayLesson.map((less) => (
-          <div className="col-sm-6 col-lg-4" style={{ marginBottom: "30px" }}>
-            <div className="single_special_cource">
-              <img src={less.content.imageURL} className="special_img" />
-              <div className="special_cource_text">
-                <a href="course-details.html" className="btn_4">
-                  {less.content.level}
-                </a>
-                {less.type == "g" ? (
-                  <Link to={`/grammar-${less.content.id}`}>
-                    <h3>{less.content.title}</h3>
-                  </Link>
-                ) : (
-                  <Link to={`/vocabulary-${less.content.id}`}>
-                    <h3>{less.content.title}</h3>
-                  </Link>
-                )}
-                <p>{this.truncate(less.content.description)}</p>
+  let listInformation = lesson.map((info) => (
+    <div className="row">
+      <ReviewCard
+        id={info.id}
+        level={info.level}
+        firstDate={info.firstDate}
+        times={info.times}
+        realoadReview={() =>
+          getReviewList({
+            IDaccount: getCookiesValue("userID"),
+          })
+        }
+        key={Math.random()}
+      />
+      {info.arrayLesson.map((less) => (
+        <div className="col-sm-6 col-lg-4" style={{ marginBottom: "30px" }}>
+          <div className="single_special_cource">
+            <img src={less.content.imageURL} className="special_img" />
+            <div className="special_cource_text">
+              <a href="course-details.html" className="btn_4">
+                {less.content.level}
+              </a>
+              {less.type == "g" ? (
+                <Link to={`/grammar-${less.content.id}`}>
+                  <h3>{less.content.title}</h3>
+                </Link>
+              ) : (
+                <Link to={`/vocabulary-${less.content.id}`}>
+                  <h3>{less.content.title}</h3>
+                </Link>
+              )}
+              <p>{truncate(less.content.description)}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ));
+  return (
+    <>
+      {lesson.length !== 0 ? (
+        <>
+          <div className="row justify-content-center">
+            <div className="col-xl-5">
+              <div className="section_tittle text-center">
+                <p>repeat technique</p>
+                <h2>Review Lessons</h2>
               </div>
             </div>
           </div>
-        ))}
-      </div>
-    ));
-    return (
-      <>
-        {lesson.length !== 0 ? (
-          <>
-            <div className="row justify-content-center">
-              <div className="col-xl-5">
-                <div className="section_tittle text-center">
-                  <p>repeat technique</p>
-                  <h2>Review Lessons</h2>
-                </div>
-              </div>
+          <div className="special_cource bt_bb_row_wrapper">
+            <div
+              className="bt_bb_row bt_bb_column_gap_30 bt_bb_shape_inherit"
+              data-structure="4-4-4"
+            >
+              {listInformation}
             </div>
-            <div className="special_cource bt_bb_row_wrapper">
-              <div
-                className="bt_bb_row bt_bb_column_gap_30 bt_bb_shape_inherit"
-                data-structure="4-4-4"
-              >
-                {listInformation}
-              </div>
-            </div>
-          </>
-        ) : null}
-      </>
-    );
-  }
+          </div>
+        </>
+      ) : null}
+    </>
+  );
 }
 
 export default ListReview;

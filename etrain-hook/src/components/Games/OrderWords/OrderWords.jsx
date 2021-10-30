@@ -377,32 +377,28 @@ class WordsArray extends Component {
   }
 }
 
-class Result extends Component {
-  render() {
-    return (
-      <section className="container-fluid main-area">
-        <div className="rowKA">
-          <div className="col-md-12">
-            <div className="question">
-              {this.props.myanswer.map((item, index) => (
-                <h1
-                  key={item}
-                  className={
-                    item === this.props.badWord
-                      ? "error-current-word"
-                      : "current-word"
-                  }
-                  onClick={() => this.props.wordBack(item, index)}
-                >
-                  {item}
-                </h1>
-              ))}
-            </div>
+function Result(props) {
+  return (
+    <section className="container-fluid main-area">
+      <div className="rowKA">
+        <div className="col-md-12">
+          <div className="question">
+            {props.myanswer.map((item, index) => (
+              <h1
+                key={item}
+                className={
+                  item === props.badWord ? "error-current-word" : "current-word"
+                }
+                onClick={() => props.wordBack(item, index)}
+              >
+                {item}
+              </h1>
+            ))}
           </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
 }
 
 export default OrderWords;

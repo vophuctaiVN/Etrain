@@ -1,22 +1,18 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 
 // backend
 import CartSection from "../../components/Store/Cart/CartSection";
 import RelatedSection from "../../components/Store/Cart/RelatedSection";
 
-class CartView extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+function CartView() {
+  useEffect(() => window.scrollTo(0, 0), []);
 
-  render() {
-    return (
-      <>
-        <CartSection />
-        <RelatedSection productCode="" />
-      </>
-    );
-  }
+  return (
+    <>
+      <CartSection />
+      <RelatedSection productCode="" />
+    </>
+  );
 }
 
 export default CartView;

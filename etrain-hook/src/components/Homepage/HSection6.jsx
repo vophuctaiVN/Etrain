@@ -1,24 +1,24 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { getRndInteger } from "../../utils/helpers";
 import { Link } from "react-router-dom";
-class HSection6 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //suggest
-      suggest: [],
-    };
-  }
 
-  componentDidMount() {
-    const number = getRndInteger(1, 6);
-    this.getVocabList({
-      PageNo: number,
-      PageSize: 3,
-    });
-  }
+function HSection6() {
+  const [suggest, setSuggest] = useState([]);
 
-  getVocabList = (object) => {
+  useEffect(
+    () =>
+      getVocabList({
+        PageNo: getRndInteger(1, 6),
+        PageSize: 3,
+      }),
+    []
+  );
+
+  const truncate = (str) => {
+    return str.length > 100 ? str.substring(0, 100) + "..." : str;
+  };
+
+  const getVocabList = (object) => {
     const { PageNo, PageSize } = object;
     const queryObj = {
       PageNo,
@@ -27,20 +27,21 @@ class HSection6 extends Component {
     window
       .VocabularyAPIsService_Query(queryObj)
       .then((result) =>
-        this.setState({
-          suggest: result.json.result.items,
-        })
+        setSuggest(
+          result.json.result.items.map((topicInfo) => {
+            return {
+              ...topicInfo,
+              description: truncate(topicInfo.description),
+            };
+          })
+        )
       )
       .catch((error) => console.log(error));
   };
-  truncate = (str) => {
-    return str.length > 100 ? str.substring(0, 100) + "..." : str;
-  };
-  render() {
-    this.state.suggest.forEach((topicInfo) => {
-      topicInfo.description = this.truncate(topicInfo.description);
-    });
-    let suggest = this.state.suggest.map((vocab, index) => (
+
+  let suggestUI =
+    suggest.length > 0 &&
+    suggest.map((vocab, index) => (
       <div className="col-sm-6 col-lg-4 col-xl-4" key={index}>
         <div className="single-home-blog">
           <div className="card">
@@ -60,22 +61,22 @@ class HSection6 extends Component {
         </div>
       </div>
     ));
-    return (
-      <section className="blog_part section_padding">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-xl-5">
-              <div className="section_tittle text-center">
-                <p>Our Posts</p>
-                <h2>Vocabulary Topics</h2>
-              </div>
+
+  return (
+    <section className="blog_part section_padding">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-xl-5">
+            <div className="section_tittle text-center">
+              <p>Our Posts</p>
+              <h2>Vocabulary Topics</h2>
             </div>
           </div>
-          <div className="row">{suggest}</div>
         </div>
-      </section>
-    );
-  }
+        <div className="row">{suggestUI}</div>
+      </div>
+    </section>
+  );
 }
 
 export default HSection6;

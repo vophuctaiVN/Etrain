@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { showAlert } from "../../utils/helpers";
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleCreateClick = this.handleCreateClick.bind(this);
-    window.scrollTo(0, 0);
-  }
-  handleCreateClick(e) {
+
+function Register() {
+  const handleCreateClick = (e) => {
     e.preventDefault();
     const formData = {
       Username: document.getElementById("username").value,
@@ -37,70 +33,64 @@ class Register extends React.Component {
         }
       })
       .catch((error) => console.log(error));
-  }
+  };
 
-  render() {
-    return (
-      <section className="signup">
-        <div className="login_container">
-          <div className="signup-content">
-            <div className="signup-form">
-              <h2 className="form-title">Sign up</h2>
-              <form method="POST" className="register-form" id="register-form">
-                <div className="form-group">
-                  <label htmlFor="name" className="label-login">
-                    <i className="zmdi zmdi-account material-icons-name" />
-                  </label>
-                  <input type="text" id="name" placeholder="Your Name" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email" className="label-login">
-                    <i className="zmdi zmdi-email" />
-                  </label>
-                  <input
-                    type="text"
-                    id="username"
-                    placeholder="Your Username"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="pass" className="label-login">
-                    <i className="zmdi zmdi-lock" />
-                  </label>
-                  <input type="password" id="pass" placeholder="Password" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="re-pass" className="label-login">
-                    <i className="zmdi zmdi-lock-outline" />
-                  </label>
-                  <input type="email" id="email" placeholder="Your Mail" />
-                </div>
+  return (
+    <section className="signup">
+      <div className="login_container">
+        <div className="signup-content">
+          <div className="signup-form">
+            <h2 className="form-title">Sign up</h2>
+            <form method="POST" className="register-form" id="register-form">
+              <div className="form-group">
+                <label htmlFor="name" className="label-login">
+                  <i className="zmdi zmdi-account material-icons-name" />
+                </label>
+                <input type="text" id="name" placeholder="Your Name" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email" className="label-login">
+                  <i className="zmdi zmdi-email" />
+                </label>
+                <input type="text" id="username" placeholder="Your Username" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="pass" className="label-login">
+                  <i className="zmdi zmdi-lock" />
+                </label>
+                <input type="password" id="pass" placeholder="Password" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="re-pass" className="label-login">
+                  <i className="zmdi zmdi-lock-outline" />
+                </label>
+                <input type="email" id="email" placeholder="Your Mail" />
+              </div>
 
-                <div className="form-group form-button">
-                  <input
-                    type="submit"
-                    name="signup"
-                    id="signup"
-                    className="form-submit"
-                    defaultValue="Register"
-                    onClick={this.handleCreateClick}
-                  />
-                </div>
-              </form>
-            </div>
-            <div className="signup-image">
-              <figure>
-                <img src="img/signup-image.jpg" alt="sing up image" />
-              </figure>
-              <Link to={`/login`} className="signup-image-link">
-                I am already member
-              </Link>
-            </div>
+              <div className="form-group form-button">
+                <input
+                  type="submit"
+                  name="signup"
+                  id="signup"
+                  className="form-submit"
+                  defaultValue="Register"
+                  onClick={handleCreateClick}
+                />
+              </div>
+            </form>
+          </div>
+          <div className="signup-image">
+            <figure>
+              <img src="img/signup-image.jpg" alt="sing up image" />
+            </figure>
+            <Link to={`/login`} className="signup-image-link">
+              I am already member
+            </Link>
           </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
 }
 
 export default Register;

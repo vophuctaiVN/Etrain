@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // core components
 import RelatedSection from "../../components/Store/Cart/RelatedSection";
@@ -7,19 +7,17 @@ import store from "../../redux/store";
 import { addProductToCart } from "../../redux/actions/cartActions";
 import { DOMAIN } from "../../utils/helpers";
 
-export default class ProductView extends Component {
-  render() {
-    return (
-      <>
-        <section className="ftco-section" style={{ "margin-top": "100px" }}>
-          <div className="container">
-            <ProductDetail productCode={this.props.match.params.productCode} />
-          </div>
-        </section>
-        <RelatedSection productCode={this.props.match.params.productCode} />
-      </>
-    );
-  }
+export default function ProductView(props) {
+  return (
+    <>
+      <section className="ftco-section" style={{ "margin-top": "100px" }}>
+        <div className="container">
+          <ProductDetail productCode={props.match.params.productCode} />
+        </div>
+      </section>
+      <RelatedSection productCode={props.match.params.productCode} />
+    </>
+  );
 }
 
 function ProductDetail(props) {

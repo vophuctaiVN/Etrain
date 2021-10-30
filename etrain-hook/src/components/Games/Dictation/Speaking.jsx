@@ -9,7 +9,7 @@ import SpeechRecognition, {
 import { toIPA } from "arpabet-and-ipa-convertor-ts";
 import Chart from "react-apexcharts";
 
-class Speaking extends Component {
+function Speaking extends Component {
   constructor(props) {
     super(props);
     this._showMessage = this._showMessage.bind(this);
@@ -136,56 +136,52 @@ class Speaking extends Component {
   }
 }
 
-class WordsArray extends Component {
-  constructor(props) {
-    super(props);
-  }
+function WordsArray(props) {
+  // const wordChecking = (inputValue) => {
+  //   if (inputValue === props.sentence) {
+  //     if (window.interval !== undefined) {
+  //       clearInterval(window.interval);
+  //     }
+  //     window.dispatchEvent(new Event("wordmatched"));
+  //   }
+  // };
 
-  wordChecking(inputValue) {
-    if (inputValue === this.props.sentence) {
-      if (window.interval !== undefined) {
-        clearInterval(window.interval);
-      }
-      window.dispatchEvent(new Event("wordmatched"));
-    }
-  }
-
-  wordToIPA(word) {
+  const wordToIPA = (word) => {
     word = word.replace(/[^a-zA-Z ]/g, "");
     word = word.toLowerCase();
     var cmu = require("cmu-pronouncing-dictionary");
     const arpabet = cmu[word];
     return toIPA(arpabet);
-  }
+  };
 
-  stringToAPI(sentence) {
+  const stringToAPI = (sentence) => {
     var arr = sentence.split(" ");
     var ipaString = new String();
     arr.forEach((item) => {
-      const x = this.wordToIPA(item);
+      const x = wordToIPA(item);
       if (x !== null) ipaString = ipaString.concat(" ", x);
     });
     ipaString = ipaString.replace(" ", "");
     return ipaString;
-  }
+  };
 
-  getWordfromIPA(ipa) {
+  const getWordfromIPA = (ipa) => {
     let word;
-    let str = this.props.sentence.replace(/[^a-zA-Z ]/g, "");
+    let str = props.sentence.replace(/[^a-zA-Z ]/g, "");
     let arr = str.split(" ");
     arr.forEach((item) => {
-      if (this.wordToIPA(item) === ipa) word = item;
+      if (wordToIPA(item) === ipa) word = item;
     });
     return word;
-  }
+  };
 
-  compareIPA(ipa1, ipa2) {
+  const compareIPA = (ipa1, ipa2) => {
     let arr1 = ipa1.split(" ");
-    let arr2 = ipa2.split(" ");
+    //let arr2 = ipa2.split(" ");
     let wrongArr = [];
     arr1.forEach((ipa, index) => {
       if (!ipa2.includes(ipa)) {
-        wrongArr.push({ ipa: ipa, word: this.getWordfromIPA(ipa) });
+        wrongArr.push({ ipa: ipa, word: getWordfromIPA(ipa) });
       }
     });
 
@@ -194,43 +190,40 @@ class WordsArray extends Component {
       arr1.length
     ).toFixed(2);
     return { percentage, wrongArr };
-  }
+  };
 
-  render() {
-    return this.props.sentence !== undefined ? (
-      <>
-        <div className="container-fluid">
-          <section className="container-fluid main-area">
-            <div className="rowKA">
-              <div className="col-md-12">
-                <div style={{ display: "flex" }}>
-                  <div class="speaking">
-                    <Speech
-                      text={this.props.sentence}
-                      pitch="1"
-                      rate="1"
-                      volume="1"
-                      lang="en-GB"
-                      voice="Google UK English Male"
-                    />
-                  </div>
-                  <h1 style={{ marginTop: "revert" }}>
-                    {this.props.sentence}{" "}
-                    <h6>/{this.stringToAPI(this.props.sentence)}/</h6>
-                  </h1>
+  return props.sentence !== undefined ? (
+    <>
+      <div className="container-fluid">
+        <section className="container-fluid main-area">
+          <div className="rowKA">
+            <div className="col-md-12">
+              <div style={{ display: "flex" }}>
+                <div class="speaking">
+                  <Speech
+                    text={props.sentence}
+                    pitch="1"
+                    rate="1"
+                    volume="1"
+                    lang="en-GB"
+                    voice="Google UK English Male"
+                  />
                 </div>
+                <h1 style={{ marginTop: "revert" }}>
+                  {props.sentence} <h6>/{stringToAPI(props.sentence)}/</h6>
+                </h1>
               </div>
             </div>
-          </section>
-        </div>
-        <Dictaphone
-          sentence={this.props.sentence}
-          compareIPA={this.compareIPA.bind(this)}
-          stringToAPI={this.stringToAPI.bind(this)}
-        />
-      </>
-    ) : null;
-  }
+          </div>
+        </section>
+      </div>
+      <Dictaphone
+        sentence={props.sentence}
+        compareIPA={compareIPA.bind(this)}
+        stringToAPI={stringToAPI.bind(this)}
+      />
+    </>
+  ) : null;
 }
 
 const Dictaphone = (props) => {
